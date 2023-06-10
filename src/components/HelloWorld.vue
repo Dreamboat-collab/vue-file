@@ -10,11 +10,7 @@ export default defineComponent({
 </script>
 <template>
   <index-header></index-header>
-  <div class="hello">
-    <h3>学习Vue:模板语法</h3>
-    <p>{{ message }}</p>
-  </div>
-  no
+  <div id="main"></div>
   <index-footer></index-footer>
 </template>
 
@@ -25,5 +21,12 @@ export default defineComponent({
 * {
   margin: 0;
   padding: 0;
+}
+#main{
+  width: 60%;
+  height: 70vh;
+  background-color: rgba(201, 140, 50, 0.72);
+  margin: auto ;
+  padding-top: -200px;
 }
 </style>

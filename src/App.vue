@@ -1,14 +1,19 @@
 <template>
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<!--  <HelloWorld msg="Welcome to Your Vue.js App"/>-->
+<!--  <index-footer></index-footer>-->
+  <loginuser></loginuser>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// import HelloWorld from './components/HelloWorld.vue'
+// import IndexFooter from "@/components/IndexFooter";
+import loginuser from "@/components/login-user";
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    // IndexFooter,
+    // HelloWorld,
+    loginuser,
   }
 }
 </script>

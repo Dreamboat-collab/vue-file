@@ -35,7 +35,7 @@
           </li>
         </ul>
       </div>
-      <a href="" class="nav" style="float: right;width: 6%;margin-left: 20%">
+      <a href="" class="nav" style="float: right;width: 6%;margin-left: 10%">
         <div>
           <img src="account.png" style="height: 60%;">
         </div>
@@ -76,7 +76,7 @@ header {
 
 .nav_list {
   height: 100%;
-  font-size: 15px;
+  font-size: .5vw;
 }
 
 .nav_list li {
@@ -96,7 +96,7 @@ header {
   font-weight: bold;
   height: 100%;
   line-height: 60px;
-  font-size: 13px;
+  font-size: .5vw;
   margin: 0 20px;
 }
 
