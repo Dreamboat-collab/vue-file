@@ -58,7 +58,7 @@
             </li>
             <li><a href="https://github.com/hideonshit202">
               <div class="box" id="red"><img src="hideonshit.jpg"></div>
-              <br>hideonshit<br>20202031069</a>
+              <br>Ezio<br>20202031069</a>
             </li>
             <li><a href="https://github.com/Franklif1">
               <div class="box" id="pink"><img src="Franklif.jpg"></div>
