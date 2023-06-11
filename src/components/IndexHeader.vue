@@ -1,9 +1,9 @@
 <template>
   <header>
-    <div style="width:50%;height: 100%;display: flex;margin:auto">
+    <div style="width:50%;height: 100%;display: flex;margin:auto;position: relative">
       <a href="" class="nav" style="float: left;width: 10%;">
         <div>
-          <img src="logo.png" style="height: 100%;">
+          <img src="logo-removebg-preview.png" style="height: 100%;z-index: 1">
         </div>
       </a>
       <div style="height: 100%;float: left;margin-left: 5%;">
@@ -35,16 +35,14 @@
           </li>
         </ul>
       </div>
-      <a href="" class="nav" style="float: right;width: 6%;margin-left: 10%">
+      <a href="" class="nav" style="float: right;width: 6%;position: absolute;right: 0">
         <div>
           <img src="account.png" style="height: 60%;">
         </div>
       </a>
     </div>
   </header>
-  <div style="height:auto;background-color:#000000;">
-    <img src="background1.jpg" style="width: 100%;z-index: -1;opacity:0.7;">
-  </div>
+
 </template>
 
 <style scoped>
@@ -57,9 +55,11 @@
 }
 
 header {
+  position: fixed;
   width: 100%;
-  height: 60px;
-  background-color: #212121;
+  height: 6vh;
+  background-color: rgba(33, 33, 33, 0.84);
+  z-index: 100;
 }
 
 .nav {
@@ -86,7 +86,7 @@ header {
 }
 
 .nav_list li:hover {
-  background: #282828;
+  background: rgba(148, 126, 126, 0.21);
 }
 
 .nav_list a {
@@ -95,7 +95,7 @@ header {
   text-decoration: none;
   font-weight: bold;
   height: 100%;
-  line-height: 60px;
+  line-height: 6vh;
   font-size: .5vw;
   margin: 0 20px;
 }
