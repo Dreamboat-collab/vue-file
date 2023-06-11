@@ -83,6 +83,7 @@ footer {
   width: 100%;
   height: 750px;
   background-color: #333333;
+  margin-top: 15vh;
 }
 
 .foot > ul {
@@ -206,10 +207,10 @@ footer {
     transform: rotate(0deg);
   }
   50% {
-    transform: rotate(300deg);
+    transform: rotate(340deg);
   }
   60% {
-    transform: rotate(320deg);
+    transform: rotate(350deg);
   }
   100% {
     transform: rotate(360deg);
