@@ -83,7 +83,7 @@ footer {
   width: 100%;
   height: 750px;
   background-color: #333333;
-  margin-top: 15vh;
+  margin-top: 20vh;
 }
 
 .foot > ul {
