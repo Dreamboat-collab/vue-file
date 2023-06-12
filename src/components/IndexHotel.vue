@@ -120,6 +120,7 @@ onMounted(() => {
 }
 
 #aside {
+  font-family: Georgia, serif;
   color: antiquewhite;
   font-weight: bold;
   font-size: 1.5vw;
@@ -140,6 +141,8 @@ onMounted(() => {
   font-size: 2vh;
   --el-button-text-color: antiquewhite;
   font-weight: bold;
+  font-family: Georgia, serif;
+
 }
 
 
@@ -181,6 +184,7 @@ onMounted(() => {
 #mainContainer li{
   font-size: 1.2vw;
   margin-top: 1.1vh;
+  font-family: Georgia, serif;
 }
 
 
