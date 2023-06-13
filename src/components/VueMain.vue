@@ -8,6 +8,7 @@ import IndexHotel from "@/components/IndexHotel.vue";
 
 
 </script>
+
 <template>
   <div id="body">
     <index-header></index-header>

@@ -1,16 +1,26 @@
 <template>
-  <vue-main></vue-main>
+<!--  <vue-main></vue-main>-->
+<!--  <userinterface></userinterface>-->
+  <login-user></login-user>
+
 </template>
 
-<script>
-import VueMain from "@/components/VueMain.vue";
+<script setup>
+// import VueMain from "@/components/VueMain.vue";
+// import loginuser from"../src/components/login-user.vue"
+// import userinterface from "@/components/user-interface.vue";
+// import LoginUser from "@/components/login-user.vue";
 
-export default {
-  name: 'App',
-  components: {
-    VueMain
-  }
-}
+
+// export default {
+//   name: 'App',
+//   components: {
+//     loginUser
+//     // VueMain,
+//     // userinterface
+//   }
+// }
+import LoginUser from "@/components/login-user.vue";
 </script>
 
 <style>

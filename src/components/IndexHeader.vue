@@ -97,7 +97,7 @@ header {
   height: 100%;
   line-height: 6vh;
   font-size: .5vw;
-  margin: 0 20px;
+  margin: 0 1vw;
 }
 
 
