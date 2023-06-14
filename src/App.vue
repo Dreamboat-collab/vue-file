@@ -1,17 +1,18 @@
 <template>
 <!--  <vue-main></vue-main>-->
 <!--  <userinterface></userinterface>-->
-  <login-user></login-user>
-
+<!--<login-user></login-user>-->
+  <flight-page></flight-page>
+<!--  <IndexFlight></IndexFlight>-->
 </template>
 
 <script setup>
 // import VueMain from "@/components/VueMain.vue";
 // import loginuser from"../src/components/login-user.vue"
 // import userinterface from "@/components/user-interface.vue";
-// import LoginUser from "@/components/login-user.vue";
-
-
+//import LoginUser from "@/components/login-user.vue";
+//import IndexFlight from "@/components/IndexFlight.vue";
+import flightPage from "@/components/flightPage.vue";
 // export default {
 //   name: 'App',
 //   components: {
@@ -20,7 +21,6 @@
 //     // userinterface
 //   }
 // }
-import LoginUser from "@/components/login-user.vue";
 </script>
 
 <style>
