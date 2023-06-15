@@ -1,7 +1,18 @@
 const { defineConfig } = require('@vue/cli-service')
+const webpack = require("webpack");
 module.exports = defineConfig({
   transpileDependencies: true,
-  lintOnSave: false
+  lintOnSave: false,
+  configureWebpack: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "windows.jQuery": "jquery",
+        Popper: ['popper.js', 'default']
+      }),
+    ],
+  },
 })
 module.exports = {
   pwa: {
@@ -13,6 +24,8 @@ module.exports = {
       msTileImage: 'favicon.ico'
     }
   },
+
+
   devServer:{
     port:8081,
   }
