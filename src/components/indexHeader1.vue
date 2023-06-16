@@ -16,7 +16,7 @@ import '@/assets/CSS/flaticon.css';
 import '@/assets/CSS/jquery-ui.css';
 import '@/assets/CSS/slick.css';
 import '@/assets/CSS/default.css';
-import '@/assets/CSS/style.css';
+import '@/assets/CSS/styleFlight.css';
 import '@/assets/CSS/responsive.css';
 
 //js
