@@ -4,14 +4,15 @@ import IndexHeader from "@/components/IndexHeader.vue";
 import IndexFooter from "@/components/IndexFooter.vue";
 import IndexFlight from "@/components/IndexFlight.vue";
 import IndexHotel from "@/components/IndexHotel.vue";
-
+import indexHeader1 from "@/components/indexHeader1.vue";
 
 
 </script>
 
 <template>
   <div id="body">
-    <index-header></index-header>
+<!--    <index-header></index-header>-->
+    <index-header1></index-header1>
     <div style="height:auto;background-color:#000000;position: relative;">
       <img src="../../public/formal_bg.jpg" id="bg_img">
       <div id="slogan">START YOUR JOURNEY<br><br>WITH US</div>

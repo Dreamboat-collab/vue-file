@@ -24,7 +24,13 @@ module.exports = {
       msTileImage: 'favicon.ico'
     }
   },
-
+  chainWebpack: config => {
+    config
+        .plugin('html')
+        .tap(args => {
+          args[0].title = 'StarAirlines - Start Your Journey With Us'
+          return args
+        })},
 
   devServer:{
     port:8081,
