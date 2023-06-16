@@ -1,11 +1,11 @@
-# first-vue
+# StarAirlines Frontend
 
-## Project setup
+## Project setup 项目初始化
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads for development 编译开发环境
 ```
 npm run serve
 ```
