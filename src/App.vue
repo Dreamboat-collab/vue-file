@@ -1,26 +1,15 @@
 <template>
 <!--  <vue-main></vue-main>-->
+<!--  <user></user>-->
+<!--  <loginuser></loginuser>-->
 <!--  <userinterface></userinterface>-->
-  <login-user></login-user>
-
+  <router-view ></router-view>
 </template>
 
 <script setup>
-// import VueMain from "@/components/VueMain.vue";
-// import loginuser from"../src/components/login-user.vue"
+// import loginuser from "@/components/login-user.vue";
+// import user from "@/components/user-interface.vue";
 // import userinterface from "@/components/user-interface.vue";
-// import LoginUser from "@/components/login-user.vue";
-
-
-// export default {
-//   name: 'App',
-//   components: {
-//     loginUser
-//     // VueMain,
-//     // userinterface
-//   }
-// }
-import LoginUser from "@/components/login-user.vue";
 </script>
 
 <style>

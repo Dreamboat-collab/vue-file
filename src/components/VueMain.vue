@@ -8,7 +8,6 @@ import IndexHotel from "@/components/IndexHotel.vue";
 
 
 </script>
-
 <template>
   <div id="body">
     <index-header></index-header>
@@ -20,6 +19,7 @@ import IndexHotel from "@/components/IndexHotel.vue";
     </index-flight>
     <index-hotel></index-hotel>
     <index-footer></index-footer>
+    <router-view></router-view>
   </div>
 
 </template>
