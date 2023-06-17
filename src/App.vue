@@ -4,12 +4,14 @@
 <!--  <loginuser></loginuser>-->
 <!--  <userinterface></userinterface>-->
   <router-view ></router-view>
+<!--  <flight-page></flight-page>-->
 </template>
 
 <script setup>
 // import loginuser from "@/components/login-user.vue";
 // import user from "@/components/user-interface.vue";
 // import userinterface from "@/components/user-interface.vue";
+import FlightPage from "@/components/flightPage.vue";
 </script>
 
 <style>

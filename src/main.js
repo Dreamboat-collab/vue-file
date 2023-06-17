@@ -4,8 +4,13 @@ import App from './App.vue';
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import router from "@/router";
-
-createApp(App).use(ElementPlus).use(router).mount('#app')
+import $ from 'jquery';
+import bootstrap from 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+import slick from 'slick-carousel';
+//import '@/assets/js/slick.min.js';
+createApp(App).use(ElementPlus).use(router).use(bootstrap).use($).use(slick).mount('#app')
 
 
 

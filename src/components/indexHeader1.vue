@@ -21,11 +21,12 @@ import '@/assets/CSS/responsive.css';
 
 //js
 import '@/assets/js/jquery.odometer.min.js';
-import '@/assets/js/slick.min.js';
+//import '@/assets/js/slick.min.js';
 import "@/assets/js/jquery-ui.min.js";
 import {WOW} from 'wowjs'
 
 onMounted(() => {
+
 // 这里是原来的 JavaScript 代码 bootstrap-datepicker.min.js
   (function ($, undefined) {
 

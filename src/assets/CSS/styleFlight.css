@@ -508,7 +508,7 @@ label {
 	text-align: left;
 	display: block;
 }
-.navbar-wrap ul li .submenu li a {
+.navbar-wrap ul li .submenu li a { /*important*/
 	padding: 0 10px 0 25px;
 	line-height: 40px;
 	font-weight: 600;
@@ -3597,6 +3597,12 @@ label {
 }
 .footer-widget .fw-title .title {
 	font-size: 22px;
+	margin-bottom: 0;
+	color: #fff;
+	font-weight: 600;
+}
+.footer-widget .fw-title .title1 {
+	font-size: 32px;
 	margin-bottom: 0;
 	color: #fff;
 	font-weight: 600;

@@ -14,6 +14,7 @@
     "imagesloaded": "^5.0.0",
     "isotope": "^1.0.0-alpha.3",
     "magnific-popup": "^1.1.0",
+    "slick-carousel": "^1.8.1",
     "vue": "^3.2.13",
     "vue-router": "^4.2.2",
     "vueisotope": "^3.1.2",

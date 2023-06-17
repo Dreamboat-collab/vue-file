@@ -33,9 +33,10 @@ import IndexHeader from "@/components/IndexHeader.vue";
 //import 'magnific-popup/dist/jquery.magnific-popup.min.js';
 //import '@/assets/js/jquery.magnific-popup.min.js';
 import '@/assets/js/jquery.odometer.min.js';
-import '@/assets/js/slick.min.js';
+//import '@/assets/js/slick.min.js';
 import "@/assets/js/jquery-ui.min.js";
 import {WOW} from 'wowjs'
+import IndexHeader1 from "@/components/indexHeader1.vue";
 //import "@/assets/js/wow.min.js";
 //import "@/assets/js/main1.js";
 
@@ -2197,8 +2198,6 @@ onMounted(() => {
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>StarAirlines - Start Your Journey With Us</title>
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="public/favicon.ico">
   </head>
@@ -2220,9 +2219,9 @@ onMounted(() => {
   </button>
   <!-- Scroll-top-end-->
 
+<!--  <index-header1></index-header1>-->
   <!-- header-area -->
   <header>
-    <!--  <index-header></index-header>-->
     <div id="sticky-header" class="menu-area transparent-header">
       <div class="container custom-container">
         <div class="row">
@@ -2230,8 +2229,8 @@ onMounted(() => {
             <div class="mobile-nav-toggler"><i class="fas fa-bars"></i></div>
             <div class="menu-wrap">
               <nav class="menu-nav">
-                <div class="logo"><a href="#"><img src="../assets/logo3.png" alt=""></a></div>
-                <div class="navbar-wrap main-menu d-none d-lg-flex">
+                <div class="logo" style="top: 0px !important;"><a style="top: 0px" href="#"><img style="top: 0px !important;margin-top: 0px;height: 10vh" src="../assets/logo4.png" alt=""></a></div>
+                <div class="navbar-wrap main-menu d-none d-lg-flex"> <!--字体大小 navbar-wrap -->
                   <ul class="navigation">
                     <li class="active"><a href="#">Flight</a></li>
                     <li><a href="#">Hotel</a></li>
@@ -2248,6 +2247,7 @@ onMounted(() => {
                       </ul>
                     </li>
                     <li><a href="contact.html">About Us</a></li>
+                    <li><div class="logo1"><a href="#"><img src="../../public/account.png"></a></div></li>
                   </ul>
                 </div>
               </nav>
@@ -3256,35 +3256,23 @@ onMounted(() => {
             <div class="col-xl-3 col-lg-4 col-md-6">
               <div class="footer-widget">
                 <div class="footer-logo">
-                  <a href="index.html" ><img src="../assets/img/logo/logo.png" alt=""></a>
+                  <router-link to="/flight"><img src="../assets/logo4.png" alt=""></router-link>
                 </div>
                 <div class="footer-content">
-                  <p>Online to make your journey even more memorable access or meet</p>
-                  <ul class="footer-social">
-                    <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                  </ul>
+                  <p>Start your journey with us</p>
                 </div>
               </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6">
               <div class="footer-widget">
                 <div class="fw-title">
-                  <h4 class="title">Explore</h4>
+                  <h4 class="title">About us</h4>
                 </div>
                 <div class="fw-link">
                   <ul>
-                    <li><a href="about.html">About us</a></li>
-                    <li><a href="contact.html">Travel alerts</a></li>
-                    <li><a href="contact.html">Awards</a></li>
-                    <li><a href="contact.html">Qatarisation</a></li>
-                    <li><a href="contact.html">Careers</a></li>
-                    <li><a href="contact.html">Beyond</a></li>
-                    <li><a href="contact.html">Press release</a></li>
-                    <li><a href="contact.html">Airways Cargo</a></li>
-                    <li><a href="contact.html">Sponsorship</a></li>
+                    <li><a href="#">Introduction</a></li>
+                    <li><a href="#">Development Team</a></li>
+                    <li><a href="#">Project Description</a></li>
                   </ul>
                 </div>
               </div>
@@ -3292,15 +3280,14 @@ onMounted(() => {
             <div class="col-xl-3 col-lg-4 col-sm-4">
               <div class="footer-widget privacy">
                 <div class="fw-title">
-                  <h4 class="title">Privacy</h4>
+                  <h4 class="title">Contacts</h4>
                 </div>
                 <div class="fw-link">
                   <ul>
-                    <li><a href="booking-list.html">Airline fees</a></li>
-                    <li><a href="booking-list.html">Airline guides</a></li>
-                    <li><a href="booking-list.html">Airport guides</a></li>
-                    <li><a href="booking-list.html">Low fare tips</a></li>
-                    <li><a href="booking-list.html">Flights</a></li>
+                    <li><a href="#">1209233513@qq.com</a></li>
+                    <li><a href="#">1556782359@qq.com</a></li>
+                    <li><a href="#">291923642@qq.com</a></li>
+                    <li><a href="#">1055818575@qq.com</a></li>
                   </ul>
                 </div>
               </div>
@@ -3308,16 +3295,39 @@ onMounted(() => {
             <div class="col-xl-3 col-lg-4 col-sm-8">
               <div class="footer-widget">
                 <div class="fw-title">
-                  <h4 class="title">Contacts</h4>
+                  <h4 class="title">Help</h4>
                 </div>
-                <div class="footer-contact">
-                  <p>PO Box W75 Street lan West new queens</p>
-                  <h2 class="title"><a href="tel:0123456789">+1 246 333 - 0079</a></h2>
-                  <a href="#">geair@company.com</a>
-                  <form action="#">
-                    <input type="email" placeholder="Enter your email">
-                    <button type="submit"><i class="flaticon-send"></i></button>
-                  </form>
+                <div class="fw-link">
+                  <ul>
+                    <li><a href="#">Supported Locations</a></li>
+                    <li><a href="#">Supported Hotels</a></li>
+                    <li><a href="#">Supported Cars</a></li>
+                    <li><a href="#">Supported Services</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col12">
+              <div class="footer-widget">
+                <div class="fw-title">
+                  <h1 class="title1">Feedback</h1>
+                </div>
+                <div class="footer-content">
+                  <p>If you have any problems in use, please visit our feedback websites to make suggestions for the project.</p>
+                  <div class="fw-link">
+                    <ul>
+                      <li><a href="https://github.com/hikeerer/vue-file/issues">
+                        <img src="code.png" style="width: 40px;vertical-align: middle;padding-right: 5px;padding-bottom: 5px;">
+                        Front-end project : github.com/hikeerer/vue-file/issues
+                      </a></li>
+                      <li><a href="https://github.com/Artemis-Zeus/star_airlines/issues">
+                        <img src="code.png" style="width: 40px;vertical-align: middle;padding-right: 5px;padding-bottom: 5px;">
+                        Back-end project : github.com/Artemis-Zeus/star_airlines/issues
+                      </a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -3327,14 +3337,9 @@ onMounted(() => {
       <div class="footer-bottom">
         <div class="container">
           <div class="row align-items-center">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
               <div class="copyright-text">
-                <p>Copyright © 2022.All Rights Reserved By <span>Geair</span></p>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="cart-img text-end">
-                <img src="../assets/img/images/cart.png" alt="">
+                <p>Developed by the <span>Star Airlines</span> Project Team @2023</p>
               </div>
             </div>
           </div>
@@ -3343,9 +3348,6 @@ onMounted(() => {
     </div>
   </footer>
   <!-- footer-area-end -->
-
-
-
   </body>
   </html>
 </template>

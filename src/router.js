@@ -6,8 +6,9 @@ const routes = [
     { path: '/home', component: () => import('@/components/VueMain.vue') },
     { path: '/login', component: () => import('@/components/login-user.vue') },
     { path: '/user', component: () => import('@/components/user-interface.vue') },
+    { path: '/flight', component: () => import('@/components/flightPage.vue') },
     // 其他路由配置项
-    { path: '/', redirect: '/login' }, // 将根路径重定向到'/home'页面
+    { path: '/', redirect: '/flight' }, // 将根路径重定向到'/home'页面
 ];
 
 // 创建路由实例
