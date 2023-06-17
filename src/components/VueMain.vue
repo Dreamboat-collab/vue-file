@@ -6,6 +6,7 @@ import IndexFlight from "@/components/IndexFlight.vue";
 import IndexHotel from "@/components/IndexHotel.vue";
 import indexHeader1 from "@/components/indexHeader1.vue";
 import router from '@/router';
+import IndexFooter1 from "@/components/indexFooter1.vue";
 // import { ref, onBeforeRouteEnter } from 'vue';
 // import axios from 'axios';
 //
@@ -36,7 +37,8 @@ import router from '@/router';
     <index-flight>
     </index-flight>
     <index-hotel></index-hotel>
-    <index-footer></index-footer>
+<!--    <index-footer></index-footer>-->
+    <index-footer1></index-footer1>
   </div>
 
 </template>

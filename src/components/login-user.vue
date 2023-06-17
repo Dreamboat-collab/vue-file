@@ -171,6 +171,7 @@
       </div>
     </div>
   </div>
+  <index-footer1></index-footer1>
 </template>
 
 
@@ -183,6 +184,7 @@ import $ from 'jquery';
   import IndexHeader from "@/components/IndexHeader.vue";
   import router from '@/router';
   import IndexHeader1 from "@/components/indexHeader1.vue";
+import IndexFooter1 from "@/components/indexFooter1.vue";
 
   //JS
   onMounted(() => {
