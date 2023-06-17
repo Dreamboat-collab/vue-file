@@ -2196,7 +2196,7 @@ onMounted(() => {
             <div class="mobile-nav-toggler"><i class="fas fa-bars"></i></div>
             <div class="menu-wrap">
               <nav class="menu-nav">
-                <div class="logo"><a href="#"><img src="../assets/logo4.png" alt=""></a></div>
+                <div class="logo" style="top: 0px !important;"><a style="top: 0px" href="#"><img style="top: 0px !important;margin-top: 0px;height: 10vh" src="../assets/logo4.png" alt=""></a></div>
                 <div class="navbar-wrap main-menu d-none d-lg-flex"> <!--字体大小 navbar-wrap -->
                   <ul class="navigation">
                     <li class="active"><a href="#">Flight</a></li>

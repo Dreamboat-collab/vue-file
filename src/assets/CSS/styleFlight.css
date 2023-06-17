@@ -356,13 +356,13 @@ label {
 .transparent-header {
 	position: absolute;
 	left: 0;
-	top: 0px;
+	top: 1px;
 	width: 100%;
 	z-index: 9;
 	height: auto;
 }
 .menu-area {
-	top: 40px;
+	top: 20px;
 }
 .menu-nav {
 	display: flex;
@@ -791,7 +791,7 @@ label {
 	line-height: 1;
 	color: #fff;
 	display: none;
-	margin-top: 8px;
+	margin-top: 2px;
 }
 
 /* 4. Slider */

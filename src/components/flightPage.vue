@@ -3256,7 +3256,7 @@ onMounted(() => {
             <div class="col-xl-3 col-lg-4 col-md-6">
               <div class="footer-widget">
                 <div class="footer-logo">
-                  <a href="index.html"><img src="../assets/img/logo/logo.png" alt=""></a>
+                  <a href="index.html" ><img src="../assets/img/logo/logo.png" alt=""></a>
                 </div>
                 <div class="footer-content">
                   <p>Online to make your journey even more memorable access or meet</p>

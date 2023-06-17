@@ -1,7 +1,10 @@
 <template>
-  <index-header></index-header>
+<!--  <index-header></index-header>-->
+  <div style="background-color: #1f252e ;height: 15vh;width: 100%;position: absolute;top: 0">
+    <index-header1 ></index-header1>
+  </div>
   <div id="login">
-    <div class="container right-panel-active" style="width: 60vw;height: 73vh;">
+    <div class="containerlogin right-panel-active" style="width: 60vw;height: 73vh;margin-top: 18vh">
 <!--          检验用户名输入是否为空-->
       <el-dialog  v-model="centerDialogVisible5" title="Warning" class="dialog-mistake" center :z-index="9999" style="z-index: 9999; width: 35vw;height: 30vh;margin-top: 15%">
             <span>
@@ -83,7 +86,7 @@
           <el-tooltip content="passwords with 8 or more digits">
           <input type="password" placeholder="Confirm Password" class="input" v-model="user.confirmPassword" />
           </el-tooltip>
-          <button class="btn">Register</button>
+          <button class="btn" style="margin-top: 5vh">Register</button>
         </form>
       </div>
 <!--      错误提示框-->
@@ -105,7 +108,6 @@
           <el-col :sm="12" :lg="6">
             <el-result
                 icon="success"
-                title="Success Tip"
                 sub-title="Sign up successfully!"
             >
               <template #extra>
@@ -123,7 +125,7 @@
           <input type="email" placeholder="Email" class="input" v-model="user_login.Email"/>
           <input type="password" placeholder="Password" class="input" v-model="user_login.Password"/>
           <a href="#" class="link" @click="centerDialogVisible8 = true">Forgot your password?</a>
-          <button class="btn" style="margin-top: 10.2vh" @click="open">Sign In</button>
+          <button class="btn" style="margin-top: 13.2vh" @click="open">Sign In</button>
         </form>
       </div>
 
@@ -159,11 +161,11 @@
         <div class="overlay">
           <div class="overlay__panel overlay--left" >
             <img src="../assets/logo1.png" width="300px" height="240px">
-            <button class="btn" id="signIn" style="margin-top: 10.3vh">Sign In</button>
+            <button class="btn" id="signIn" style="margin-top: 16.7vh">Sign In</button>
           </div>
           <div class="overlay__panel overlay--right">
             <img src="../assets/logo1.png" width="300px" height="240px">
-            <button class="btn" id="signUp">Register</button>
+            <button class="btn" id="signUp" style="margin-top: 16.5vh">Register</button>
           </div>
         </div>
       </div>
@@ -173,11 +175,14 @@
 
 
 <script setup>
+
+import $ from 'jquery';
   import {ref,onMounted} from 'vue'
   import { ElMessage } from 'element-plus'
   import axios from 'axios'
   import IndexHeader from "@/components/IndexHeader.vue";
   import router from '@/router';
+  import IndexHeader1 from "@/components/indexHeader1.vue";
 
   //JS
   onMounted(() => {
@@ -185,7 +190,7 @@
     const signUpBtn = document.getElementById('signUp');
     const fistForm = document.getElementById('form1');
     const secondForm = document.getElementById('form2');
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.containerlogin');
 
     signInBtn.addEventListener('click', () => {
       container.classList.remove('right-panel-active');
@@ -221,7 +226,7 @@
       return;
     }
     // 密码长度不足，报错
-    if ((user.value.Password.match(/[a-zA-Z]/g) || []).length + (user.value.Password.match(/\d/g) || []).length <= 8) {
+    if ((user.value.Password.match(/[a-zA-Z]/g) || []).length + (user.value.Password.match(/\d/g) || []).length < 8) {
       centerDialogVisible2.value = true;
       user.value.Password = '';
       user.value.confirmPassword = '';
@@ -230,8 +235,6 @@
     // 密码不一致，显示错误消息或执行相关操作
     if (user.value.Password !== user.value.confirmPassword) {
       centerDialogVisible1.value = true
-      user.value.username = '';
-      user.value.Email = '';
       user.value.Password = '';
       user.value.confirmPassword = '';
       return;
@@ -310,6 +313,8 @@
       });
 }
 
+$("#sticky-header").addClass("sticky-menu")
+
 
 
 </script>
@@ -336,6 +341,8 @@
   background-color: black;
   color: white; /* 可选，设置文字颜色为白色 */
 }
+
+
 :root {
   /* COLORS */
   --white: #e9e9e9;
@@ -383,7 +390,7 @@
   text-decoration: none;
 }
 
-.container {
+.containerlogin {
   background-color: var(--white);
   border-radius: var(--button-radius);
   box-shadow: 0 0.9rem 1.7rem rgba(0, 0, 0, 0.25),
@@ -408,7 +415,7 @@
   z-index: 2;
 }
 
-.container.right-panel-active .container--signin {
+.containerlogin.right-panel-active .container--signin {
   transform: translateX(100%);
 }
 
@@ -419,7 +426,7 @@
   z-index: 1;
 }
 
-.container.right-panel-active .container--signup {
+.containerlogin.right-panel-active .container--signup {
   animation: show 0.6s;
   opacity: 1;
   transform: translateX(100%);
@@ -437,7 +444,7 @@
   z-index: 100;
 }
 
-.container.right-panel-active .container__overlay {
+.containerlogin.right-panel-active .container__overlay {
   transform: translateX(-100%);
 }
 
@@ -456,7 +463,7 @@
   width: 200%;
 }
 
-.container.right-panel-active .overlay {
+.containerlogin.right-panel-active .overlay {
   transform: translateX(50%);
 }
 
@@ -478,7 +485,7 @@
   transform: translateX(-20%);
 }
 
-.container.right-panel-active .overlay--left {
+.containerlogin.right-panel-active .overlay--left {
   transform: translateX(0);
 }
 
@@ -487,7 +494,7 @@
   transform: translateX(0);
 }
 
-.container.right-panel-active .overlay--right {
+.containerlogin.right-panel-active .overlay--right {
   transform: translateX(20%);
 }
 
