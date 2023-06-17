@@ -7,7 +7,7 @@
     <div class="footer-area footer-bg">
       <div class="footer-top">
         <div class="container">
-          <div class="row">
+          <div class="row" style="border-bottom: 1px solid rgba(160,158,158,0.5);">
             <div class="col-xl-3 col-lg-4 col-md-6">
               <div class="footer-widget">
                 <div class="footer-logo">
@@ -63,6 +63,7 @@
               </div>
             </div>
           </div>
+
           <div class="row">
             <div class="col12">
               <div class="footer-widget">

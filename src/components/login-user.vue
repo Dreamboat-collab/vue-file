@@ -171,7 +171,7 @@
       </div>
     </div>
   </div>
-  <index-footer1></index-footer1>
+
 </template>
 
 
