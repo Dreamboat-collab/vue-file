@@ -2353,7 +2353,7 @@ onMounted(() => {
                               <div class="form-grp select">
                                 <label for="shortBy">From</label>
                                 <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
-                                  <option value="">City1</option>
+                                  <option value="">Guangzhou</option>
                                   <option>City2</option>
                                   <option>City3</option>
                                   <option>City4</option>
@@ -2365,7 +2365,7 @@ onMounted(() => {
                               <div class="form-grp select">
                                 <label for="shortBy">To</label>
                                 <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
-                                  <option value="">City1</option>
+                                  <option value="">Guangzhou</option>
                                   <option>City2</option>
                                   <option>City3</option>
                                   <option>City4</option>
@@ -2483,39 +2483,29 @@ onMounted(() => {
     <section class="features-area">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-xl-4 col-lg-6 col-sm-10">
+          <div class="col-xl-6 col-lg-6 col-sm-10">
             <div class="features-item">
               <div class="features-icon">
                 <i class="flaticon-help"></i>
               </div>
-              <div class="features-content">
+              <div class="features-content"><a href="https://github.com/hikeerer/vue-file">
                 <h6 class="title">We are now available</h6>
-                <p>Call +1 555 666 888 for contuct with us</p>
-              </div>
+                <p>Visit github.com/hikeerer/vue-file to contact with us</p>
+                </a></div>
             </div>
           </div>
-          <div class="col-xl-4 col-lg-6 col-sm-10">
+          <div class="col-xl-6 col-lg-6 col-sm-10">
             <div class="features-item">
               <div class="features-icon">
                 <i class="flaticon-plane"></i>
               </div>
               <div class="features-content">
                 <h6 class="title">International Flight</h6>
-                <p>Call +1 555 666 888 for booking assistance</p>
+                <p>Call +86 114 5141 9198 for booking assistance</p>
               </div>
             </div>
           </div>
-          <div class="col-xl-4 col-lg-6 col-sm-10">
-            <div class="features-item">
-              <div class="features-icon">
-                <i class="flaticon-money-back-guarantee"></i>
-              </div>
-              <div class="features-content">
-                <h6 class="title">Check Refund</h6>
-                <p>Call +1 555 666 888 for check refund status</p>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>
@@ -2533,7 +2523,7 @@ onMounted(() => {
           </div>
           <div class="col-md-4">
             <div class="best-price text-end">
-              <a href="booking-list.html">Best Price Guarantee <i class="flaticon-check"></i></a>
+              <a href="#">Best Price Guarantee <i class="flaticon-check"></i></a>
             </div>
           </div>
         </div>
@@ -2541,17 +2531,17 @@ onMounted(() => {
           <div class="col-lg-6 col-md-10">
             <div class="flight-offer-item">
               <div class="flight-offer-thumb">
-                <img src="../assets/img/images/offer_img01.jpg" alt="">
+                <img src="../assets/img/images/Guangzhou_1.jpg" alt="">
               </div>
               <div class="flight-offer-content">
-                <h2 class="title">Dhaka to Dubai</h2>
-                <span>09 Jun 2022 - 16 Jun 2022</span>
+                <h2 class="title">Dhaka to Guangzhou</h2>
+                <span>18 Jun 2023</span>
                 <p>Economy from</p>
                 <h4 class="price">$ 980</h4>
               </div>
               <div class="overlay-content">
-                <h2 class="title">Dhaka to Dubai</h2>
-                <span>09 Jun 2022 - 16 Jun 2022</span>
+                <h2 class="title">Dhaka to Guangzhou</h2>
+                <span>18 Jun 2023</span>
                 <p>Economy from</p>
                 <h4 class="price">$ 980</h4>
                 <div class="content-bottom">
@@ -2672,12 +2662,12 @@ onMounted(() => {
               <h2 class="title">Your Great Destination</h2>
             </div>
             <div class="destination-content">
-              <p>Get rewarded for your travels – unlock instant savings of 10% or more with a free <span>Geairinfo.com</span> account</p>
+              <p>Get rewarded for your travels – unlock instant savings of 10% or more with a free <span>Star Airlines</span> account</p>
               <ul>
                 <li>
                   <div class="counter-item">
                     <div class="counter-content">
-                      <h2 class="count"><span class="odometer" data-count="5830"></span>+</h2>
+                      <h2 class="count"><span class="odometer" data-count="1234"></span>+</h2>
                       <p>Happy Customers</p>
                     </div>
                     <div class="counter-icon">
@@ -2699,7 +2689,7 @@ onMounted(() => {
               </ul>
               <div class="content-bottom">
                 <p>Discover the latest offers & news and start planning</p>
-                <a href="contact.html">contact us</a>
+                <a href="https://github.com/hikeerer/vue-file">contact us</a>
               </div>
             </div>
           </div>
