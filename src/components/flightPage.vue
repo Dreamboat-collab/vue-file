@@ -37,6 +37,7 @@ import "@/assets/js/jquery-ui.min.js";
 import {WOW} from 'wowjs'
 import IndexHeader1 from "@/components/indexHeader1.vue";
 import IndexFooter1 from "@/components/indexFooter1.vue";
+import router from '@/router';
 //import "@/assets/js/wow.min.js";
 //import "@/assets/js/main1.js";
 
@@ -1969,6 +1970,9 @@ onMounted(() => {
     }
 
 
+
+
+
     /*=============================================
               =    		Brand Active		      =
           =============================================*/
@@ -2192,6 +2196,19 @@ onMounted(() => {
 });
 
 
+// 实现页面跳转
+const navigateToAnotherPage1 = () => {
+  router.push('/userinfo'); // 替换 '/another-page' 为你想要跳转的实际路由路径
+  console.log('true')
+};
+const navigateToAnotherPage2 = () => {
+  router.push('/login'); // 替换 '/another-page' 为你想要跳转的实际路由路径
+  console.log('true')
+};
+const methods = {
+  navigateToAnotherPage1,
+};
+
 </script>
 
 
@@ -2248,7 +2265,7 @@ onMounted(() => {
                       </ul>
                     </li>
                     <li><a href="contact.html">About Us</a></li>
-                    <li><div class="logo1"><a href="#"><img src="../../public/account.png"></a></div></li>
+                    <li><div class="logo1"  @click="navigateToAnotherPage1"><img src="../../public/account.png" @click="navigateToAnotherPage1"></div></li>
                   </ul>
                 </div>
               </nav>
@@ -2286,7 +2303,8 @@ onMounted(() => {
                 <div class="slider-content">
                   <h2 class="title" data-animation="fadeInUp" data-delay=".2s">Start your journey with us.</h2>
                   <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant savings of 10% or more with a free Star Airlines account</p>
-                  <a href="#" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in / Register</a>
+<!--                  <a href="#" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in / Register</a>-->
+                  <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">Sign in / Register</button>
                 </div>
               </div>
             </div>

@@ -5,7 +5,7 @@ const routes = [
     // { path: '/', redirect: 'http://localhost:8081/login' }, // 将根路径重定向到'/home'页面
     { path: '/home', component: () => import('@/components/flightPage.vue') },
     { path: '/login', component: () => import('@/components/login-user.vue') },
-    { path: '/user', component: () => import('@/components/user-interface.vue') },
+    { path: '/userinfo', component: () => import('@/components/user-interface.vue') },
     { path: '/flight', component: () => import('@/components/flightPage.vue') },
     { path: '/footer1', component: () => import('@/components/indexFooter1.vue') },
     { path: '/main', component: () => import('@/components/VueMain.vue') },
