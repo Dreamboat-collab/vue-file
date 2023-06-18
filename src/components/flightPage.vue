@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import {onBeforeMount, onMounted, ref, watch} from 'vue';
 
 import $ from 'jquery';
 // 引入bootstrap样式
@@ -37,6 +37,7 @@ import "@/assets/js/jquery-ui.min.js";
 import {WOW} from 'wowjs'
 import IndexHeader1 from "@/components/indexHeader1.vue";
 import IndexFooter1 from "@/components/indexFooter1.vue";
+import axios from "axios";
 //import "@/assets/js/wow.min.js";
 //import "@/assets/js/main1.js";
 
@@ -2190,7 +2191,17 @@ onMounted(() => {
 
   })($);
 });
-
+onBeforeMount(()=>{
+  axios.get('http://localhost:8080/starAirlines/depart').then((response) => {
+    depart.value=response.data.data
+  })
+  axios.get('http://localhost:8080/starAirlines/arrival').then((response) => {
+    arrival.value=response.data.data
+  })
+})
+const depart=ref([])
+const arrival=ref([])
+const city1=ref()
 
 </script>
 
@@ -2353,11 +2364,8 @@ onMounted(() => {
                               <div class="form-grp select">
                                 <label for="shortBy">From</label>
                                 <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
-                                  <option value="">Guangzhou</option>
-                                  <option>City2</option>
-                                  <option>City3</option>
-                                  <option>City4</option>
-                                  <option>City5</option>
+<!--                                  <option value="">Guangzhou</option>-->
+                                  <option v-for="i in depart" :key="i.id" :value="i" >{{i}}</option>
                                 </select>
                               </div>
                             </li>
@@ -2365,11 +2373,7 @@ onMounted(() => {
                               <div class="form-grp select">
                                 <label for="shortBy">To</label>
                                 <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
-                                  <option value="">Guangzhou</option>
-                                  <option>City2</option>
-                                  <option>City3</option>
-                                  <option>City4</option>
-                                  <option>City5</option>
+                                  <option v-for="i in arrival" :key="i.id">{{i}}</option>
                                 </select>
                                 <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
                               </div>
@@ -2396,7 +2400,7 @@ onMounted(() => {
                             </li>
                           </ul>
                         </form>
-                        <div class="content-bottom">
+                        <div class="content-bottom" >
                           <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
                         </div>
                       </div>
@@ -2413,11 +2417,7 @@ onMounted(() => {
                               <div class="form-grp select">
                                 <label for="shortBy">City</label>
                                 <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
-                                  <option value="">City1</option>
-                                  <option>City2</option>
-                                  <option>City3</option>
-                                  <option>City4</option>
-                                  <option>City5</option>
+                                  <option v-for="i in arrival" :key="i.id">{{i}}</option>
                                 </select>
                               </div>
                             </li>
@@ -2705,16 +2705,7 @@ onMounted(() => {
           <div class="col-lg-8">
             <div class="section-title text-center">
               <span class="sub-title">Flynext Package</span>
-              <h2 class="title">Your Great Destination</h2>
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-lg-7">
-            <div class="fly-next-nav">
-              <button class="active" data-filter="*">Flights <i class="flaticon-flight"></i></button>
-              <button class="" data-filter=".cat-one">Car Rentals <i class="flaticon-car-1"></i></button>
-              <button class="" data-filter=".cat-two">Taxis <i class="flaticon-taxi"></i></button>
+              <h2 class="title">Destination Hotel</h2>
             </div>
           </div>
         </div>
@@ -2729,7 +2720,6 @@ onMounted(() => {
                 <h4 class="title">Dubai (DXB)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
-                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon01.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Economy from</p>
                   <h4 class="price">$195</h4>
@@ -2747,7 +2737,6 @@ onMounted(() => {
                 <h4 class="title">Switzerland (SWL)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
-                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon02.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Business Class</p>
                   <h4 class="price">$800</h4>
@@ -2765,7 +2754,6 @@ onMounted(() => {
                 <h4 class="title">Denmark (DEK)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
-                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon03.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Economy from</p>
                   <h4 class="price">$ 350</h4>
@@ -2783,7 +2771,6 @@ onMounted(() => {
                 <h4 class="title">Jakarta (DXB)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
-                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon01.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Business Class</p>
                   <h4 class="price">$ 220</h4>
@@ -2801,7 +2788,6 @@ onMounted(() => {
                 <h4 class="title">Dubai (DXB)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
-                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon03.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Economy from</p>
                   <h4 class="price">$195</h4>
@@ -2819,7 +2805,6 @@ onMounted(() => {
                 <h4 class="title">Dubai (DXB)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
-                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon02.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Business Class</p>
                   <h4 class="price">$175</h4>
@@ -2837,7 +2822,6 @@ onMounted(() => {
                 <h4 class="title">Switzerland (SWL)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
-                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon01.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Economy from</p>
                   <h4 class="price">$195</h4>
@@ -2855,7 +2839,6 @@ onMounted(() => {
                 <h4 class="title">Turkish (SWL)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
-                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon02.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Business Class</p>
                   <h4 class="price">$350</h4>
