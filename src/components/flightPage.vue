@@ -18,7 +18,7 @@ import '@/assets/CSS/bootstrap-datepicker.min.css';
 import '@/assets/CSS/odometer.css';
 import '@/assets/CSS/flaticon.css';
 import '@/assets/CSS/jquery-ui.css';
-import '@/assets/CSS/slick.css';
+//import '@/assets/CSS/slick.css';
 import '@/assets/CSS/default.css';
 import '@/assets/CSS/styleFlight.css';
 import '@/assets/CSS/responsive.css';
@@ -32,7 +32,7 @@ import '@/assets/CSS/responsive.css';
 //import 'magnific-popup/dist/jquery.magnific-popup.min.js';
 //import '@/assets/js/jquery.magnific-popup.min.js';
 import '@/assets/js/jquery.odometer.min.js';
-import '@/assets/js/slick.min.js';
+//import '@/assets/js/slick.min.js';
 import "@/assets/js/jquery-ui.min.js";
 import {WOW} from 'wowjs'
 import IndexHeader1 from "@/components/indexHeader1.vue";
@@ -1848,11 +1848,9 @@ onMounted(() => {
 
     $(window).on('load', function () {
       preloader();
-      mainSlider();
+      // mainSlider();
       wowAnimation();
     });
-
-
 
     /*=============================================
               =    		Mobile Menu			      =
@@ -1885,9 +1883,6 @@ onMounted(() => {
       });
     }
 
-
-
-
     /*=============================================
               =     Menu sticky & Scroll to top      =
           =============================================*/
@@ -1903,7 +1898,6 @@ onMounted(() => {
       }
     });
 
-
     /*=============================================
               =    		 Scroll Up  	         =
           =============================================*/
@@ -1918,158 +1912,13 @@ onMounted(() => {
       });
     }
 
-
-
     /*=============================================
          =          Data Background     弃用        =
           =============================================*/
-    $("[data-background]").each(function () {
-      $(this).css("background-image", "url(" + $(this).attr("data-background") + ")")
-    })
-
-
-
-    /*=============================================
-              =    		 Main Slider		      =
-          =============================================*/
-    function mainSlider() {
-      var BasicSlider = $('.slider-active');
-      BasicSlider.on('init', function (e, slick) {
-        var $firstAnimatingElements = $('.single-slider:first-child').find('[data-animation]');
-        doAnimations($firstAnimatingElements);
-      });
-      BasicSlider.on('beforeChange', function (e, slick, currentSlide, nextSlide) {
-        var $animatingElements = $('.single-slider[data-slick-index="' + nextSlide + '"]').find('[data-animation]');
-        doAnimations($animatingElements);
-      });
-      BasicSlider.slick({
-        autoplay: true,
-        autoplaySpeed: 3000,//轮播速度
-        dots: false,
-        fade: true,
-        arrows: false,
-        responsive: [
-          { breakpoint: 767, settings: { dots: false, arrows: false } }
-        ]
-      });
-
-      function doAnimations(elements) {
-        var animationEndEvents = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-        elements.each(function () {
-          var $this = $(this);
-          var $animationDelay = $this.data('delay');
-          var $animationType = 'animated ' + $this.data('animation');
-          $this.css({
-            'animation-delay': $animationDelay,
-            '-webkit-animation-delay': $animationDelay
-          });
-          $this.addClass($animationType).one(animationEndEvents, function () {
-            $this.removeClass($animationType);
-          });
-        });
-      }
-    }
-
-
-
-
-
-    /*=============================================
-              =    		Brand Active		      =
-          =============================================*/
-    $('.brand-active').slick({
-      dots: false,
-      infinite: true,
-      speed: 1000,
-      autoplay: true,
-      arrows: false,
-      slidesToShow: 6,
-      slidesToScroll: 2,
-      responsive: [
-        {
-          breakpoint: 1200,
-          settings: {
-            slidesToShow: 5,
-            slidesToScroll: 1,
-            infinite: true,
-          }
-        },
-        {
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 1
-          }
-        },
-        {
-          breakpoint: 767,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            arrows: false,
-          }
-        },
-        {
-          breakpoint: 575,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            arrows: false,
-          }
-        },
-      ]
-    });
-
-
-
-    /*=============================================
-              =    		Service Active		      =
-          =============================================*/
-    $('.service-active').slick({
-      dots: false,
-      infinite: true,
-      speed: 2000,
-      autoplay: true,
-      arrows: true,
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      prevArrow: '<span class="slick-prev"><i class="fa-solid fa-arrow-left"></i></span>',
-      nextArrow: '<span class="slick-next"><i class="fa-solid fa-arrow-right"></i></span>',
-      appendArrows: ".service-nav",
-      responsive: [
-        {
-          breakpoint: 1200,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            infinite: true,
-          }
-        },
-        {
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1
-          }
-        },
-        {
-          breakpoint: 767,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false,
-          }
-        },
-        {
-          breakpoint: 575,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false,
-          }
-        },
-      ]
-    });
+    /* $("[data-background]").each(function () {
+       $(this).css("background-image", "url(" + $(this).attr("data-background") + ")")
+     })
+     */
 
     /*=============================================
               =    	   Toggle Active  	         =
@@ -2080,7 +1929,6 @@ onMounted(() => {
       $(this).parent().parent().parent().parent().find('.flight-detail-wrap').slideToggle();
     });
 
-
     /*=============================================
               =           DatePicker Active             =
           =============================================*/
@@ -2090,8 +1938,6 @@ onMounted(() => {
         todayHighlight: true
       }).datepicker('update', new Date());
     });
-
-
 
     /*=============================================
               =    	 Slider Range Active  	         =
@@ -2107,8 +1953,6 @@ onMounted(() => {
     });
     $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
 
-
-
     /*=============================================
               =    		Odometer Active  	       =
           =============================================*/
@@ -2119,7 +1963,6 @@ onMounted(() => {
         $(this).html(countNumber);
       });
     });
-
 
     /*=============================================
               =    		Magnific Popup		      =
@@ -2168,7 +2011,6 @@ onMounted(() => {
     //
     //   });
     // });
-
 
 //for menu active class
     $('.fly-next-nav button, .content-top li, .gender-select ul li').on('click', function (event) {
@@ -2219,6 +2061,26 @@ const navigateToAnotherPage2 = () => {
 const methods = {
   navigateToAnotherPage1,
 };
+
+//忽略element-plus 报错 ResizeObserver loop limit exceeded
+const debounce = (fn, delay) => {
+  let timer = null;
+  return function () {
+    let context = this;
+    let args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  }
+}
+const _ResizeObserver = window.ResizeObserver;
+window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
+  constructor(callback) {
+    callback = debounce(callback, 16);
+    super(callback);
+  }
+}
 
 </script>
 
@@ -2307,6 +2169,8 @@ const methods = {
     <!-- slider-area -->
     <section class="slider-area">
       <div class="slider-active">
+        <el-carousel height="auto" autoplay>
+          <el-carousel-item style="height: 800px">
         <div class="single-slider slider-bg"><!--第一条轮播-->
           <div class="container">
             <div class="row">
@@ -2321,6 +2185,8 @@ const methods = {
             </div>
           </div>
         </div>
+          </el-carousel-item>
+          <el-carousel-item style="height: 800px">
         <div class="single-slider slider-bg2" >
           <div class="container">
             <div class="row">
@@ -2334,6 +2200,8 @@ const methods = {
             </div>
           </div>
         </div>
+          </el-carousel-item>
+          <el-carousel-item style="height: 800px">
         <div class="single-slider slider-bg3" >
           <div class="container">
             <div class="row">
@@ -2347,6 +2215,8 @@ const methods = {
             </div>
           </div>
         </div>
+          </el-carousel-item>
+        </el-carousel>
       </div>
     </section>
     <!-- slider-area-end -->
@@ -2871,40 +2741,36 @@ const methods = {
     <!-- brand-area -->
     <div class="brand-area brand-bg">
       <div class="container">
+
         <div class="row brand-active">
-          <div class="col-12">
+          <div class="col-2">
             <div class="brand-item">
               <img src="../assets/img/brand/brand_img01.png" alt="">
             </div>
           </div>
-          <div class="col-12">
+          <div class="col-2">
             <div class="brand-item">
               <img src="../assets/img/brand/brand_img02.png" alt="">
             </div>
           </div>
-          <div class="col-12">
+          <div class="col-2">
             <div class="brand-item">
               <img src="../assets/img/brand/brand_img03.png" alt="">
             </div>
           </div>
-          <div class="col-12">
+          <div class="col-2">
             <div class="brand-item">
               <img src="../assets/img/brand/brand_img04.png" alt="">
             </div>
           </div>
-          <div class="col-12">
+          <div class="col-2">
             <div class="brand-item">
               <img src="../assets/img/brand/brand_img05.png" alt="">
             </div>
           </div>
-          <div class="col-12">
+          <div class="col-2">
             <div class="brand-item">
               <img src="../assets/img/brand/brand_img06.png" alt="">
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="brand-item">
-              <img src="../assets/img/brand/brand_img03.png" alt="">
             </div>
           </div>
         </div>
@@ -2927,7 +2793,9 @@ const methods = {
           </div>
         </div>
         <div class="row service-active">
+          <el-carousel type="card" height="auto" autoplay>
           <div class="col-lg-4">
+            <el-carousel-item style="height: 400px">
             <div class="service-item">
               <div class="service-icon">
                 <img src="../assets/img/icon/service_icon01.png" alt="">
@@ -2944,8 +2812,10 @@ const methods = {
                 </div>
               </div>
             </div>
+            </el-carousel-item>
           </div>
           <div class="col-lg-4">
+            <el-carousel-item style="height: 400px">
             <div class="service-item">
               <div class="service-icon">
                 <img src="../assets/img/icon/service_icon02.png" alt="">
@@ -2962,8 +2832,10 @@ const methods = {
                 </div>
               </div>
             </div>
+            </el-carousel-item>
           </div>
           <div class="col-lg-4">
+            <el-carousel-item style="height: 400px">
             <div class="service-item">
               <div class="service-icon">
                 <img src="../assets/img/icon/service_icon03.png" alt="">
@@ -2980,8 +2852,10 @@ const methods = {
                 </div>
               </div>
             </div>
+            </el-carousel-item>
           </div>
           <div class="col-lg-4">
+            <el-carousel-item style="height: 400px">
             <div class="service-item">
               <div class="service-icon">
                 <img src="../assets/img/icon/service_icon02.png" alt="">
@@ -2998,7 +2872,9 @@ const methods = {
                 </div>
               </div>
             </div>
+            </el-carousel-item>
           </div>
+          </el-carousel>
         </div>
       </div>
     </section>
