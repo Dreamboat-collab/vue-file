@@ -977,8 +977,8 @@ label {
 	border-bottom: none;
 }
 .booking-wrap .nav-tabs .nav-item {
-	width: 25%;
-	flex: 0 0 25%;
+	width: 33.3%;
+	flex: 0 0 33.3%;
 }
 .booking-wrap .nav-tabs .nav-link {
 	margin-bottom: 0;
@@ -1114,7 +1114,7 @@ label {
 	border-color: #622243;
 }
 .booking-form ul li:nth-child(2) .form-grp input {
-	padding: 20px 20px 20px 40px;
+	padding: 0px 0px 0px 0px;
 }
 .booking-form .form-grp label {
 	color: #8d5f77;
@@ -1125,7 +1125,8 @@ label {
 	font-family: 'Barlow', sans-serif;
 }
 .booking-form .form-grp.select .form-select {
-	padding: 0px 20px 0 30px;
+	padding: 0px 0px 0 20px;
+	margin-left: 25px;
 	font-size: 16px;
 	font-weight: 500;
 	color: #2a2a2a;
@@ -1143,11 +1144,14 @@ label {
 	font-family: 'Barlow', sans-serif;
 	cursor: pointer;
 }
+.booking-form ul li:nth-child(2) {
+	width: 250px;
+}
 .booking-form ul li:nth-child(3) {
-	width: 180px;
+	width: 250px;
 }
 .booking-form .form-grp.select {
-	padding: 16px 0px;
+	padding: 16px 0px ;
 }
 .booking-form ul li:nth-child(4) {
 	width: 270px;
@@ -1159,6 +1163,7 @@ label {
 	padding: 0;
 	height: auto;
 	color: #2a2a2a;
+	font-size: 15px;
 	font-weight: 500;
 }
 .booking-form .form-grp.date input::placeholder {
@@ -1183,7 +1188,7 @@ label {
 .booking-form .form-grp.date ul li:last-child {
 	margin-right: 0;
 	padding-right: 0;
-	width: 500px;
+	width: 100px;
 }
 .booking-form .form-grp.date ul li::before {
 	content: "";

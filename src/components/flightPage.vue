@@ -2235,8 +2235,7 @@ onMounted(() => {
                 <div class="navbar-wrap main-menu d-none d-lg-flex"> <!--字体大小 navbar-wrap -->
                   <ul class="navigation">
                     <li class="active"><router-link to="/flight">Flight</router-link></li>
-                    <li><a href="#">Hotel</a></li>
-                    <li class="menu-item-has-children"><a href="#">Car</a>
+                    <li class="menu-item-has-children"><a href="#">Hotel</a>
                       <ul class="submenu">
                         <li><a href="#">Booking List</a></li>
                         <li><a href="#">Booking Details</a></li>
@@ -2328,30 +2327,23 @@ onMounted(() => {
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
-            <div class="booking-tag">
-              <ul>
-                <li><a href="#"><i class="flaticon-flight"></i>Flights</a></li>
-                <li><a href="#"><i class="flaticon-car-1"></i>Car Rentals</a></li>
-                <li><a href="#"><i class="flaticon-eiffel-tower"></i>Attractions</a></li>
-              </ul>
-            </div>
             <div class="booking-wrap">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="bOOKing-tab" data-bs-toggle="tab" data-bs-target="#bOOKing-tab-pane" type="button"
-                          role="tab" aria-controls="bOOKing-tab-pane" aria-selected="true"><i class="flaticon-flight"></i>air BOOKing</button>
+                  <button class="nav-link active" id="air-tab" data-bs-toggle="tab" data-bs-target="#air-tab-pane" type="button"
+                          role="tab" aria-controls="air-tab-pane" aria-selected="true"><i class="flaticon-flight"></i>air BOOKing</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="check-tab" data-bs-toggle="tab" data-bs-target="#check-tab-pane" type="button"
-                          role="tab" aria-controls="check-tab-pane" aria-selected="false"><i class="flaticon-tick"></i> check-in</button>
+                  <button class="nav-link" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel-tab-pane" type="button"
+                          role="tab" aria-controls="hotel-tab-pane" aria-selected="false"><i class="flaticon-home"></i> Hotel Booking</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="flight-tab" data-bs-toggle="tab" data-bs-target="#flight-tab-pane" type="button"
-                          role="tab" aria-controls="flight-tab-pane" aria-selected="false"><i class="flaticon-clock"></i> Flight status</button>
+                  <button class="nav-link" id="status-tab" data-bs-toggle="tab" data-bs-target="#status-tab-pane" type="button"
+                          role="tab" aria-controls="status-tab-pane" aria-selected="false"><i class="flaticon-clock"></i> Flight status</button>
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="bOOKing-tab-pane" role="tabpanel" aria-labelledby="bOOKing-tab" tabindex="0">
+                <div class="tab-pane fade show active" id="air-tab-pane" role="tabpanel" aria-labelledby="air-tab" tabindex="0"><!--航班-->
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">
@@ -2393,61 +2385,39 @@ onMounted(() => {
                               </div>
                             </li>
                             <li>
-                              <div class="form-grp economy">
-                                <label for="text">Passenger</label>
-<!--                                <input type="text" id="text" placeholder="1 Passenger, Economy">-->
-<!--                                <el-input-number v-model="num" :min="1" :max="10" @change="handleChange" />-->
-                                <input type="number" name="quantity" min="1" max="5">
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp economy">
+                              <div class="form-grp select">
                                 <label for="text">Class</label>
-                                <input type="text" id="text" placeholder="1 Passenger, Economy">
+                                <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
+                                  <option value="">Economy</option>
+                                  <option>Business</option>
+                                  <option>First</option>
+                                </select>
                               </div>
                             </li>
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
                           <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="check-tab-pane" role="tabpanel" aria-labelledby="check-tab" tabindex="0">
+                <div class="tab-pane fade" id="hotel-tab-pane" role="tabpanel" aria-labelledby="hotel-tab" tabindex="0"><!--酒店-->
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">
-                        <div class="content-top">
-                          <ul>
-                            <li>Flights</li>
-                            <li><span>Just from $12</span>Geair Stopover</li>
-                          </ul>
-                        </div>
                         <form action="#" class="booking-form">
                           <ul>
                             <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="From">
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="To">
-                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
-                              </div>
-                            </li>
-                            <li>
                               <div class="form-grp select">
-                                <label for="shortByThree">Trip</label>
-                                <select id="shortByThree" name="select" class="form-select" aria-label="Default select example">
-                                  <option value="">Tour type</option>
-                                  <option>Adventure Travel</option>
-                                  <option>Family Tours</option>
-                                  <option>Newest Item</option>
-                                  <option>Nature & wildlife</option>
+                                <label for="shortBy">City</label>
+                                <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
+                                  <option value="">City1</option>
+                                  <option>City2</option>
+                                  <option>City3</option>
+                                  <option>City4</option>
+                                  <option>City5</option>
                                 </select>
                               </div>
                             </li>
@@ -2455,33 +2425,32 @@ onMounted(() => {
                               <div class="form-grp date">
                                 <ul>
                                   <li>
-                                    <label for="shortBy">Depart</label>
-                                    <input type="text" class="date" placeholder="Select Date">
-                                  </li>
-                                  <li>
-                                    <label for="shortBy">Return</label>
+                                    <label for="shortBy">Check-in Date</label>
                                     <input type="text" class="date" placeholder="Select Date">
                                   </li>
                                 </ul>
                               </div>
                             </li>
                             <li>
-                              <div class="form-grp economy">
-                                <label for="textThree">Passenger/ Class</label>
-                                <input type="text" id="textThree" placeholder="1 Passenger, Economy">
+                              <div class="form-grp date">
+                                <ul>
+                                  <li>
+                                    <label for="shortBy">Check-out Date</label>
+                                    <input type="text" class="date" placeholder="Select Date">
+                                  </li>
+                                </ul>
                               </div>
                             </li>
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
-                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
+                          <a href="booking-details.html" class="btn">Show Hotels <i class="flaticon-home"></i></a>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="flight-tab-pane" role="tabpanel" aria-labelledby="flight-tab" tabindex="0">
+                <div class="tab-pane fade" id="status-tab-pane" role="tabpanel" aria-labelledby="status-tab" tabindex="0">
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">

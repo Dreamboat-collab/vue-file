@@ -2201,8 +2201,7 @@ onMounted(() => {
                 <div class="navbar-wrap main-menu d-none d-lg-flex"> <!--字体大小 navbar-wrap -->
                   <ul class="navigation">
                     <li class="active"><router-link to="/flight">Flight</router-link></li>
-                    <li><a href="#">Hotel</a></li>
-                    <li class="menu-item-has-children"><a href="#">Car</a>
+                    <li class="menu-item-has-children"><a href="#">Hotel</a>
                       <ul class="submenu">
                         <li><a href="#">Booking List</a></li>
                         <li><a href="#">Booking Details</a></li>
