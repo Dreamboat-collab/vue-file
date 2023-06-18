@@ -32,7 +32,7 @@ import '@/assets/CSS/responsive.css';
 //import 'magnific-popup/dist/jquery.magnific-popup.min.js';
 //import '@/assets/js/jquery.magnific-popup.min.js';
 import '@/assets/js/jquery.odometer.min.js';
-//import '@/assets/js/slick.min.js';
+import '@/assets/js/slick.min.js';
 import "@/assets/js/jquery-ui.min.js";
 import {WOW} from 'wowjs'
 import IndexHeader1 from "@/components/indexHeader1.vue";
@@ -1919,7 +1919,7 @@ onMounted(() => {
 
 
     /*=============================================
-              =          Data Background               =
+         =          Data Background     弃用        =
           =============================================*/
     $("[data-background]").each(function () {
       $(this).css("background-image", "url(" + $(this).attr("data-background") + ")")
@@ -1942,7 +1942,7 @@ onMounted(() => {
       });
       BasicSlider.slick({
         autoplay: true,
-        autoplaySpeed: 5000,
+        autoplaySpeed: 3000,//轮播速度
         dots: false,
         fade: true,
         arrows: false,
@@ -2191,7 +2191,9 @@ onMounted(() => {
   })($);
 });
 
+
 </script>
+
 
 <template>
   <html class="no-js" lang="en">
@@ -2232,7 +2234,7 @@ onMounted(() => {
                 <div class="logo" style="top: 0px !important;"><a style="top: 0px" href="#"><img style="top: 0px !important;margin-top: 0px;height: 10vh" src="../assets/logo4.png" alt=""></a></div>
                 <div class="navbar-wrap main-menu d-none d-lg-flex"> <!--字体大小 navbar-wrap -->
                   <ul class="navigation">
-                    <li class="active"><a href="#">Flight</a></li>
+                    <li class="active"><router-link to="/flight">Flight</router-link></li>
                     <li><a href="#">Hotel</a></li>
                     <li class="menu-item-has-children"><a href="#">Car</a>
                       <ul class="submenu">
@@ -2240,7 +2242,7 @@ onMounted(() => {
                         <li><a href="#">Booking Details</a></li>
                       </ul>
                     </li>
-                    <li class="menu-item-has-children"><a href="#">Recommendation</a>
+                    <li class="menu-item-has-children"><a href="#">Attractions</a>
                       <ul class="submenu">
                         <li><a href="#">Our Blog</a></li>
                         <li><a href="#">Blog Details</a></li>
@@ -2261,15 +2263,6 @@ onMounted(() => {
                 <div class="menu-outer">
                   <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
                 </div>
-                <div class="social-links">
-                  <ul class="clearfix">
-                    <li><a href="#"><span class="fab fa-twitter"></span></a></li>
-                    <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                    <li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
-                    <li><a href="#"><span class="fab fa-instagram"></span></a></li>
-                    <li><a href="#"><span class="fab fa-youtube"></span></a></li>
-                  </ul>
-                </div>
               </nav>
             </div>
             <div class="menu-backdrop"></div>
@@ -2281,14 +2274,26 @@ onMounted(() => {
   </header>
   <!-- header-area-end -->
 
-
   <!-- main-area -->
   <main>
 
     <!-- slider-area -->
     <section class="slider-area">
       <div class="slider-active">
-        <div class="single-slider slider-bg" data-background="assets/img/slider/slider_bg01.jpg">
+        <div class="single-slider slider-bg"><!--第一条轮播-->
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-8 col-lg-10">
+                <div class="slider-content">
+                  <h2 class="title" data-animation="fadeInUp" data-delay=".2s">Start your journey with us.</h2>
+                  <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant savings of 10% or more with a free Star Airlines account</p>
+                  <a href="#" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in / Register</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="single-slider slider-bg2" >
           <div class="container">
             <div class="row">
               <div class="col-xl-8 col-lg-10">
@@ -2301,20 +2306,7 @@ onMounted(() => {
             </div>
           </div>
         </div>
-        <div class="single-slider slider-bg" data-background="assets/img/slider/slider_bg02.jpg">
-          <div class="container">
-            <div class="row">
-              <div class="col-xl-8 col-lg-10">
-                <div class="slider-content">
-                  <h2 class="title" data-animation="fadeInUp" data-delay=".2s">A Lifetime of Discounts? It's Genius.</h2>
-                  <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant savings of 10% or more with a free Geairinfo.com account</p>
-                  <a href="contact.html" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in / Register</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="single-slider slider-bg" data-background="assets/img/slider/slider_bg03.jpg">
+        <div class="single-slider slider-bg3" >
           <div class="container">
             <div class="row">
               <div class="col-xl-8 col-lg-10">
@@ -2338,10 +2330,9 @@ onMounted(() => {
           <div class="col-lg-12">
             <div class="booking-tag">
               <ul>
-                <li><a href="booking-list.html"><i class="flaticon-flight"></i>Flights</a></li>
-                <li><a href="booking-list.html"><i class="flaticon-car-1"></i>Car Rentals</a></li>
-                <li><a href="booking-list.html"><i class="flaticon-eiffel-tower"></i>Attractions</a></li>
-                <li><a href="booking-list.html"><i class="flaticon-taxi"></i>Airport Taxis</a></li>
+                <li><a href="#"><i class="flaticon-flight"></i>Flights</a></li>
+                <li><a href="#"><i class="flaticon-car-1"></i>Car Rentals</a></li>
+                <li><a href="#"><i class="flaticon-eiffel-tower"></i>Attractions</a></li>
               </ul>
             </div>
             <div class="booking-wrap">
@@ -2349,10 +2340,6 @@ onMounted(() => {
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="bOOKing-tab" data-bs-toggle="tab" data-bs-target="#bOOKing-tab-pane" type="button"
                           role="tab" aria-controls="bOOKing-tab-pane" aria-selected="true"><i class="flaticon-flight"></i>air BOOKing</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="trips-tab" data-bs-toggle="tab" data-bs-target="#trips-tab-pane" type="button"
-                          role="tab" aria-controls="trips-tab-pane" aria-selected="false"><i class="flaticon-file"></i> my trips</button>
                 </li>
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" id="check-tab" data-bs-toggle="tab" data-bs-target="#check-tab-pane" type="button"
@@ -2368,111 +2355,38 @@ onMounted(() => {
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">
-                        <div class="content-top">
-                          <ul>
-                            <li>Flights</li>
-                            <li><span>Just from $12</span>Geair Stopover</li>
-                          </ul>
-                        </div>
                         <form action="#" class="booking-form">
                           <ul>
                             <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="From">
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="To">
-                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
-                              </div>
-                            </li>
-                            <li>
                               <div class="form-grp select">
-                                <label for="shortBy">Trip</label>
+                                <label for="shortBy">From</label>
                                 <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
-                                  <option value="">Tour type</option>
-                                  <option>Adventure Travel</option>
-                                  <option>Family Tours</option>
-                                  <option>Newest Item</option>
-                                  <option>Nature & wildlife</option>
+                                  <option value="">City1</option>
+                                  <option>City2</option>
+                                  <option>City3</option>
+                                  <option>City4</option>
+                                  <option>City5</option>
                                 </select>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp date">
-                                <ul>
-                                  <li>
-                                    <label for="shortBy">Depart</label>
-                                    <input type="text" class="date" placeholder="Select Date">
-                                  </li>
-                                  <li>
-                                    <label for="shortBy">Return</label>
-                                    <input type="text" class="date" placeholder="Select Date">
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp economy">
-                                <label for="text">Passenger/ Class</label>
-                                <input type="text" id="text" placeholder="1 Passenger, Economy">
-                              </div>
-                            </li>
-                          </ul>
-                        </form>
-                        <div class="content-bottom">
-                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
-                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="trips-tab-pane" role="tabpanel" aria-labelledby="trips-tab" tabindex="0">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="tab-content-wrap">
-                        <div class="content-top">
-                          <ul>
-                            <li>Flights</li>
-                            <li><span>Just from $12</span>Geair Stopover</li>
-                          </ul>
-                        </div>
-                        <form action="#" class="booking-form">
-                          <ul>
-                            <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="From">
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="To">
-                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
                               </div>
                             </li>
                             <li>
                               <div class="form-grp select">
-                                <label for="shortByTwo">Trip</label>
-                                <select id="shortByTwo" name="select" class="form-select" aria-label="Default select example">
-                                  <option value="">Tour type</option>
-                                  <option>Adventure Travel</option>
-                                  <option>Family Tours</option>
-                                  <option>Newest Item</option>
-                                  <option>Nature & wildlife</option>
+                                <label for="shortBy">To</label>
+                                <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
+                                  <option value="">City1</option>
+                                  <option>City2</option>
+                                  <option>City3</option>
+                                  <option>City4</option>
+                                  <option>City5</option>
                                 </select>
+                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
                               </div>
                             </li>
                             <li>
                               <div class="form-grp date">
                                 <ul>
                                   <li>
-                                    <label for="shortBy">Depart</label>
-                                    <input type="text" class="date" placeholder="Select Date">
-                                  </li>
-                                  <li>
-                                    <label for="shortBy">Return</label>
+                                    <label for="shortBy">Departure Date</label>
                                     <input type="text" class="date" placeholder="Select Date">
                                   </li>
                                 </ul>
@@ -2480,8 +2394,16 @@ onMounted(() => {
                             </li>
                             <li>
                               <div class="form-grp economy">
-                                <label for="textTwo">Passenger/ Class</label>
-                                <input type="text" id="textTwo" placeholder="1 Passenger, Economy">
+                                <label for="text">Passenger</label>
+<!--                                <input type="text" id="text" placeholder="1 Passenger, Economy">-->
+<!--                                <el-input-number v-model="num" :min="1" :max="10" @change="handleChange" />-->
+                                <input type="number" name="quantity" min="1" max="5">
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp economy">
+                                <label for="text">Class</label>
+                                <input type="text" id="text" placeholder="1 Passenger, Economy">
                               </div>
                             </li>
                           </ul>

@@ -2200,7 +2200,7 @@ onMounted(() => {
                 <div class="logo" style="top: 0px !important;"><a style="top: 0px" href="#"><img style="top: 0px !important;margin-top: 0px;height: 10vh" src="../assets/logo4.png" alt=""></a></div>
                 <div class="navbar-wrap main-menu d-none d-lg-flex"> <!--字体大小 navbar-wrap -->
                   <ul class="navigation">
-                    <li class="active"><a href="#">Flight</a></li>
+                    <li class="active"><router-link to="/flight">Flight</router-link></li>
                     <li><a href="#">Hotel</a></li>
                     <li class="menu-item-has-children"><a href="#">Car</a>
                       <ul class="submenu">
@@ -2208,7 +2208,7 @@ onMounted(() => {
                         <li><a href="#">Booking Details</a></li>
                       </ul>
                     </li>
-                    <li class="menu-item-has-children"><a href="#">Recommendation</a>
+                    <li class="menu-item-has-children"><a href="#">Attractions</a>
                       <ul class="submenu">
                         <li><a href="#">Our Blog</a></li>
                         <li><a href="#">Blog Details</a></li>
@@ -2228,15 +2228,6 @@ onMounted(() => {
                 </div>
                 <div class="menu-outer">
                   <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
-                </div>
-                <div class="social-links">
-                  <ul class="clearfix">
-                    <li><a href="#"><span class="fab fa-twitter"></span></a></li>
-                    <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                    <li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
-                    <li><a href="#"><span class="fab fa-instagram"></span></a></li>
-                    <li><a href="#"><span class="fab fa-youtube"></span></a></li>
-                  </ul>
                 </div>
               </nav>
             </div>

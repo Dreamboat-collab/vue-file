@@ -804,6 +804,29 @@ label {
 	align-items: center;
 	z-index: 1;
 	padding: 100px 0 200px;
+	background-image: url("@/assets/img/slider/formal_bg.jpg");
+}
+.slider-bg2 {
+	background-size: cover;
+	background-position: center;
+	min-height: 700px;
+	position: relative;
+	display: flex !important;
+	align-items: center;
+	z-index: 1;
+	padding: 100px 0 200px;
+	background-image: url("@/assets/img/slider/bg2.jpg");
+}
+.slider-bg3 {
+	background-size: cover;
+	background-position: center;
+	min-height: 700px;
+	position: relative;
+	display: flex !important;
+	align-items: center;
+	z-index: 1;
+	padding: 100px 0 200px;
+	background-image: url("@/assets/img/slider/resort.jpg");
 }
 .slider-bg::before {
 	content: "";
@@ -812,7 +835,29 @@ label {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background: #003580;
+	background: #003580;/*slider背景色*/
+	opacity: .85;
+	z-index: -1;
+}
+.slider-bg2::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #003580;/*slider背景色*/
+	opacity: .85;
+	z-index: -1;
+}
+.slider-bg3::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #003580;/*slider背景色*/
 	opacity: .85;
 	z-index: -1;
 }
@@ -1080,7 +1125,7 @@ label {
 	font-family: 'Barlow', sans-serif;
 }
 .booking-form .form-grp.select .form-select {
-	padding: 0px 20px 0 10px;
+	padding: 0px 20px 0 30px;
 	font-size: 16px;
 	font-weight: 500;
 	color: #2a2a2a;
@@ -1122,16 +1167,23 @@ label {
 }
 .booking-form .form-grp.date label {
 	margin-left: 0;
+
+}
+.booking-form .form-grp.date input {/*日期栏位置*/
+	margin-left: 22px;
+
 }
 .booking-form .form-grp.date ul li {
 	width: 50%;
 	margin-right: 20px;
-	padding-right: 15px;
+	/*margin-left: 30px;*/
+	/*padding-right: 15px;*/
 	position: relative;
 }
 .booking-form .form-grp.date ul li:last-child {
 	margin-right: 0;
 	padding-right: 0;
+	width: 500px;
 }
 .booking-form .form-grp.date ul li::before {
 	content: "";
@@ -1151,6 +1203,9 @@ label {
 .booking-form .form-grp.economy {
 	border: none;
 	padding: 16px 20px;
+}
+.booking-form .form-grp.economy el-input-number{
+	background-color: transparent;
 }
 .booking-form .form-grp.economy input {
 	padding: 0;
