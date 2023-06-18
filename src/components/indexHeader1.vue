@@ -1833,7 +1833,6 @@ onMounted(() => {
 
     $(window).on('load', function () {
       preloader();
-      mainSlider();
       wowAnimation();
     });
 
@@ -1905,153 +1904,10 @@ onMounted(() => {
 
 
 
-    /*=============================================
-              =          Data Background               =
-          =============================================*/
-    $("[data-background]").each(function () {
-      $(this).css("background-image", "url(" + $(this).attr("data-background") + ")")
-    })
 
 
 
-    /*=============================================
-              =    		 Main Slider		      =
-          =============================================*/
-    function mainSlider() {
-      var BasicSlider = $('.slider-active');
-      BasicSlider.on('init', function (e, slick) {
-        var $firstAnimatingElements = $('.single-slider:first-child').find('[data-animation]');
-        doAnimations($firstAnimatingElements);
-      });
-      BasicSlider.on('beforeChange', function (e, slick, currentSlide, nextSlide) {
-        var $animatingElements = $('.single-slider[data-slick-index="' + nextSlide + '"]').find('[data-animation]');
-        doAnimations($animatingElements);
-      });
-      BasicSlider.slick({
-        autoplay: true,
-        autoplaySpeed: 5000,
-        dots: false,
-        fade: true,
-        arrows: false,
-        responsive: [
-          { breakpoint: 767, settings: { dots: false, arrows: false } }
-        ]
-      });
 
-      function doAnimations(elements) {
-        var animationEndEvents = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-        elements.each(function () {
-          var $this = $(this);
-          var $animationDelay = $this.data('delay');
-          var $animationType = 'animated ' + $this.data('animation');
-          $this.css({
-            'animation-delay': $animationDelay,
-            '-webkit-animation-delay': $animationDelay
-          });
-          $this.addClass($animationType).one(animationEndEvents, function () {
-            $this.removeClass($animationType);
-          });
-        });
-      }
-    }
-
-
-    /*=============================================
-              =    		Brand Active		      =
-          =============================================*/
-    $('.brand-active').slick({
-      dots: false,
-      infinite: true,
-      speed: 1000,
-      autoplay: true,
-      arrows: false,
-      slidesToShow: 6,
-      slidesToScroll: 2,
-      responsive: [
-        {
-          breakpoint: 1200,
-          settings: {
-            slidesToShow: 5,
-            slidesToScroll: 1,
-            infinite: true,
-          }
-        },
-        {
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 1
-          }
-        },
-        {
-          breakpoint: 767,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            arrows: false,
-          }
-        },
-        {
-          breakpoint: 575,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            arrows: false,
-          }
-        },
-      ]
-    });
-
-
-
-    /*=============================================
-              =    		Service Active		      =
-          =============================================*/
-    $('.service-active').slick({
-      dots: false,
-      infinite: true,
-      speed: 2000,
-      autoplay: true,
-      arrows: true,
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      prevArrow: '<span class="slick-prev"><i class="fa-solid fa-arrow-left"></i></span>',
-      nextArrow: '<span class="slick-next"><i class="fa-solid fa-arrow-right"></i></span>',
-      appendArrows: ".service-nav",
-      responsive: [
-        {
-          breakpoint: 1200,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            infinite: true,
-          }
-        },
-        {
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1
-          }
-        },
-        {
-          breakpoint: 767,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false,
-          }
-        },
-        {
-          breakpoint: 575,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false,
-          }
-        },
-      ]
-    });
 
     /*=============================================
               =    	   Toggle Active  	         =
@@ -2103,53 +1959,6 @@ onMounted(() => {
     });
 
 
-    /*=============================================
-              =    		Magnific Popup		      =
-          =============================================*/
-    // window.onload = function() {
-    //   // 在这里编写需要在 DOM 加载后执行的代码
-    //   $('.popup-image').magnificPopup({
-    //     type: 'image',
-    //     gallery: {
-    //       enabled: true
-    //     }
-    //   });
-    // }
-    //
-    //
-    //  /* magnificPopup video view */
-    // window.onload = function() {
-    //   // 在这里编写需要在 DOM 加载后执行的代码
-    //   $('.popup-video').magnificPopup({
-    //     type: 'iframe'
-    //   });
-    // }
-
-
-
-
-    /*=============================================
-              =    		Isotope	Active  	      =
-          =============================================*/
-    // $(document).ready(function (){
-    //   // 在这里编写需要在 DOM 加载后执行的代码
-    //   $('.fly-next-active').imagesLoaded(function () {
-    //     // init Isotope
-    //     var $grid = $('.fly-next-active').isotope({
-    //       itemSelector: '.grid-item',
-    //       percentPosition: true,
-    //       masonry: {
-    //         columnWidth: '.grid-item',
-    //       }
-    //     });
-    //     // filter items on button click
-    //     $('.fly-next-nav').on('click', 'button', function () {
-    //       var filterValue = $(this).attr('data-filter');
-    //       $grid.isotope({ filter: filterValue });
-    //     });
-    //
-    //   });
-    // });
 
 
 //for menu active class
