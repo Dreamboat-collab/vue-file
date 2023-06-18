@@ -2454,67 +2454,23 @@ onMounted(() => {
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">
-                        <div class="content-top">
-                          <ul>
-                            <li>Flights</li>
-                            <li><span>Just from $12</span>Geair Stopover</li>
-                          </ul>
-                        </div>
                         <form action="#" class="booking-form">
                           <ul>
                             <li>
                               <div class="form-grp">
-                                <input type="text" placeholder="From">
+                                <input type="text" placeholder="Flight No.">
                               </div>
                             </li>
-                            <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="To">
-                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp select">
-                                <label for="shortByFour">Trip</label>
-                                <select id="shortByFour" name="select" class="form-select" aria-label="Default select example">
-                                  <option value="">Tour type</option>
-                                  <option>Adventure Travel</option>
-                                  <option>Family Tours</option>
-                                  <option>Newest Item</option>
-                                  <option>Nature & wildlife</option>
-                                </select>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp date">
-                                <ul>
-                                  <li>
-                                    <label for="shortBy">Depart</label>
-                                    <input type="text" class="date" placeholder="Select Date">
-                                  </li>
-                                  <li>
-                                    <label for="shortBy">Return</label>
-                                    <input type="text" class="date" placeholder="Select Date">
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp economy">
-                                <label for="textFour">Passenger/ Class</label>
-                                <input type="text" id="textFour" placeholder="1 Passenger, Economy">
-                              </div>
-                            </li>
+
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
-                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
+                          <a href="booking-details.html" class="btn">Show Flight Status <i class="flaticon-flight-1"></i></a>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </div><!--航班状态-->
               </div>
             </div>
           </div>
