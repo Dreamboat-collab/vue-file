@@ -299,9 +299,8 @@ import IndexFooter1 from "@/components/indexFooter1.vue";
           const securityKey=response.data.data;
           console.log(securityKey);
           localStorage.setItem('securityKey', securityKey);
-          // 跳转到主页（可以使用Vue Router进行导航）
+          // 跳转到主页（可以使用Vue Rout@er进行导航）
           router.push({path: '/home'});
-          // router.push({path: '/user'});
         }
         if (isenabled.value) {
           ElMessage({
@@ -316,7 +315,6 @@ import IndexFooter1 from "@/components/indexFooter1.vue";
 }
 
 $("#sticky-header").addClass("sticky-menu")
-
 
 
 </script>
