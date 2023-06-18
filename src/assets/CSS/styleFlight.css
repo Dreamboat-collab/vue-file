@@ -376,7 +376,7 @@ label {
 .logo1 img {
 	max-width: 50px;
 	/*position: relative;*/
-	/*padding: 0px 0px 0px 0px;*/
+	padding: 3vh 0px 0px 0px;
 	/*text-align: left;*/
 }
 .navbar-wrap {
@@ -1801,7 +1801,7 @@ label {
 
 /* 12. Brand */
 .brand-bg {
-	background-image: url(../img/bg/brand_bg.jpg);
+	background-image: url(../img/bg/airline1.jpg);
 	background-size: cover;
 	background-position: center;
 	position: relative;
@@ -1905,7 +1905,9 @@ label {
 .service-nav .slick-arrow.slick-prev {
 	margin-right: 10px;
 }
-
+.service-area .section-title{
+	text-align: left;
+}
 /* 14. Faq */
 .faq-area {
 	padding: 100px 0;

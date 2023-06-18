@@ -2380,8 +2380,8 @@ const methods = {
                           <ul>
                             <li>
                               <div class="form-grp select">
-                                <label for="shortBy">From</label>
-                                <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
+                                <label for="From">From</label>
+                                <select id="From" name="select" class="form-select" aria-label="Default select example">
 <!--                                  <option value="">Guangzhou</option>-->
                                   <option v-for="i in depart" :key="i.id" :value="i" >{{i}}</option>
                                 </select>
@@ -2389,8 +2389,8 @@ const methods = {
                             </li>
                             <li>
                               <div class="form-grp select">
-                                <label for="shortBy">To</label>
-                                <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
+                                <label for="To">To</label>
+                                <select id="To" name="select" class="form-select" aria-label="Default select example">
                                   <option v-for="i in arrival" :key="i.id">{{i}}</option>
                                 </select>
                                 <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
@@ -2400,16 +2400,16 @@ const methods = {
                               <div class="form-grp date">
                                 <ul>
                                   <li>
-                                    <label for="shortBy">Departure Date</label>
-                                    <input type="text" class="date" placeholder="Select Date">
+                                    <label for="flightDate">Departure Date</label>
+                                    <input type="text" class="date" placeholder="Select Date" id="flightDate">
                                   </li>
                                 </ul>
                               </div>
                             </li>
                             <li>
                               <div class="form-grp select">
-                                <label for="text">Class</label>
-                                <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
+                                <label for="Class">Class</label>
+                                <select id="Class" name="select" class="form-select" aria-label="Default select example">
                                   <option value="">Economy</option>
                                   <option>Business</option>
                                   <option>First</option>
@@ -2433,8 +2433,8 @@ const methods = {
                           <ul>
                             <li>
                               <div class="form-grp select">
-                                <label for="shortBy">City</label>
-                                <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
+                                <label for="hotelCity">City</label>
+                                <select id="hotelCity" name="select" class="form-select" aria-label="Default select example">
                                   <option v-for="i in arrival" :key="i.id">{{i}}</option>
                                 </select>
                               </div>
@@ -2443,8 +2443,8 @@ const methods = {
                               <div class="form-grp date">
                                 <ul>
                                   <li>
-                                    <label for="shortBy">Check-in Date</label>
-                                    <input type="text" class="date" placeholder="Select Date">
+                                    <label for="inDate">Check-in Date</label>
+                                    <input type="text" class="date" placeholder="Select Date" id="inDate">
                                   </li>
                                 </ul>
                               </div>
@@ -2453,8 +2453,8 @@ const methods = {
                               <div class="form-grp date">
                                 <ul>
                                   <li>
-                                    <label for="shortBy">Check-out Date</label>
-                                    <input type="text" class="date" placeholder="Select Date">
+                                    <label for="outDate">Check-out Date</label>
+                                    <input type="text" class="date" placeholder="Select Date" id="outDate">
                                   </li>
                                 </ul>
                               </div>
@@ -2723,7 +2723,7 @@ const methods = {
           <div class="col-lg-8">
             <div class="section-title text-center">
               <span class="sub-title">Flynext Package</span>
-              <h2 class="title">Destination Hotel</h2>
+              <h2 class="title">Destination Hotels</h2>
             </div>
           </div>
         </div>
@@ -2735,11 +2735,10 @@ const methods = {
               </div>
               <div class="fly-next-content">
                 <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Dubai (DXB)</h4>
-                <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
-                <h4 class="title">New York (USA)</h4>
+                <h4 class="title">Four Seasons Hotel</h4>
+                <h4 class="title">Guangzhou</h4>
                 <div class="content-bottom">
-                  <p>Economy from</p>
+                  <p>From</p>
                   <h4 class="price">$195</h4>
                 </div>
               </div>

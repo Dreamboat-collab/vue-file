@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
-
+import axios from "axios";
+import router from '@/router';
 import $ from 'jquery';
 import 'bootstrap';
 // 引入bootstrap样式
@@ -2177,6 +2178,18 @@ onMounted(() => {
   })($);
 });
 
+// 实现页面跳转
+const navigateToAnotherPage1 = () => {
+  router.push('/userinfo'); // 替换 '/another-page' 为你想要跳转的实际路由路径
+  console.log('true')
+};
+const navigateToAnotherPage2 = () => {
+  router.push('/login'); // 替换 '/another-page' 为你想要跳转的实际路由路径
+  console.log('true')
+};
+const methods = {
+  navigateToAnotherPage1,
+};
 </script>
 
 <template>
@@ -2214,7 +2227,7 @@ onMounted(() => {
                       </ul>
                     </li>
                     <li><a href="contact.html">About Us</a></li>
-                    <li><div class="logo1"><a href="#"><img src="../../public/account.png"></a></div></li>
+                    <li><div class="logo1"  @click="navigateToAnotherPage1"><img src="../../public/account.png" @click="navigateToAnotherPage1"></div></li>
                   </ul>
                 </div>
               </nav>

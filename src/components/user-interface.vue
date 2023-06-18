@@ -1,5 +1,6 @@
 <script setup>
 import IndexHeader from "@/components/IndexHeader.vue";
+import IndexHeader1 from "@/components/indexHeader1.vue";
 import IndexFooter from "@/components/IndexFooter.vue";
 // 图标
 import "@/assets/CSS/font-awesome-5.15.2.all.css";
@@ -23,7 +24,7 @@ const activeIndex = ref('1')
 </script>
 
 <template>
-  <index-header></index-header>
+  <index-header1></index-header1>
   <div class="card" style="margin-bottom: 0px">
     <div class="section">
       <div class="pic">
