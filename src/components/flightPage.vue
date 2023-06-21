@@ -2249,7 +2249,7 @@ onMounted(() => {
                       </ul>
                     </li>
                     <li><a href="contact.html">About Us</a></li>
-                    <li><div><a href="#" style="padding: 0"><img src="../../public/account.png"></a></div></li>
+                    <li><div><a href="#" style="padding: 0"><img src="../../public/account.png" style="max-width: 40%;"></a></div></li>
                   </ul>
                 </div>
               </nav>
