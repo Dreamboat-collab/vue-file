@@ -23,8 +23,6 @@ onMounted(() => {
     address2.value=b;
   });
   console.log(`the Flight is now mounted.`)
-
-
 })
 
 console.log(address1)

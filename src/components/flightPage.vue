@@ -1,5 +1,5 @@
 <script setup>
-import {onBeforeMount, onMounted, ref, watch} from 'vue';
+import { onMounted } from 'vue';
 
 import $ from 'jquery';
 // 引入bootstrap样式
@@ -18,7 +18,7 @@ import '@/assets/CSS/bootstrap-datepicker.min.css';
 import '@/assets/CSS/odometer.css';
 import '@/assets/CSS/flaticon.css';
 import '@/assets/CSS/jquery-ui.css';
-//import '@/assets/CSS/slick.css';
+import '@/assets/CSS/slick.css';
 import '@/assets/CSS/default.css';
 import '@/assets/CSS/styleFlight.css';
 import '@/assets/CSS/responsive.css';
@@ -32,13 +32,11 @@ import '@/assets/CSS/responsive.css';
 //import 'magnific-popup/dist/jquery.magnific-popup.min.js';
 //import '@/assets/js/jquery.magnific-popup.min.js';
 import '@/assets/js/jquery.odometer.min.js';
-//import '@/assets/js/slick.min.js';
+import '@/assets/js/slick.min.js';
 import "@/assets/js/jquery-ui.min.js";
 import {WOW} from 'wowjs'
 import IndexHeader1 from "@/components/indexHeader1.vue";
 import IndexFooter1 from "@/components/indexFooter1.vue";
-import axios from "axios";
-import router from '@/router';
 //import "@/assets/js/wow.min.js";
 //import "@/assets/js/main1.js";
 
@@ -1848,9 +1846,11 @@ onMounted(() => {
 
     $(window).on('load', function () {
       preloader();
-      // mainSlider();
+      mainSlider();
       wowAnimation();
     });
+
+
 
     /*=============================================
               =    		Mobile Menu			      =
@@ -1883,6 +1883,9 @@ onMounted(() => {
       });
     }
 
+
+
+
     /*=============================================
               =     Menu sticky & Scroll to top      =
           =============================================*/
@@ -1898,6 +1901,7 @@ onMounted(() => {
       }
     });
 
+
     /*=============================================
               =    		 Scroll Up  	         =
           =============================================*/
@@ -1912,13 +1916,155 @@ onMounted(() => {
       });
     }
 
+
+
     /*=============================================
          =          Data Background     弃用        =
           =============================================*/
-    /* $("[data-background]").each(function () {
-       $(this).css("background-image", "url(" + $(this).attr("data-background") + ")")
-     })
-     */
+    $("[data-background]").each(function () {
+      $(this).css("background-image", "url(" + $(this).attr("data-background") + ")")
+    })
+
+
+
+    /*=============================================
+              =    		 Main Slider		      =
+          =============================================*/
+    function mainSlider() {
+      var BasicSlider = $('.slider-active');
+      BasicSlider.on('init', function (e, slick) {
+        var $firstAnimatingElements = $('.single-slider:first-child').find('[data-animation]');
+        doAnimations($firstAnimatingElements);
+      });
+      BasicSlider.on('beforeChange', function (e, slick, currentSlide, nextSlide) {
+        var $animatingElements = $('.single-slider[data-slick-index="' + nextSlide + '"]').find('[data-animation]');
+        doAnimations($animatingElements);
+      });
+      BasicSlider.slick({
+        autoplay: true,
+        autoplaySpeed: 3000,//轮播速度
+        dots: false,
+        fade: true,
+        arrows: false,
+        responsive: [
+          { breakpoint: 767, settings: { dots: false, arrows: false } }
+        ]
+      });
+
+      function doAnimations(elements) {
+        var animationEndEvents = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        elements.each(function () {
+          var $this = $(this);
+          var $animationDelay = $this.data('delay');
+          var $animationType = 'animated ' + $this.data('animation');
+          $this.css({
+            'animation-delay': $animationDelay,
+            '-webkit-animation-delay': $animationDelay
+          });
+          $this.addClass($animationType).one(animationEndEvents, function () {
+            $this.removeClass($animationType);
+          });
+        });
+      }
+    }
+
+
+    /*=============================================
+              =    		Brand Active		      =
+          =============================================*/
+    $('.brand-active').slick({
+      dots: false,
+      infinite: true,
+      speed: 1000,
+      autoplay: true,
+      arrows: false,
+      slidesToShow: 6,
+      slidesToScroll: 2,
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            infinite: true,
+          }
+        },
+        {
+          breakpoint: 992,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 767,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            arrows: false,
+          }
+        },
+        {
+          breakpoint: 575,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            arrows: false,
+          }
+        },
+      ]
+    });
+
+
+
+    /*=============================================
+              =    		Service Active		      =
+          =============================================*/
+    $('.service-active').slick({
+      dots: false,
+      infinite: true,
+      speed: 2000,
+      autoplay: true,
+      arrows: true,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      prevArrow: '<span class="slick-prev"><i class="fa-solid fa-arrow-left"></i></span>',
+      nextArrow: '<span class="slick-next"><i class="fa-solid fa-arrow-right"></i></span>',
+      appendArrows: ".service-nav",
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            infinite: true,
+          }
+        },
+        {
+          breakpoint: 992,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 767,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+          }
+        },
+        {
+          breakpoint: 575,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+          }
+        },
+      ]
+    });
 
     /*=============================================
               =    	   Toggle Active  	         =
@@ -1929,6 +2075,7 @@ onMounted(() => {
       $(this).parent().parent().parent().parent().find('.flight-detail-wrap').slideToggle();
     });
 
+
     /*=============================================
               =           DatePicker Active             =
           =============================================*/
@@ -1938,6 +2085,8 @@ onMounted(() => {
         todayHighlight: true
       }).datepicker('update', new Date());
     });
+
+
 
     /*=============================================
               =    	 Slider Range Active  	         =
@@ -1953,6 +2102,8 @@ onMounted(() => {
     });
     $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
 
+
+
     /*=============================================
               =    		Odometer Active  	       =
           =============================================*/
@@ -1963,6 +2114,7 @@ onMounted(() => {
         $(this).html(countNumber);
       });
     });
+
 
     /*=============================================
               =    		Magnific Popup		      =
@@ -2012,6 +2164,7 @@ onMounted(() => {
     //   });
     // });
 
+
 //for menu active class
     $('.fly-next-nav button, .content-top li, .gender-select ul li').on('click', function (event) {
       $(this).siblings('.active').removeClass('active');
@@ -2037,50 +2190,7 @@ onMounted(() => {
 
   })($);
 });
-onBeforeMount(()=>{
-  axios.get('http://localhost:8080/starAirlines/depart').then((response) => {
-    depart.value=response.data.data
-  })
-  axios.get('http://localhost:8080/starAirlines/arrival').then((response) => {
-    arrival.value=response.data.data
-  })
-})
-const depart=ref([])
-const arrival=ref([])
-const city1=ref()
 
-// 实现页面跳转
-const navigateToAnotherPage1 = () => {
-  router.push('/userinfo'); // 替换 '/another-page' 为你想要跳转的实际路由路径
-  console.log('true')
-};
-const navigateToAnotherPage2 = () => {
-  router.push('/login'); // 替换 '/another-page' 为你想要跳转的实际路由路径
-  console.log('true')
-};
-const methods = {
-  navigateToAnotherPage1,
-};
-
-//忽略element-plus 报错 ResizeObserver loop limit exceeded
-const debounce = (fn, delay) => {
-  let timer = null;
-  return function () {
-    let context = this;
-    let args = arguments;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-      fn.apply(context, args);
-    }, delay);
-  }
-}
-const _ResizeObserver = window.ResizeObserver;
-window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
-  constructor(callback) {
-    callback = debounce(callback, 16);
-    super(callback);
-  }
-}
 
 </script>
 
@@ -2125,7 +2235,8 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 <div class="navbar-wrap main-menu d-none d-lg-flex"> <!--字体大小 navbar-wrap -->
                   <ul class="navigation">
                     <li class="active"><router-link to="/flight">Flight</router-link></li>
-                    <li class="menu-item-has-children"><a href="#">Hotel</a>
+                    <li><a href="#">Hotel</a></li>
+                    <li class="menu-item-has-children"><a href="#">Car</a>
                       <ul class="submenu">
                         <li><a href="#">Booking List</a></li>
                         <li><a href="#">Booking Details</a></li>
@@ -2138,7 +2249,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                       </ul>
                     </li>
                     <li><a href="contact.html">About Us</a></li>
-                    <li><div class="logo1"  @click="navigateToAnotherPage1"><img src="../../public/account.png" @click="navigateToAnotherPage1"></div></li>
+                    <li><div><a href="#" style="padding: 0"><img src="../../public/account.png"></a></div></li>
                   </ul>
                 </div>
               </nav>
@@ -2169,8 +2280,6 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
     <!-- slider-area -->
     <section class="slider-area">
       <div class="slider-active">
-        <el-carousel height="auto" autoplay>
-          <el-carousel-item style="height: 800px">
         <div class="single-slider slider-bg"><!--第一条轮播-->
           <div class="container">
             <div class="row">
@@ -2178,15 +2287,12 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 <div class="slider-content">
                   <h2 class="title" data-animation="fadeInUp" data-delay=".2s">Start your journey with us.</h2>
                   <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant savings of 10% or more with a free Star Airlines account</p>
-<!--                  <a href="#" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in / Register</a>-->
-                  <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">Sign in / Register</button>
+                  <a href="#" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in / Register</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-          </el-carousel-item>
-          <el-carousel-item style="height: 800px">
         <div class="single-slider slider-bg2" >
           <div class="container">
             <div class="row">
@@ -2200,8 +2306,6 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
             </div>
           </div>
         </div>
-          </el-carousel-item>
-          <el-carousel-item style="height: 800px">
         <div class="single-slider slider-bg3" >
           <div class="container">
             <div class="row">
@@ -2215,8 +2319,6 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
             </div>
           </div>
         </div>
-          </el-carousel-item>
-        </el-carousel>
       </div>
     </section>
     <!-- slider-area-end -->
@@ -2226,23 +2328,30 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
+            <div class="booking-tag">
+              <ul>
+                <li><a href="#"><i class="flaticon-flight"></i>Flights</a></li>
+                <li><a href="#"><i class="flaticon-car-1"></i>Car Rentals</a></li>
+                <li><a href="#"><i class="flaticon-eiffel-tower"></i>Attractions</a></li>
+              </ul>
+            </div>
             <div class="booking-wrap">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="air-tab" data-bs-toggle="tab" data-bs-target="#air-tab-pane" type="button"
-                          role="tab" aria-controls="air-tab-pane" aria-selected="true"><i class="flaticon-flight"></i>air BOOKing</button>
+                  <button class="nav-link active" id="bOOKing-tab" data-bs-toggle="tab" data-bs-target="#bOOKing-tab-pane" type="button"
+                          role="tab" aria-controls="bOOKing-tab-pane" aria-selected="true"><i class="flaticon-flight"></i>air BOOKing</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel-tab-pane" type="button"
-                          role="tab" aria-controls="hotel-tab-pane" aria-selected="false"><i class="flaticon-home"></i> Hotel Booking</button>
+                  <button class="nav-link" id="check-tab" data-bs-toggle="tab" data-bs-target="#check-tab-pane" type="button"
+                          role="tab" aria-controls="check-tab-pane" aria-selected="false"><i class="flaticon-tick"></i> check-in</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="status-tab" data-bs-toggle="tab" data-bs-target="#status-tab-pane" type="button"
-                          role="tab" aria-controls="status-tab-pane" aria-selected="false"><i class="flaticon-clock"></i> Flight status</button>
+                  <button class="nav-link" id="flight-tab" data-bs-toggle="tab" data-bs-target="#flight-tab-pane" type="button"
+                          role="tab" aria-controls="flight-tab-pane" aria-selected="false"><i class="flaticon-clock"></i> Flight status</button>
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="air-tab-pane" role="tabpanel" aria-labelledby="air-tab" tabindex="0"><!--航班-->
+                <div class="tab-pane fade show active" id="bOOKing-tab-pane" role="tabpanel" aria-labelledby="bOOKing-tab" tabindex="0">
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">
@@ -2250,18 +2359,25 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                           <ul>
                             <li>
                               <div class="form-grp select">
-                                <label for="From">From</label>
-                                <select id="From" name="select" class="form-select" aria-label="Default select example">
-<!--                                  <option value="">Guangzhou</option>-->
-                                  <option v-for="i in depart" :key="i.id" :value="i" >{{i}}</option>
+                                <label for="shortBy">From</label>
+                                <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
+                                  <option value="">City1</option>
+                                  <option>City2</option>
+                                  <option>City3</option>
+                                  <option>City4</option>
+                                  <option>City5</option>
                                 </select>
                               </div>
                             </li>
                             <li>
                               <div class="form-grp select">
-                                <label for="To">To</label>
-                                <select id="To" name="select" class="form-select" aria-label="Default select example">
-                                  <option v-for="i in arrival" :key="i.id">{{i}}</option>
+                                <label for="shortBy">To</label>
+                                <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
+                                  <option value="">City1</option>
+                                  <option>City2</option>
+                                  <option>City3</option>
+                                  <option>City4</option>
+                                  <option>City5</option>
                                 </select>
                                 <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
                               </div>
@@ -2270,42 +2386,68 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                               <div class="form-grp date">
                                 <ul>
                                   <li>
-                                    <label for="flightDate">Departure Date</label>
-                                    <input type="text" class="date" placeholder="Select Date" id="flightDate">
+                                    <label for="shortBy">Departure Date</label>
+                                    <input type="text" class="date" placeholder="Select Date">
                                   </li>
                                 </ul>
                               </div>
                             </li>
                             <li>
-                              <div class="form-grp select">
-                                <label for="Class">Class</label>
-                                <select id="Class" name="select" class="form-select" aria-label="Default select example">
-                                  <option value="">Economy</option>
-                                  <option>Business</option>
-                                  <option>First</option>
-                                </select>
+                              <div class="form-grp economy">
+                                <label for="text">Passenger</label>
+<!--                                <input type="text" id="text" placeholder="1 Passenger, Economy">-->
+<!--                                <el-input-number v-model="num" :min="1" :max="10" @change="handleChange" />-->
+                                <input type="number" name="quantity" min="1" max="5">
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp economy">
+                                <label for="text">Class</label>
+                                <input type="text" id="text" placeholder="1 Passenger, Economy">
                               </div>
                             </li>
                           </ul>
                         </form>
-                        <div class="content-bottom" >
+                        <div class="content-bottom">
+                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
                           <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="hotel-tab-pane" role="tabpanel" aria-labelledby="hotel-tab" tabindex="0"><!--酒店-->
+                <div class="tab-pane fade" id="check-tab-pane" role="tabpanel" aria-labelledby="check-tab" tabindex="0">
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">
+                        <div class="content-top">
+                          <ul>
+                            <li>Flights</li>
+                            <li><span>Just from $12</span>Geair Stopover</li>
+                          </ul>
+                        </div>
                         <form action="#" class="booking-form">
                           <ul>
                             <li>
+                              <div class="form-grp">
+                                <input type="text" placeholder="From">
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp">
+                                <input type="text" placeholder="To">
+                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
+                              </div>
+                            </li>
+                            <li>
                               <div class="form-grp select">
-                                <label for="hotelCity">City</label>
-                                <select id="hotelCity" name="select" class="form-select" aria-label="Default select example">
-                                  <option v-for="i in arrival" :key="i.id">{{i}}</option>
+                                <label for="shortByThree">Trip</label>
+                                <select id="shortByThree" name="select" class="form-select" aria-label="Default select example">
+                                  <option value="">Tour type</option>
+                                  <option>Adventure Travel</option>
+                                  <option>Family Tours</option>
+                                  <option>Newest Item</option>
+                                  <option>Nature & wildlife</option>
                                 </select>
                               </div>
                             </li>
@@ -2313,52 +2455,97 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                               <div class="form-grp date">
                                 <ul>
                                   <li>
-                                    <label for="inDate">Check-in Date</label>
-                                    <input type="text" class="date" placeholder="Select Date" id="inDate">
+                                    <label for="shortBy">Depart</label>
+                                    <input type="text" class="date" placeholder="Select Date">
+                                  </li>
+                                  <li>
+                                    <label for="shortBy">Return</label>
+                                    <input type="text" class="date" placeholder="Select Date">
                                   </li>
                                 </ul>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp economy">
+                                <label for="textThree">Passenger/ Class</label>
+                                <input type="text" id="textThree" placeholder="1 Passenger, Economy">
+                              </div>
+                            </li>
+                          </ul>
+                        </form>
+                        <div class="content-bottom">
+                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
+                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="flight-tab-pane" role="tabpanel" aria-labelledby="flight-tab" tabindex="0">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="tab-content-wrap">
+                        <div class="content-top">
+                          <ul>
+                            <li>Flights</li>
+                            <li><span>Just from $12</span>Geair Stopover</li>
+                          </ul>
+                        </div>
+                        <form action="#" class="booking-form">
+                          <ul>
+                            <li>
+                              <div class="form-grp">
+                                <input type="text" placeholder="From">
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp">
+                                <input type="text" placeholder="To">
+                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp select">
+                                <label for="shortByFour">Trip</label>
+                                <select id="shortByFour" name="select" class="form-select" aria-label="Default select example">
+                                  <option value="">Tour type</option>
+                                  <option>Adventure Travel</option>
+                                  <option>Family Tours</option>
+                                  <option>Newest Item</option>
+                                  <option>Nature & wildlife</option>
+                                </select>
                               </div>
                             </li>
                             <li>
                               <div class="form-grp date">
                                 <ul>
                                   <li>
-                                    <label for="outDate">Check-out Date</label>
-                                    <input type="text" class="date" placeholder="Select Date" id="outDate">
+                                    <label for="shortBy">Depart</label>
+                                    <input type="text" class="date" placeholder="Select Date">
+                                  </li>
+                                  <li>
+                                    <label for="shortBy">Return</label>
+                                    <input type="text" class="date" placeholder="Select Date">
                                   </li>
                                 </ul>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp economy">
+                                <label for="textFour">Passenger/ Class</label>
+                                <input type="text" id="textFour" placeholder="1 Passenger, Economy">
                               </div>
                             </li>
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <a href="booking-details.html" class="btn">Show Hotels <i class="flaticon-home"></i></a>
+                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
+                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="status-tab-pane" role="tabpanel" aria-labelledby="status-tab" tabindex="0">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="tab-content-wrap">
-                        <form action="#" class="booking-form">
-                          <ul>
-                            <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="Flight No.">
-                              </div>
-                            </li>
-
-                          </ul>
-                        </form>
-                        <div class="content-bottom">
-                          <a href="booking-details.html" class="btn">Show Flight Status <i class="flaticon-flight-1"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div><!--航班状态-->
               </div>
             </div>
           </div>
@@ -2371,29 +2558,39 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
     <section class="features-area">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-xl-6 col-lg-6 col-sm-10">
+          <div class="col-xl-4 col-lg-6 col-sm-10">
             <div class="features-item">
               <div class="features-icon">
                 <i class="flaticon-help"></i>
               </div>
-              <div class="features-content"><a href="https://github.com/hikeerer/vue-file">
+              <div class="features-content">
                 <h6 class="title">We are now available</h6>
-                <p>Visit github.com/hikeerer/vue-file to contact with us</p>
-                </a></div>
+                <p>Call +1 555 666 888 for contuct with us</p>
+              </div>
             </div>
           </div>
-          <div class="col-xl-6 col-lg-6 col-sm-10">
+          <div class="col-xl-4 col-lg-6 col-sm-10">
             <div class="features-item">
               <div class="features-icon">
                 <i class="flaticon-plane"></i>
               </div>
               <div class="features-content">
                 <h6 class="title">International Flight</h6>
-                <p>Call +86 114 5141 9198 for booking assistance</p>
+                <p>Call +1 555 666 888 for booking assistance</p>
               </div>
             </div>
           </div>
-
+          <div class="col-xl-4 col-lg-6 col-sm-10">
+            <div class="features-item">
+              <div class="features-icon">
+                <i class="flaticon-money-back-guarantee"></i>
+              </div>
+              <div class="features-content">
+                <h6 class="title">Check Refund</h6>
+                <p>Call +1 555 666 888 for check refund status</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -2411,7 +2608,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
           </div>
           <div class="col-md-4">
             <div class="best-price text-end">
-              <a href="#">Best Price Guarantee <i class="flaticon-check"></i></a>
+              <a href="booking-list.html">Best Price Guarantee <i class="flaticon-check"></i></a>
             </div>
           </div>
         </div>
@@ -2419,17 +2616,17 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
           <div class="col-lg-6 col-md-10">
             <div class="flight-offer-item">
               <div class="flight-offer-thumb">
-                <img src="../assets/img/images/Guangzhou_1.jpg" alt="">
+                <img src="../assets/img/images/offer_img01.jpg" alt="">
               </div>
               <div class="flight-offer-content">
-                <h2 class="title">Dhaka to Guangzhou</h2>
-                <span>18 Jun 2023</span>
+                <h2 class="title">Dhaka to Dubai</h2>
+                <span>09 Jun 2022 - 16 Jun 2022</span>
                 <p>Economy from</p>
                 <h4 class="price">$ 980</h4>
               </div>
               <div class="overlay-content">
-                <h2 class="title">Dhaka to Guangzhou</h2>
-                <span>18 Jun 2023</span>
+                <h2 class="title">Dhaka to Dubai</h2>
+                <span>09 Jun 2022 - 16 Jun 2022</span>
                 <p>Economy from</p>
                 <h4 class="price">$ 980</h4>
                 <div class="content-bottom">
@@ -2550,12 +2747,12 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
               <h2 class="title">Your Great Destination</h2>
             </div>
             <div class="destination-content">
-              <p>Get rewarded for your travels – unlock instant savings of 10% or more with a free <span>Star Airlines</span> account</p>
+              <p>Get rewarded for your travels – unlock instant savings of 10% or more with a free <span>Geairinfo.com</span> account</p>
               <ul>
                 <li>
                   <div class="counter-item">
                     <div class="counter-content">
-                      <h2 class="count"><span class="odometer" data-count="1234"></span>+</h2>
+                      <h2 class="count"><span class="odometer" data-count="5830"></span>+</h2>
                       <p>Happy Customers</p>
                     </div>
                     <div class="counter-icon">
@@ -2577,7 +2774,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
               </ul>
               <div class="content-bottom">
                 <p>Discover the latest offers & news and start planning</p>
-                <a href="https://github.com/hikeerer/vue-file">contact us</a>
+                <a href="contact.html">contact us</a>
               </div>
             </div>
           </div>
@@ -2593,7 +2790,16 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
           <div class="col-lg-8">
             <div class="section-title text-center">
               <span class="sub-title">Flynext Package</span>
-              <h2 class="title">Destination Hotels</h2>
+              <h2 class="title">Your Great Destination</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <div class="fly-next-nav">
+              <button class="active" data-filter="*">Flights <i class="flaticon-flight"></i></button>
+              <button class="" data-filter=".cat-one">Car Rentals <i class="flaticon-car-1"></i></button>
+              <button class="" data-filter=".cat-two">Taxis <i class="flaticon-taxi"></i></button>
             </div>
           </div>
         </div>
@@ -2605,10 +2811,12 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
               </div>
               <div class="fly-next-content">
                 <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Four Seasons Hotel</h4>
-                <h4 class="title">Guangzhou</h4>
+                <h4 class="title">Dubai (DXB)</h4>
+                <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
+                <h4 class="title">New York (USA)</h4>
+                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon01.jpg" alt=""></a>
                 <div class="content-bottom">
-                  <p>From</p>
+                  <p>Economy from</p>
                   <h4 class="price">$195</h4>
                 </div>
               </div>
@@ -2624,6 +2832,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 <h4 class="title">Switzerland (SWL)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
+                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon02.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Business Class</p>
                   <h4 class="price">$800</h4>
@@ -2641,6 +2850,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 <h4 class="title">Denmark (DEK)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
+                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon03.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Economy from</p>
                   <h4 class="price">$ 350</h4>
@@ -2658,6 +2868,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 <h4 class="title">Jakarta (DXB)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
+                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon01.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Business Class</p>
                   <h4 class="price">$ 220</h4>
@@ -2675,6 +2886,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 <h4 class="title">Dubai (DXB)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
+                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon03.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Economy from</p>
                   <h4 class="price">$195</h4>
@@ -2692,6 +2904,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 <h4 class="title">Dubai (DXB)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
+                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon02.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Business Class</p>
                   <h4 class="price">$175</h4>
@@ -2709,6 +2922,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 <h4 class="title">Switzerland (SWL)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
+                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon01.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Economy from</p>
                   <h4 class="price">$195</h4>
@@ -2726,6 +2940,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 <h4 class="title">Turkish (SWL)</h4>
                 <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
                 <h4 class="title">New York (USA)</h4>
+                <a href="booking-details.html" class="air-logo"><img src="../assets/img/icon/fly_icon02.jpg" alt=""></a>
                 <div class="content-bottom">
                   <p>Business Class</p>
                   <h4 class="price">$350</h4>
@@ -2741,36 +2956,40 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
     <!-- brand-area -->
     <div class="brand-area brand-bg">
       <div class="container">
-
         <div class="row brand-active">
-          <div class="col-2">
+          <div class="col-12">
             <div class="brand-item">
               <img src="../assets/img/brand/brand_img01.png" alt="">
             </div>
           </div>
-          <div class="col-2">
+          <div class="col-12">
             <div class="brand-item">
               <img src="../assets/img/brand/brand_img02.png" alt="">
             </div>
           </div>
-          <div class="col-2">
+          <div class="col-12">
             <div class="brand-item">
               <img src="../assets/img/brand/brand_img03.png" alt="">
             </div>
           </div>
-          <div class="col-2">
+          <div class="col-12">
             <div class="brand-item">
               <img src="../assets/img/brand/brand_img04.png" alt="">
             </div>
           </div>
-          <div class="col-2">
+          <div class="col-12">
             <div class="brand-item">
               <img src="../assets/img/brand/brand_img05.png" alt="">
             </div>
           </div>
-          <div class="col-2">
+          <div class="col-12">
             <div class="brand-item">
               <img src="../assets/img/brand/brand_img06.png" alt="">
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="brand-item">
+              <img src="../assets/img/brand/brand_img03.png" alt="">
             </div>
           </div>
         </div>
@@ -2793,9 +3012,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
           </div>
         </div>
         <div class="row service-active">
-          <el-carousel type="card" height="auto" autoplay>
           <div class="col-lg-4">
-            <el-carousel-item style="height: 400px">
             <div class="service-item">
               <div class="service-icon">
                 <img src="../assets/img/icon/service_icon01.png" alt="">
@@ -2812,10 +3029,8 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 </div>
               </div>
             </div>
-            </el-carousel-item>
           </div>
           <div class="col-lg-4">
-            <el-carousel-item style="height: 400px">
             <div class="service-item">
               <div class="service-icon">
                 <img src="../assets/img/icon/service_icon02.png" alt="">
@@ -2832,10 +3047,8 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 </div>
               </div>
             </div>
-            </el-carousel-item>
           </div>
           <div class="col-lg-4">
-            <el-carousel-item style="height: 400px">
             <div class="service-item">
               <div class="service-icon">
                 <img src="../assets/img/icon/service_icon03.png" alt="">
@@ -2852,10 +3065,8 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 </div>
               </div>
             </div>
-            </el-carousel-item>
           </div>
           <div class="col-lg-4">
-            <el-carousel-item style="height: 400px">
             <div class="service-item">
               <div class="service-icon">
                 <img src="../assets/img/icon/service_icon02.png" alt="">
@@ -2872,9 +3083,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 </div>
               </div>
             </div>
-            </el-carousel-item>
           </div>
-          </el-carousel>
         </div>
       </div>
     </section>

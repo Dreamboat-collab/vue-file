@@ -25,9 +25,9 @@
                 </div>
                 <div class="fw-link">
                   <ul>
-                    <li><a href="#">Introduction</a></li>
-                    <li><a href="#">Development Team</a></li>
-                    <li><a href="#">Project Description</a></li>
+                    <li style="width: 100%"><a href="#">Introduction</a></li>
+                    <li  style="width: 100%"><a href="#">Development Team</a></li>
+                    <li style="width: 100%"><a href="#">Project Description</a></li>
                   </ul>
                 </div>
               </div>
@@ -54,10 +54,10 @@
                 </div>
                 <div class="fw-link">
                   <ul>
-                    <li><a href="#">Supported Locations</a></li>
-                    <li><a href="#">Supported Hotels</a></li>
-                    <li><a href="#">Supported Cars</a></li>
-                    <li><a href="#">Supported Services</a></li>
+                    <li style="width: 100%"><a href="#">Supported Locations</a></li>
+                    <li style="width: 100%"><a href="#">Supported Hotels</a></li>
+                    <li style="width: 100%"><a href="#">Supported Cars</a></li>
+                    <li style="width: 100%"><a href="#">Supported Services</a></li>
                   </ul>
                 </div>
               </div>
@@ -74,11 +74,11 @@
                   <p>If you have any problems in use, please visit our feedback websites to make suggestions for the project.</p>
                   <div class="fw-link">
                     <ul>
-                      <li><a href="https://github.com/hikeerer/vue-file/issues">
+                      <li style="width: 100%"><a href="https://github.com/hikeerer/vue-file/issues">
                         <img src="code.png" style="width: 40px;vertical-align: middle;padding-right: 5px;padding-bottom: 5px;">
                         Front-end project : github.com/hikeerer/vue-file/issues
                       </a></li>
-                      <li><a href="https://github.com/Artemis-Zeus/star_airlines/issues">
+                      <li style="width: 100%"><a href="https://github.com/Artemis-Zeus/star_airlines/issues">
                         <img src="code.png" style="width: 40px;vertical-align: middle;padding-right: 5px;padding-bottom: 5px;">
                         Back-end project : github.com/Artemis-Zeus/star_airlines/issues
                       </a></li>

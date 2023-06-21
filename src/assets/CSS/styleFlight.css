@@ -43,7 +43,7 @@ body {
 }
 img,
 .img {
-	max-width: 100%;
+	max-width: 40%;
 	transition: all 0.3s ease-out 0s;
 }
 .f-left {
@@ -374,10 +374,11 @@ label {
     max-width: 300px;
 }
 .logo1 img {
-	max-width: 50px;
+	/*max-width: 50px;*/
 	/*position: relative;*/
-	padding: 3vh 0px 0px 0px;
+	/*padding: 3vh 0px 0px 0px;*/
 	/*text-align: left;*/
+	height: 50px;
 }
 .navbar-wrap {
 	display: flex;
@@ -393,12 +394,15 @@ label {
 	display: block;
 	position: relative;
 }
+.navbar-wrap ul li:last-child div{
+}
+
 .navbar-wrap ul li a {
 	font-size: 25px;
 	font-weight: 600;
 	text-transform: capitalize;
 	color: #ffffff;
-	padding: 40px 22px;
+	padding: 28px 22px;
 	display: block;
 	line-height: 1;
 	position: relative;
@@ -3855,4 +3859,5 @@ label {
         -webkit-transform: rotate(-360deg);
         transform: rotate(-360deg);
     }
+
 }
