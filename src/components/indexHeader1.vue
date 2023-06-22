@@ -1993,7 +1993,7 @@ const setJump=()=>{
                      style="justify-content: center;justify-items: center"> <!--字体大小 navbar-wrap -->
                   <ul class="navigation">
                     <li class="active">
-                      <router-link to="/">Flight</router-link>
+                      <router-link to="/flight">Flight</router-link>
                     </li>
                     <li class="menu-item-has-children"><a href="#">Hotel</a>
                     </li>
