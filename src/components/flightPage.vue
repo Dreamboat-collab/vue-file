@@ -40,7 +40,7 @@ import IndexFooter1 from "@/components/indexFooter1.vue";
 import axios from "axios";
 import router from "@/router";
 import {ElMessageBox} from "element-plus";
-import router from '@/router';
+// import router from '@/router';
 //import "@/assets/js/wow.min.js";
 //import "@/assets/js/main1.js";
 const address = ref([]);
@@ -2068,17 +2068,6 @@ const open=()=>{
   })
 }
 
-onBeforeMount(()=>{
-  axios.get('http://localhost:8080/starAirlines/depart').then((response) => {
-    depart.value=response.data.data
-  })
-  axios.get('http://localhost:8080/starAirlines/arrival').then((response) => {
-    arrival.value=response.data.data
-  })
-})
-const depart=ref([])
-const arrival=ref([])
-const city1=ref()
 
 // 实现页面跳转
 const navigateToAnotherPage1 = () => {
@@ -2288,17 +2277,17 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                             <li>
                               <div class="form-grp select">
                                 <label for="From">From</label>
-                                <select id="From" name="select" class="form-select" aria-label="Default select example">
+                                <select id="From" name="select" class="form-select" aria-label="Default select example" :value="depart">
 <!--                                  <option value="">Guangzhou</option>-->
-                                  <option v-for="i in depart" :key="i.id" :value="i" >{{i}}</option>
+                                  <option v-for="i in address" :key="i.id" :value="i" >{{i}}</option>
                                 </select>
                               </div>
                             </li>
                             <li>
                               <div class="form-grp select">
                                 <label for="To">To</label>
-                                <select id="To" name="select" class="form-select" aria-label="Default select example">
-                                  <option v-for="i in arrival" :key="i.id">{{i}}</option>
+                                <select id="To" name="select" class="form-select" aria-label="Default select example" :value="arrival">
+                                  <option v-for="i in address" :key="i.id">{{i}}</option>
                                 </select>
                                 <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
                               </div>
