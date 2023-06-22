@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import {onMounted} from 'vue';
 import axios from "axios";
 import router from '@/router';
 import $ from 'jquery';
@@ -36,10 +36,12 @@ onMounted(() => {
     function UTCDate() {
       return new Date(Date.UTC.apply(Date, arguments));
     }
+
     function UTCToday() {
       var today = new Date();
       return UTCDate(today.getFullYear(), today.getMonth(), today.getDate());
     }
+
     function alias(method) {
       return function () {
         return this[method].apply(this, arguments);
@@ -113,8 +115,7 @@ onMounted(() => {
 
       if (this.isInline) {
         this.picker.addClass('datepicker-inline').appendTo(this.element);
-      }
-      else {
+      } else {
         this.picker.addClass('datepicker-dropdown dropdown-menu');
       }
 
@@ -216,8 +217,7 @@ onMounted(() => {
               o.startDate = this._local_to_utc(this._zero_time(o.startDate));
             else
               o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
-          }
-          else {
+          } else {
             o.startDate = -Infinity;
           }
         }
@@ -227,8 +227,7 @@ onMounted(() => {
               o.endDate = this._local_to_utc(this._zero_time(o.endDate));
             else
               o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
-          }
-          else {
+          } else {
             o.endDate = Infinity;
           }
         }
@@ -245,7 +244,7 @@ onMounted(() => {
         plc = $.grep(plc, function (word) {
           return (/^auto|left|right|top|bottom$/).test(word);
         });
-        o.orientation = { x: 'auto', y: 'auto' };
+        o.orientation = {x: 'auto', y: 'auto'};
         if (!_plc || _plc === 'auto')
           ; // no action
         else if (plc.length === 1) {
@@ -259,8 +258,7 @@ onMounted(() => {
               o.orientation.x = plc[0];
               break;
           }
-        }
-        else {
+        } else {
           _plc = $.grep(plc, function (word) {
             return (/^left|right$/).test(word);
           });
@@ -280,8 +278,7 @@ onMounted(() => {
           if (evs[i].length === 2) {
             ch = undefined;
             ev = evs[i][1];
-          }
-          else if (evs[i].length === 3) {
+          } else if (evs[i].length === 3) {
             ch = evs[i][1];
             ev = evs[i][2];
           }
@@ -294,8 +291,7 @@ onMounted(() => {
           if (evs[i].length === 2) {
             ch = undefined;
             ev = evs[i][1];
-          }
-          else if (evs[i].length === 3) {
+          } else if (evs[i].length === 3) {
             ch = evs[i][1];
             ev = evs[i][2];
           }
@@ -314,8 +310,7 @@ onMounted(() => {
               keydown: $.proxy(this.keydown, this)
             }]
           ];
-        }
-        else if (this.component && this.hasInput) { // component: input + button
+        } else if (this.component && this.hasInput) { // component: input + button
           this._events = [
             // For components that are not readonly, allow keyboard nav
             [this.element.find('input'), {
@@ -330,11 +325,9 @@ onMounted(() => {
               click: $.proxy(this.show, this)
             }]
           ];
-        }
-        else if (this.element.is('div')) {  // inline datepicker
+        } else if (this.element.is('div')) {  // inline datepicker
           this.isInline = true;
-        }
-        else {
+        } else {
           this._events = [
             [this.element, {
               click: $.proxy(this.show, this)
@@ -404,8 +397,7 @@ onMounted(() => {
             if (arguments.length === 0) {
               ix = this.dates.length - 1;
               format = this.o.format;
-            }
-            else if (typeof ix === 'string') {
+            } else if (typeof ix === 'string') {
               format = ix;
               ix = this.dates.length - 1;
             }
@@ -512,8 +504,7 @@ onMounted(() => {
           if (this.component) {
             this.element.find('input').val(formatted).change();
           }
-        }
-        else {
+        } else {
           this.element.val(formatted).change();
         }
       },
@@ -529,19 +520,19 @@ onMounted(() => {
       },
 
       setStartDate: function (startDate) {
-        this._process_options({ startDate: startDate });
+        this._process_options({startDate: startDate});
         this.update();
         this.updateNavArrows();
       },
 
       setEndDate: function (endDate) {
-        this._process_options({ endDate: endDate });
+        this._process_options({endDate: endDate});
         this.update();
         this.updateNavArrows();
       },
 
       setDaysOfWeekDisabled: function (daysOfWeekDisabled) {
-        this._process_options({ daysOfWeekDisabled: daysOfWeekDisabled });
+        this._process_options({daysOfWeekDisabled: daysOfWeekDisabled});
         this.update();
         this.updateNavArrows();
       },
@@ -626,8 +617,7 @@ onMounted(() => {
             dates.push(date);
           }, this));
           fromArgs = true;
-        }
-        else {
+        } else {
           dates = this.isInput
               ? this.element.val()
               : this.element.data('date') || this.element.find('input').val();
@@ -660,8 +650,7 @@ onMounted(() => {
         if (fromArgs) {
           // setting date by clicking
           this.setValue();
-        }
-        else if (dates.length) {
+        } else if (dates.length) {
           // setting date by typing
           if (String(oldDates) !== String(this.dates))
             this._trigger('changeDate');
@@ -713,8 +702,7 @@ onMounted(() => {
             today = new Date();
         if (date.getUTCFullYear() < year || (date.getUTCFullYear() === year && date.getUTCMonth() < month)) {
           cls.push('old');
-        }
-        else if (date.getUTCFullYear() > year || (date.getUTCFullYear() === year && date.getUTCMonth() > month)) {
+        } else if (date.getUTCFullYear() > year || (date.getUTCFullYear() === year && date.getUTCMonth() > month)) {
           cls.push('new');
         }
         if (this.focusDate && date.valueOf() === this.focusDate.valueOf())
@@ -800,9 +788,9 @@ onMounted(() => {
             if (before === undefined)
               before = {};
             else if (typeof (before) === 'boolean')
-              before = { enabled: before };
+              before = {enabled: before};
             else if (typeof (before) === 'string')
-              before = { classes: before };
+              before = {classes: before};
             if (before.enabled === false)
               clsName.push('disabled');
             if (before.classes)
@@ -879,31 +867,27 @@ onMounted(() => {
         switch (this.viewMode) {
           case 0:
             if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear() && month <= this.o.startDate.getUTCMonth()) {
-              this.picker.find('.prev').css({ visibility: 'hidden' });
-            }
-            else {
-              this.picker.find('.prev').css({ visibility: 'visible' });
+              this.picker.find('.prev').css({visibility: 'hidden'});
+            } else {
+              this.picker.find('.prev').css({visibility: 'visible'});
             }
             if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear() && month >= this.o.endDate.getUTCMonth()) {
-              this.picker.find('.next').css({ visibility: 'hidden' });
-            }
-            else {
-              this.picker.find('.next').css({ visibility: 'visible' });
+              this.picker.find('.next').css({visibility: 'hidden'});
+            } else {
+              this.picker.find('.next').css({visibility: 'visible'});
             }
             break;
           case 1:
           case 2:
             if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear()) {
-              this.picker.find('.prev').css({ visibility: 'hidden' });
-            }
-            else {
-              this.picker.find('.prev').css({ visibility: 'visible' });
+              this.picker.find('.prev').css({visibility: 'hidden'});
+            } else {
+              this.picker.find('.prev').css({visibility: 'visible'});
             }
             if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear()) {
-              this.picker.find('.next').css({ visibility: 'hidden' });
-            }
-            else {
-              this.picker.find('.next').css({ visibility: 'visible' });
+              this.picker.find('.next').css({visibility: 'hidden'});
+            } else {
+              this.picker.find('.next').css({visibility: 'visible'});
             }
             break;
         }
@@ -972,8 +956,7 @@ onMounted(() => {
                   if (this.o.minViewMode === 1) {
                     this._setDate(UTCDate(year, month, day));
                   }
-                }
-                else {
+                } else {
                   day = 1;
                   month = 0;
                   year = parseInt(target.text(), 10) || 0;
@@ -996,17 +979,14 @@ onMounted(() => {
                   if (month === 0) {
                     month = 11;
                     year -= 1;
-                  }
-                  else {
+                  } else {
                     month -= 1;
                   }
-                }
-                else if (target.is('.new')) {
+                } else if (target.is('.new')) {
                   if (month === 11) {
                     month = 0;
                     year += 1;
-                  }
-                  else {
+                  } else {
                     month += 1;
                   }
                 }
@@ -1025,11 +1005,9 @@ onMounted(() => {
         var ix = this.dates.contains(date);
         if (!date) {
           this.dates.clear();
-        }
-        else if (ix !== -1) {
+        } else if (ix !== -1) {
           this.dates.remove(ix);
-        }
-        else {
+        } else {
           this.dates.push(date);
         }
         if (typeof this.o.multidate === 'number')
@@ -1049,8 +1027,7 @@ onMounted(() => {
         var element;
         if (this.isInput) {
           element = this.element;
-        }
-        else if (this.component) {
+        } else if (this.component) {
           element = this.element.find('input');
         }
         if (element) {
@@ -1089,8 +1066,7 @@ onMounted(() => {
           // Dec -> Jan (12) or Jan -> Dec (-1) -- limit expected date to 0-11
           if (new_month < 0 || new_month > 11)
             new_month = (new_month + 12) % 12;
-        }
-        else {
+        } else {
           // For magnitudes >1, move one month at a time...
           for (var i = 0; i < mag; i++)
               // ...which might decrease the day (eg, Jan 31 to Feb 28, etc)...
@@ -1134,8 +1110,7 @@ onMounted(() => {
               this.focusDate = null;
               this.viewDate = this.dates.get(-1) || this.viewDate;
               this.fill();
-            }
-            else
+            } else
               this.hide();
             e.preventDefault();
             break;
@@ -1148,13 +1123,11 @@ onMounted(() => {
               newDate = this.moveYear(this.dates.get(-1) || UTCToday(), dir);
               newViewDate = this.moveYear(focusDate, dir);
               this._trigger('changeYear', this.viewDate);
-            }
-            else if (e.shiftKey) {
+            } else if (e.shiftKey) {
               newDate = this.moveMonth(this.dates.get(-1) || UTCToday(), dir);
               newViewDate = this.moveMonth(focusDate, dir);
               this._trigger('changeMonth', this.viewDate);
-            }
-            else {
+            } else {
               newDate = new Date(this.dates.get(-1) || UTCToday());
               newDate.setUTCDate(newDate.getUTCDate() + dir);
               newViewDate = new Date(focusDate);
@@ -1176,13 +1149,11 @@ onMounted(() => {
               newDate = this.moveYear(this.dates.get(-1) || UTCToday(), dir);
               newViewDate = this.moveYear(focusDate, dir);
               this._trigger('changeYear', this.viewDate);
-            }
-            else if (e.shiftKey) {
+            } else if (e.shiftKey) {
               newDate = this.moveMonth(this.dates.get(-1) || UTCToday(), dir);
               newViewDate = this.moveMonth(focusDate, dir);
               this._trigger('changeMonth', this.viewDate);
-            }
-            else {
+            } else {
               newDate = new Date(this.dates.get(-1) || UTCToday());
               newDate.setUTCDate(newDate.getUTCDate() + dir * 7);
               newViewDate = new Date(focusDate);
@@ -1228,8 +1199,7 @@ onMounted(() => {
           var element;
           if (this.isInput) {
             element = this.element;
-          }
-          else if (this.component) {
+          } else if (this.component) {
             element = this.element.find('input');
           }
           if (element) {
@@ -1307,8 +1277,7 @@ onMounted(() => {
           while (i >= 0 && new_date < this.dates[i]) {
             this.pickers[i--].setUTCDate(new_date);
           }
-        }
-        else if (new_date > this.dates[i]) {
+        } else if (new_date > this.dates[i]) {
           // Date being moved later/right
           while (i < l && new_date > this.dates[i]) {
             this.pickers[i++].setUTCDate(new_date);
@@ -1319,7 +1288,9 @@ onMounted(() => {
         delete this.updating;
       },
       remove: function () {
-        $.map(this.pickers, function (p) { p.remove(); });
+        $.map(this.pickers, function (p) {
+          p.remove();
+        });
         delete this.element.data().datepicker;
       }
     };
@@ -1330,9 +1301,11 @@ onMounted(() => {
           out = {}, inkey,
           replace = new RegExp('^' + prefix.toLowerCase() + '([A-Z])');
       prefix = new RegExp('^' + prefix.toLowerCase());
+
       function re_lower(_, a) {
         return a.toLowerCase();
       }
+
       for (var key in data)
         if (prefix.test(key)) {
           inkey = key.replace(replace, re_lower);
@@ -1380,8 +1353,7 @@ onMounted(() => {
               inputs: opts.inputs || $this.find('input').toArray()
             };
             $this.data('datepicker', (data = new DateRangePicker(this, $.extend(opts, ropts))));
-          }
-          else {
+          } else {
             $this.data('datepicker', (data = new Datepicker(this, opts)));
           }
         }
@@ -1470,7 +1442,7 @@ onMounted(() => {
         if (!separators || !separators.length || !parts || parts.length === 0) {
           throw new Error("Invalid date format.");
         }
-        return { separators: separators, parts: parts };
+        return {separators: separators, parts: parts};
       },
       parseDate: function (date, format, language) {
         if (!date)
@@ -1541,12 +1513,14 @@ onMounted(() => {
             return $.inArray(p, setters_order) !== -1;
           }).toArray();
         }
+
         // Process remainder
         function match_part() {
           var m = this.slice(0, parts[i].length),
               p = parts[i].slice(0, m.length);
           return m === p;
         }
+
         if (parts.length === fparts.length) {
           var cnt;
           for (i = 0, cnt = fparts.length; i < cnt; i++) {
@@ -1837,7 +1811,6 @@ onMounted(() => {
     });
 
 
-
     /*=============================================
               =    		Mobile Menu			      =
           =============================================*/
@@ -1868,8 +1841,6 @@ onMounted(() => {
         $('body').removeClass('mobile-menu-visible');
       });
     }
-
-
 
 
     /*=============================================
@@ -1903,12 +1874,6 @@ onMounted(() => {
     }
 
 
-
-
-
-
-
-
     /*=============================================
               =    	   Toggle Active  	         =
           =============================================*/
@@ -1930,7 +1895,6 @@ onMounted(() => {
     });
 
 
-
     /*=============================================
               =    	 Slider Range Active  	         =
           =============================================*/
@@ -1946,7 +1910,6 @@ onMounted(() => {
     $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
 
 
-
     /*=============================================
               =    		Odometer Active  	       =
           =============================================*/
@@ -1957,8 +1920,6 @@ onMounted(() => {
         $(this).html(countNumber);
       });
     });
-
-
 
 
 //for menu active class
@@ -1999,6 +1960,10 @@ const navigateToAnotherPage2 = () => {
 const methods = {
   navigateToAnotherPage1,
 };
+
+const setJump=()=>{
+  localStorage.setItem('jump',1)
+}
 </script>
 
 <template>
@@ -2019,24 +1984,27 @@ const methods = {
             <div class="mobile-nav-toggler"><i class="fas fa-bars"></i></div>
             <div class="menu-wrap">
               <nav class="menu-nav">
-                <div class="logo" style="top: 0px !important;"><a style="top: 0px" href="#"><img style="top: 0px !important;margin-top: 0px;height: 10vh" src="../assets/logo4.png" alt=""></a></div>
-                <div class="navbar-wrap main-menu d-none d-lg-flex" style="justify-content: center;justify-items: center"> <!--字体大小 navbar-wrap -->
+                <div class="logo" style="top: 0px !important;">
+                  <router-link to="/flight" style="top: 0px" @click="setJump"><img
+                      style="top: 0px !important;margin-top: 0px;height: 10vh" src="../assets/logo4.png" alt="">
+                  </router-link>
+                </div>
+                <div class="navbar-wrap main-menu d-none d-lg-flex"
+                     style="justify-content: center;justify-items: center"> <!--字体大小 navbar-wrap -->
                   <ul class="navigation">
-                    <li class="active"><router-link to="/flight">Flight</router-link></li>
+                    <li class="active">
+                      <router-link to="/">Flight</router-link>
+                    </li>
                     <li class="menu-item-has-children"><a href="#">Hotel</a>
-                      <ul class="submenu">
-                        <li><a href="#">Booking List</a></li>
-                        <li><a href="#">Booking Details</a></li>
-                      </ul>
                     </li>
                     <li class="menu-item-has-children"><a href="#">Attractions</a>
-                      <ul class="submenu">
-                        <li><a href="#">Our Blog</a></li>
-                        <li><a href="#">Blog Details</a></li>
-                      </ul>
                     </li>
                     <li><a href="contact.html">About Us</a></li>
-                    <li id="logo1"><div class="logo1"  @click="navigateToAnotherPage1"><img src="../../public/account.png" @click="navigateToAnotherPage1"></div></li>
+                    <li id="logo1">
+                      <div class="logo1" @click="navigateToAnotherPage1"><img src="../../public/account.png"
+                                                                              @click="navigateToAnotherPage1"
+                                                                              style="max-width: 35%;"></div>
+                    </li>
                   </ul>
                 </div>
               </nav>

@@ -361,9 +361,7 @@ label {
 	z-index: 9;
 	height: auto;
 }
-.menu-area {
-	top: 20px;
-}
+
 .menu-nav {
 	display: flex;
 	align-items: center;
@@ -378,7 +376,7 @@ label {
 	/*position: relative;*/
 	/*padding: 3vh 0px 0px 0px;*/
 	/*text-align: left;*/
-	height: 50px;
+	/*height: 50px;*/
 }
 .navbar-wrap {
 	display: flex;

@@ -15,6 +15,7 @@ import "@/assets/CSS/style6.css";
 import "@/assets/CSS/style7.css";
 
 import { ref } from 'vue'
+import IndexFooter1 from "@/components/indexFooter1.vue";
 // 用户信息
 const activeIndex = ref('1')
 // const activeIndex2 = ref('1')
@@ -245,7 +246,7 @@ const activeIndex = ref('1')
     </div>
   </div>
 
-  <index-footer></index-footer>
+  <index-footer1></index-footer1>
   <router-view ></router-view>
 </template>
 

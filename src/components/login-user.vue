@@ -1,10 +1,10 @@
 <template>
 <!--  <index-header></index-header>-->
-  <div style="background-color: #1f252e ;height: 15vh;width: 100%;position: absolute;top: 0">
+  <div style="background-color: #1f252e ;height: 10vh;width: 100%;position: absolute;top: 0">
     <index-header1 ></index-header1>
   </div>
   <div id="login">
-    <div class="containerlogin right-panel-active" style="width: 60vw;height: 73vh;margin-top: 18vh">
+    <div class="containerlogin right-panel-active" style="width: 60vw;height: 73vh;margin-top: 10vh">
 <!--          检验用户名输入是否为空-->
       <el-dialog  v-model="centerDialogVisible5" title="Warning" class="dialog-mistake" center :z-index="9999" style="z-index: 9999; width: 35vw;height: 30vh;margin-top: 15%">
             <span>
@@ -299,8 +299,9 @@ import IndexFooter1 from "@/components/indexFooter1.vue";
           const securityKey=response.data.data;
           console.log(securityKey);
           localStorage.setItem('securityKey', securityKey);
+          localStorage.setItem('jump',1)
           // 跳转到主页（可以使用Vue Rout@er进行导航）
-          router.push({path: '/home'});
+          router.push({path: '/flight'});
         }
         if (isenabled.value) {
           ElMessage({
@@ -544,6 +545,7 @@ $("#sticky-header").addClass("sticky-menu")
   padding: 0.9rem 0.9rem;
   margin: 0.5rem 0;
   width: 100%;
+  border-radius: 3%;
 }
 
 @keyframes show {
