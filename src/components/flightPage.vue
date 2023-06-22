@@ -39,12 +39,14 @@ import IndexHeader1 from "@/components/indexHeader1.vue";
 import IndexFooter1 from "@/components/indexFooter1.vue";
 import axios from "axios";
 import router from "@/router";
+import {ElMessageBox} from "element-plus";
 //import "@/assets/js/wow.min.js";
 //import "@/assets/js/main1.js";
 const address = ref([]);
 const depart=ref();
 const arrival=ref();
-const grade=ref('economy');
+const grade=ref('Economy');
+const flights=ref({})
 
 
 onMounted(() => {
@@ -2174,12 +2176,17 @@ onMounted(() => {
     depart.value=address.value[0]
     arrival.value=address.value[1]
   })
+  axios.get('http://localhost:8080/starAirlines/flight?date=2023-06-30').then((response) =>{
+    console.log(response.data.data)
+    flights.value=response.data.data
+  })
 });
-// const exchange=()=>{
-//   let temp=depart.value;
-//   depart.value=arrival.value
-//   arrival.value=temp
-// }
+const open=()=>{
+  ElMessageBox.alert('Blanket<br> Gift card<br>Canvas bag','Redemption Items', {
+    confirmButtonText: 'OK',dangerouslyUseHTMLString: true,
+  })
+}
+
 </script>
 
 
@@ -2402,21 +2409,15 @@ onMounted(() => {
                                 <label for="text">Class</label>
                                 <el-select v-model="grade">
 <!--                                  style="background-color:rgba(0,0,0,0);border: none"-->
-                                  <el-option value="economy">Economy</el-option>
-                                  <el-option value="business">Business</el-option>
-                                  <el-option value="first">First</el-option>
+                                  <el-option value="Economy">Economy</el-option>
+                                  <el-option value="Business">Business</el-option>
+                                  <el-option value="First">First</el-option>
                                 </el-select>
                               </div>
                             </li>
                             <li>
-                              <div class="form-grp economy">
-                                <label for="text">Use Point</label>
-                                <el-select v-model="grade" id="grade">
-                                  <!--                                  style="background-color:rgba(0,0,0,0);border: none"-->
-                                  <el-option value="economy">Economy</el-option>
-                                  <el-option value="business">Business</el-option>
-                                  <el-option value="first">First</el-option>
-                                </el-select>
+                              <div class="form-grp economy" style="border-left:rgba(144,144,144,0.29) 1px solid;">
+                                <label for="text" style="text-decoration: underline" @click="open">Redemption of points</label>
                               </div>
                             </li>
                           </ul>
@@ -2635,7 +2636,7 @@ onMounted(() => {
                 <img src="../assets/img/images/offer_img01.jpg" alt="">
               </div>
               <div class="flight-offer-content">
-                <h2 class="title">Dhaka to Dubai</h2>
+                <h2 class="title">{{ flights[0] }} to Dubai</h2>
                 <span>09 Jun 2022 - 16 Jun 2022</span>
                 <p>Economy from</p>
                 <h4 class="price">$ 980</h4>
