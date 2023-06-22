@@ -44,6 +44,7 @@ import router from "@/router";
 const address = ref([]);
 const depart=ref();
 const arrival=ref();
+const grade=ref('economy');
 
 
 onMounted(() => {
@@ -2170,9 +2171,15 @@ onMounted(() => {
   axios.get('http://localhost:8080/starAirlines/flight_address').then((response) => {
     console.log(response.data.data);
     address.value = response.data.data
+    depart.value=address.value[0]
+    arrival.value=address.value[1]
   })
 });
-
+// const exchange=()=>{
+//   let temp=depart.value;
+//   depart.value=arrival.value
+//   arrival.value=temp
+// }
 </script>
 
 
@@ -2355,8 +2362,8 @@ onMounted(() => {
                               <div class="form-grp select">
                                 <label for="shortBy">From</label>
                                 <select id="shortBy" name="select" class="form-select"
-                                        aria-label="Default select example">
-                                  <option v-for="i in address" :key="i.id">{{i}}</option>
+                                        aria-label="Default select example" v-model="depart">
+                                  <option v-for="i in address" :key="i.id" :value="i">{{i}}</option>
                                 </select>
                               </div>
                             </li>
@@ -2364,11 +2371,12 @@ onMounted(() => {
                               <div class="form-grp select">
                                 <label for="shortBy">To</label>
                                 <select id="shortBy" name="select" class="form-select"
-                                        aria-label="Default select example">
+                                        aria-label="Default select example" v-model="arrival">
                                   <option v-for="i in address" :key="i.id">{{i}}</option>
-
                                 </select>
-                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
+<!--                                <button class="exchange-icon">-->
+<!--                                  <i class="flaticon-exchange-1"></i>-->
+<!--                                </button>-->
                               </div>
                             </li>
                             <li>
@@ -2381,18 +2389,34 @@ onMounted(() => {
                                 </ul>
                               </div>
                             </li>
+<!--                            <li>-->
+<!--                              <div class="form-grp economy">-->
+<!--                                <label for="text">Passenger</label>-->
+<!--                                &lt;!&ndash;                                <input type="text" id="text" placeholder="1 Passenger, Economy">&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                <el-input-number v-model="num" :min="1" :max="10" @change="handleChange" />&ndash;&gt;-->
+<!--                                <input type="number" name="quantity" min="1" max="5">-->
+<!--                              </div>-->
+<!--                            </li>-->
                             <li>
                               <div class="form-grp economy">
-                                <label for="text">Passenger</label>
-                                <!--                                <input type="text" id="text" placeholder="1 Passenger, Economy">-->
-                                <!--                                <el-input-number v-model="num" :min="1" :max="10" @change="handleChange" />-->
-                                <input type="number" name="quantity" min="1" max="5">
+                                <label for="text">Class</label>
+                                <el-select v-model="grade">
+<!--                                  style="background-color:rgba(0,0,0,0);border: none"-->
+                                  <el-option value="economy">Economy</el-option>
+                                  <el-option value="business">Business</el-option>
+                                  <el-option value="first">First</el-option>
+                                </el-select>
                               </div>
                             </li>
                             <li>
                               <div class="form-grp economy">
-                                <label for="text">Class</label>
-                                <input type="text" id="text" placeholder="1 Passenger, Economy">
+                                <label for="text">Use Point</label>
+                                <el-select v-model="grade" id="grade">
+                                  <!--                                  style="background-color:rgba(0,0,0,0);border: none"-->
+                                  <el-option value="economy">Economy</el-option>
+                                  <el-option value="business">Business</el-option>
+                                  <el-option value="first">First</el-option>
+                                </el-select>
                               </div>
                             </li>
                           </ul>
@@ -3174,6 +3198,9 @@ onMounted(() => {
 </template>
 
 
-<style scoped>
-
+<style>
+#grade{
+  background-color:rgba(0,0,0,0);
+  border: none
+}
 </style>
