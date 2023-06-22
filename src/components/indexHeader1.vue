@@ -15,7 +15,7 @@ import '@/assets/CSS/bootstrap-datepicker.min.css';
 import '@/assets/CSS/odometer.css';
 import '@/assets/CSS/flaticon.css';
 import '@/assets/CSS/jquery-ui.css';
-import '@/assets/CSS/slick.css';
+//import '@/assets/CSS/slick.css';
 import '@/assets/CSS/default.css';
 import '@/assets/CSS/styleFlight.css';
 import '@/assets/CSS/responsive.css';
@@ -1993,9 +1993,9 @@ const setJump=()=>{
                      style="justify-content: center;justify-items: center"> <!--字体大小 navbar-wrap -->
                   <ul class="navigation">
                     <li class="active">
-                      <router-link to="/flight">Flight</router-link>
+                      <router-link to="/flight">Home</router-link>
                     </li>
-                    <li class="menu-item-has-children"><a href="#">Hotel</a>
+                    <li class="menu-item-has-children"><a href="#">Book</a>
                     </li>
                     <li class="menu-item-has-children"><a href="#">Attractions</a>
                     </li>

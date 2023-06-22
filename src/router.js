@@ -10,7 +10,7 @@ const routes = [
     { path: '/footer1', component: () => import('@/components/indexFooter1.vue') },
     { path: '/main', component: () => import('@/components/VueMain.vue') },
     // 其他路由配置项
-    { path: '/', redirect: '/login' }, // 将根路径重定向到'/home'页面
+    { path: '/', redirect: '/login' }, // 将根路径重定向到'/login'页面
 ];
 
 // 创建路由实例

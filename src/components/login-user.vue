@@ -176,7 +176,6 @@
 
 
 <script setup>
-
 import $ from 'jquery';
   import {ref,onMounted} from 'vue'
   import { ElMessage } from 'element-plus'
@@ -184,7 +183,7 @@ import $ from 'jquery';
   import IndexHeader from "@/components/IndexHeader.vue";
   import router from '@/router';
   import IndexHeader1 from "@/components/indexHeader1.vue";
-import IndexFooter1 from "@/components/indexFooter1.vue";
+  import IndexFooter1 from "@/components/indexFooter1.vue";
 
   //JS
   onMounted(() => {
