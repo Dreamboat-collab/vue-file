@@ -51,9 +51,10 @@
     width: 150px;
     height: 150px;
     margin: auto auto 20px auto;
-    padding: 4px;
+    padding: 6px;
     border: 2px solid #6a89cc;
     border-radius: 50%;
+    top: 3vh;
 }
 
 .pic img{
@@ -100,7 +101,7 @@
     justify-content: center;
     align-items: center;
     background-color: #f1f1f1;
-    padding: 60px 40px;
+    padding: 30px 20px;
     font-size: 28px;
     text-transform: inherit;
 }
