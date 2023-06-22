@@ -54,6 +54,7 @@ onMounted(() => {
     location.reload()
   }
 // 这里是原来的 JavaScript 代码 bootstrap-datepicker.min.js
+//   window.location.reload(1);
   (function ($, undefined) {
 
     var $window = $(window);
