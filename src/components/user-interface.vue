@@ -14,12 +14,13 @@ import "@/assets/CSS/style5.css";
 import "@/assets/CSS/style6.css";
 import "@/assets/CSS/style7.css";
 
-import { ref } from 'vue'
+import {onMounted, ref} from 'vue'
+import axios from "axios";
+import router from "@/router";
 const activeIndex = ref('1'); // 默认选中的菜单项
 function handleSelect(index) {
   activeIndex.value = index;
 }
-
 const tableData = [
   {
     date: '2016-05-03',
@@ -79,9 +80,86 @@ const tableData = [
   },
 ]
 
-const input = ref('');
-const password = ref('');
-const confirmPassword = ref('');
+// 用户的信息
+  const userData = ref({
+    // id: null,
+    username: '',
+    // password: null,
+    email: '',
+    // phone: null,
+    // cardNum: null,
+    point: 0
+  });
+
+onMounted(() => {
+  // 获取密匙
+  const token = localStorage.getItem('securityKey');
+  console.log(token)
+
+  axios.get('/api/starAirlines/account', {
+    headers: {
+      'token': token
+    }
+  })
+  .then(response => {
+    // 请求成功处理逻辑
+    // console.log('success')
+    console.log(response.data);
+    // 密匙为空，跳转到登陆界面
+    if (response.data.msg === 'NOT_LOGIN') {
+      router.push({path: '/login'});
+      return
+    }
+    if (response.data.msg === 'success') {
+      const data = response.data.data;
+      // userData.value.id = data.id;
+      userData.value.username = data.username;
+      console.log(userData.value.username)
+      // userData.value.password = data.password;
+      userData.value.email = data.email;
+      // userData.value.phone = data.phone;
+      // userData.value.cardNum = data.cardNum;
+      userData.value.point = data.point;
+    }
+  })
+  .catch(error => {
+    // 请求失败处理逻辑
+    console.log(error);
+  });
+
+  const fistForm = document.getElementById('form1');
+  fistForm.addEventListener('submit', (e) => e.preventDefault());
+});
+
+  const user=ref({Email:'',Password:'',confirmPassword:''})  //关联用户注册时的输入信息
+  const centerDialogVisible1 = ref(false)
+  const centerDialogVisible2 = ref(false)
+  const centerDialogVisible6 = ref(false)
+const handleSubmit = (e) => {
+  e.preventDefault();
+  // 注册邮箱未输入
+  if (!user.value.Email) {
+    centerDialogVisible6.value = true;
+    return;
+  }
+  // 密码长度不足，报错
+  if ((user.value.Password.match(/[a-zA-Z]/g) || []).length + (user.value.Password.match(/\d/g) || []).length < 8) {
+    centerDialogVisible2.value = true;
+    user.value.Password = '';
+    user.value.confirmPassword = '';
+    return;
+  }
+  // 密码不一致，显示错误消息或执行相关操作
+  if (user.value.Password !== user.value.confirmPassword) {
+    centerDialogVisible1.value = true
+    user.value.Password = '';
+    user.value.confirmPassword = '';
+    return;
+  }
+  // 在这里可以进行进一步的处理，例如发送数据到后端等
+  const { username, Email, Password, } = user.value; // 解构出属性
+}
+
 </script>
 
 <template>
@@ -140,6 +218,7 @@ const confirmPassword = ref('');
             </div>
           </template>
           1556782359@qq.com
+<!--          {{ userData.value.email }}-->
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
@@ -193,26 +272,72 @@ const confirmPassword = ref('');
 
 
     <!--    修改密码-->
+    <!--    未输入邮箱-->
+    <el-dialog  v-model="centerDialogVisible6" title="Warning" class="dialog-mistake" center :z-index="9999" style="z-index: 9999; width: 35vw;height: 30vh;margin-top: 15%">
+      <span>
+    The Email is null！
+      </span>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button type="primary" @click="centerDialogVisible6 = false">
+          Confirm
+        </el-button>
+      </span>
+      </template>
+    </el-dialog>
+    <!--     两次密码输入不一致-->
+    <el-dialog  v-model="centerDialogVisible1" title="Warning" class="dialog-mistake" center :z-index="9999" style="z-index: 9999; width: 35vw;height: 30vh;margin-top: 15%">
+        <span>
+      The two passwords inputs were inconsistent！
+        </span>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button type="primary" @click="centerDialogVisible1 = false">
+          Confirm
+        </el-button>
+      </span>
+      </template>
+    </el-dialog>
+
+    <!--密码输入格式有误-->
+    <el-dialog  v-model="centerDialogVisible2" title="Warning" class="dialog-mistake" center :z-index="9999" style="z-index: 9999; width: 35vw;height: 30vh;margin-top: 15%">
+        <span>
+      The format of passwords is incorrect！
+        </span>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button type="primary" @click="centerDialogVisible2 = false">
+          Confirm
+        </el-button>
+      </span>
+      </template>
+    </el-dialog>
+
     <div v-show="activeIndex === '3'">
       <div class="container" style="margin-left: 34vw">
-        <div class="row">
-          <label for="email">Email:</label>
-          <div class="input-wrapper">
-            <el-input v-model="input" id="email" placeholder="Please input email" class="password-input" />
+        <form action="#" class="form" id="form1" @submit="handleSubmit">
+          <div class="row">
+            <label for="email">Email:</label>
+            <div class="input-wrapper">
+              <el-input v-model="user.Email" id="email" placeholder="Please input email" class="password-input" />
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <label for="password">Password:</label>
-          <div class="input-wrapper">
-            <el-input v-model="password" id="password" type="password" placeholder="Please input password" show-password class="password-input"/>
+          <div class="row">
+            <label for="password">Password:</label>
+            <div class="input-wrapper">
+              <el-tooltip content="passwords with 8 or more digits">
+                <el-input v-model="user.Password" id="password" type="password" placeholder="Please input password" show-password class="password-input"/>
+              </el-tooltip>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <label for="confirm-password">Confirm password:</label>
-          <div class="input-wrapper">
-            <el-input v-model="confirmPassword" id="confirm-password" type="password" placeholder="Please confirm your password" show-password class="password-input"/>
+          <div class="row">
+            <label for="confirm-password">Confirm password:</label>
+            <div class="input-wrapper">
+              <el-input v-model="user.confirmPassword" id="confirm-password" type="password" placeholder="Please confirm your password" show-password class="password-input"/>
+            </div>
           </div>
-        </div>
+          <button class="btn" id="signUp" style="margin-top: 5.5vh;margin-left: 11vw;height: 4vh">Submit</button>
+        </form>
       </div>
     </div>
   </div>
