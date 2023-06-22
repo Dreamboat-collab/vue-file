@@ -44,19 +44,23 @@ import {ElMessageBox} from "element-plus";
 //import "@/assets/js/wow.min.js";
 //import "@/assets/js/main1.js";
 const address = ref([]);
-const depart=ref();
-const arrival=ref();
-const grade=ref('Economy');
-const flights=ref({})
+const depart = ref();
+const arrival = ref();
+const grade = ref('Economy');
+const prices = ref([])
+const departs = ref([])
+const arrivals = ref([])
+const depart_time = ref([])
+const arrival_time = ref([])
 
 
 onMounted(() => {
-  const jump = localStorage.getItem('jump')
-  if (jump == '1') {
-    localStorage.setItem('jump', 0)
-    console.log(jump)
-    location.reload()
-  }
+  // const jump = localStorage.getItem('jump')
+  // if (jump == '1') {
+  //   localStorage.setItem('jump', 0)
+  //   console.log(jump)
+  //   location.reload()
+  // }
 // 这里是原来的 JavaScript 代码 bootstrap-datepicker.min.js
   (function ($, undefined) {
 
@@ -65,10 +69,12 @@ onMounted(() => {
     function UTCDate() {
       return new Date(Date.UTC.apply(Date, arguments));
     }
+
     function UTCToday() {
       var today = new Date();
       return UTCDate(today.getFullYear(), today.getMonth(), today.getDate());
     }
+
     function alias(method) {
       return function () {
         return this[method].apply(this, arguments);
@@ -142,8 +148,7 @@ onMounted(() => {
 
       if (this.isInline) {
         this.picker.addClass('datepicker-inline').appendTo(this.element);
-      }
-      else {
+      } else {
         this.picker.addClass('datepicker-dropdown dropdown-menu');
       }
 
@@ -245,8 +250,7 @@ onMounted(() => {
               o.startDate = this._local_to_utc(this._zero_time(o.startDate));
             else
               o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
-          }
-          else {
+          } else {
             o.startDate = -Infinity;
           }
         }
@@ -256,8 +260,7 @@ onMounted(() => {
               o.endDate = this._local_to_utc(this._zero_time(o.endDate));
             else
               o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
-          }
-          else {
+          } else {
             o.endDate = Infinity;
           }
         }
@@ -274,7 +277,7 @@ onMounted(() => {
         plc = $.grep(plc, function (word) {
           return (/^auto|left|right|top|bottom$/).test(word);
         });
-        o.orientation = { x: 'auto', y: 'auto' };
+        o.orientation = {x: 'auto', y: 'auto'};
         if (!_plc || _plc === 'auto')
           ; // no action
         else if (plc.length === 1) {
@@ -288,8 +291,7 @@ onMounted(() => {
               o.orientation.x = plc[0];
               break;
           }
-        }
-        else {
+        } else {
           _plc = $.grep(plc, function (word) {
             return (/^left|right$/).test(word);
           });
@@ -309,8 +311,7 @@ onMounted(() => {
           if (evs[i].length === 2) {
             ch = undefined;
             ev = evs[i][1];
-          }
-          else if (evs[i].length === 3) {
+          } else if (evs[i].length === 3) {
             ch = evs[i][1];
             ev = evs[i][2];
           }
@@ -323,8 +324,7 @@ onMounted(() => {
           if (evs[i].length === 2) {
             ch = undefined;
             ev = evs[i][1];
-          }
-          else if (evs[i].length === 3) {
+          } else if (evs[i].length === 3) {
             ch = evs[i][1];
             ev = evs[i][2];
           }
@@ -343,8 +343,7 @@ onMounted(() => {
               keydown: $.proxy(this.keydown, this)
             }]
           ];
-        }
-        else if (this.component && this.hasInput) { // component: input + button
+        } else if (this.component && this.hasInput) { // component: input + button
           this._events = [
             // For components that are not readonly, allow keyboard nav
             [this.element.find('input'), {
@@ -359,11 +358,9 @@ onMounted(() => {
               click: $.proxy(this.show, this)
             }]
           ];
-        }
-        else if (this.element.is('div')) {  // inline datepicker
+        } else if (this.element.is('div')) {  // inline datepicker
           this.isInline = true;
-        }
-        else {
+        } else {
           this._events = [
             [this.element, {
               click: $.proxy(this.show, this)
@@ -433,8 +430,7 @@ onMounted(() => {
             if (arguments.length === 0) {
               ix = this.dates.length - 1;
               format = this.o.format;
-            }
-            else if (typeof ix === 'string') {
+            } else if (typeof ix === 'string') {
               format = ix;
               ix = this.dates.length - 1;
             }
@@ -541,8 +537,7 @@ onMounted(() => {
           if (this.component) {
             this.element.find('input').val(formatted).change();
           }
-        }
-        else {
+        } else {
           this.element.val(formatted).change();
         }
       },
@@ -558,19 +553,19 @@ onMounted(() => {
       },
 
       setStartDate: function (startDate) {
-        this._process_options({ startDate: startDate });
+        this._process_options({startDate: startDate});
         this.update();
         this.updateNavArrows();
       },
 
       setEndDate: function (endDate) {
-        this._process_options({ endDate: endDate });
+        this._process_options({endDate: endDate});
         this.update();
         this.updateNavArrows();
       },
 
       setDaysOfWeekDisabled: function (daysOfWeekDisabled) {
-        this._process_options({ daysOfWeekDisabled: daysOfWeekDisabled });
+        this._process_options({daysOfWeekDisabled: daysOfWeekDisabled});
         this.update();
         this.updateNavArrows();
       },
@@ -655,8 +650,7 @@ onMounted(() => {
             dates.push(date);
           }, this));
           fromArgs = true;
-        }
-        else {
+        } else {
           dates = this.isInput
               ? this.element.val()
               : this.element.data('date') || this.element.find('input').val();
@@ -689,8 +683,7 @@ onMounted(() => {
         if (fromArgs) {
           // setting date by clicking
           this.setValue();
-        }
-        else if (dates.length) {
+        } else if (dates.length) {
           // setting date by typing
           if (String(oldDates) !== String(this.dates))
             this._trigger('changeDate');
@@ -742,8 +735,7 @@ onMounted(() => {
             today = new Date();
         if (date.getUTCFullYear() < year || (date.getUTCFullYear() === year && date.getUTCMonth() < month)) {
           cls.push('old');
-        }
-        else if (date.getUTCFullYear() > year || (date.getUTCFullYear() === year && date.getUTCMonth() > month)) {
+        } else if (date.getUTCFullYear() > year || (date.getUTCFullYear() === year && date.getUTCMonth() > month)) {
           cls.push('new');
         }
         if (this.focusDate && date.valueOf() === this.focusDate.valueOf())
@@ -829,9 +821,9 @@ onMounted(() => {
             if (before === undefined)
               before = {};
             else if (typeof (before) === 'boolean')
-              before = { enabled: before };
+              before = {enabled: before};
             else if (typeof (before) === 'string')
-              before = { classes: before };
+              before = {classes: before};
             if (before.enabled === false)
               clsName.push('disabled');
             if (before.classes)
@@ -908,31 +900,27 @@ onMounted(() => {
         switch (this.viewMode) {
           case 0:
             if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear() && month <= this.o.startDate.getUTCMonth()) {
-              this.picker.find('.prev').css({ visibility: 'hidden' });
-            }
-            else {
-              this.picker.find('.prev').css({ visibility: 'visible' });
+              this.picker.find('.prev').css({visibility: 'hidden'});
+            } else {
+              this.picker.find('.prev').css({visibility: 'visible'});
             }
             if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear() && month >= this.o.endDate.getUTCMonth()) {
-              this.picker.find('.next').css({ visibility: 'hidden' });
-            }
-            else {
-              this.picker.find('.next').css({ visibility: 'visible' });
+              this.picker.find('.next').css({visibility: 'hidden'});
+            } else {
+              this.picker.find('.next').css({visibility: 'visible'});
             }
             break;
           case 1:
           case 2:
             if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear()) {
-              this.picker.find('.prev').css({ visibility: 'hidden' });
-            }
-            else {
-              this.picker.find('.prev').css({ visibility: 'visible' });
+              this.picker.find('.prev').css({visibility: 'hidden'});
+            } else {
+              this.picker.find('.prev').css({visibility: 'visible'});
             }
             if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear()) {
-              this.picker.find('.next').css({ visibility: 'hidden' });
-            }
-            else {
-              this.picker.find('.next').css({ visibility: 'visible' });
+              this.picker.find('.next').css({visibility: 'hidden'});
+            } else {
+              this.picker.find('.next').css({visibility: 'visible'});
             }
             break;
         }
@@ -1001,8 +989,7 @@ onMounted(() => {
                   if (this.o.minViewMode === 1) {
                     this._setDate(UTCDate(year, month, day));
                   }
-                }
-                else {
+                } else {
                   day = 1;
                   month = 0;
                   year = parseInt(target.text(), 10) || 0;
@@ -1025,17 +1012,14 @@ onMounted(() => {
                   if (month === 0) {
                     month = 11;
                     year -= 1;
-                  }
-                  else {
+                  } else {
                     month -= 1;
                   }
-                }
-                else if (target.is('.new')) {
+                } else if (target.is('.new')) {
                   if (month === 11) {
                     month = 0;
                     year += 1;
-                  }
-                  else {
+                  } else {
                     month += 1;
                   }
                 }
@@ -1054,11 +1038,9 @@ onMounted(() => {
         var ix = this.dates.contains(date);
         if (!date) {
           this.dates.clear();
-        }
-        else if (ix !== -1) {
+        } else if (ix !== -1) {
           this.dates.remove(ix);
-        }
-        else {
+        } else {
           this.dates.push(date);
         }
         if (typeof this.o.multidate === 'number')
@@ -1078,8 +1060,7 @@ onMounted(() => {
         var element;
         if (this.isInput) {
           element = this.element;
-        }
-        else if (this.component) {
+        } else if (this.component) {
           element = this.element.find('input');
         }
         if (element) {
@@ -1118,8 +1099,7 @@ onMounted(() => {
           // Dec -> Jan (12) or Jan -> Dec (-1) -- limit expected date to 0-11
           if (new_month < 0 || new_month > 11)
             new_month = (new_month + 12) % 12;
-        }
-        else {
+        } else {
           // For magnitudes >1, move one month at a time...
           for (var i = 0; i < mag; i++)
               // ...which might decrease the day (eg, Jan 31 to Feb 28, etc)...
@@ -1163,8 +1143,7 @@ onMounted(() => {
               this.focusDate = null;
               this.viewDate = this.dates.get(-1) || this.viewDate;
               this.fill();
-            }
-            else
+            } else
               this.hide();
             e.preventDefault();
             break;
@@ -1177,13 +1156,11 @@ onMounted(() => {
               newDate = this.moveYear(this.dates.get(-1) || UTCToday(), dir);
               newViewDate = this.moveYear(focusDate, dir);
               this._trigger('changeYear', this.viewDate);
-            }
-            else if (e.shiftKey) {
+            } else if (e.shiftKey) {
               newDate = this.moveMonth(this.dates.get(-1) || UTCToday(), dir);
               newViewDate = this.moveMonth(focusDate, dir);
               this._trigger('changeMonth', this.viewDate);
-            }
-            else {
+            } else {
               newDate = new Date(this.dates.get(-1) || UTCToday());
               newDate.setUTCDate(newDate.getUTCDate() + dir);
               newViewDate = new Date(focusDate);
@@ -1205,13 +1182,11 @@ onMounted(() => {
               newDate = this.moveYear(this.dates.get(-1) || UTCToday(), dir);
               newViewDate = this.moveYear(focusDate, dir);
               this._trigger('changeYear', this.viewDate);
-            }
-            else if (e.shiftKey) {
+            } else if (e.shiftKey) {
               newDate = this.moveMonth(this.dates.get(-1) || UTCToday(), dir);
               newViewDate = this.moveMonth(focusDate, dir);
               this._trigger('changeMonth', this.viewDate);
-            }
-            else {
+            } else {
               newDate = new Date(this.dates.get(-1) || UTCToday());
               newDate.setUTCDate(newDate.getUTCDate() + dir * 7);
               newViewDate = new Date(focusDate);
@@ -1257,8 +1232,7 @@ onMounted(() => {
           var element;
           if (this.isInput) {
             element = this.element;
-          }
-          else if (this.component) {
+          } else if (this.component) {
             element = this.element.find('input');
           }
           if (element) {
@@ -1336,8 +1310,7 @@ onMounted(() => {
           while (i >= 0 && new_date < this.dates[i]) {
             this.pickers[i--].setUTCDate(new_date);
           }
-        }
-        else if (new_date > this.dates[i]) {
+        } else if (new_date > this.dates[i]) {
           // Date being moved later/right
           while (i < l && new_date > this.dates[i]) {
             this.pickers[i++].setUTCDate(new_date);
@@ -1348,7 +1321,9 @@ onMounted(() => {
         delete this.updating;
       },
       remove: function () {
-        $.map(this.pickers, function (p) { p.remove(); });
+        $.map(this.pickers, function (p) {
+          p.remove();
+        });
         delete this.element.data().datepicker;
       }
     };
@@ -1359,9 +1334,11 @@ onMounted(() => {
           out = {}, inkey,
           replace = new RegExp('^' + prefix.toLowerCase() + '([A-Z])');
       prefix = new RegExp('^' + prefix.toLowerCase());
+
       function re_lower(_, a) {
         return a.toLowerCase();
       }
+
       for (var key in data)
         if (prefix.test(key)) {
           inkey = key.replace(replace, re_lower);
@@ -1409,8 +1386,7 @@ onMounted(() => {
               inputs: opts.inputs || $this.find('input').toArray()
             };
             $this.data('datepicker', (data = new DateRangePicker(this, $.extend(opts, ropts))));
-          }
-          else {
+          } else {
             $this.data('datepicker', (data = new Datepicker(this, opts)));
           }
         }
@@ -1499,7 +1475,7 @@ onMounted(() => {
         if (!separators || !separators.length || !parts || parts.length === 0) {
           throw new Error("Invalid date format.");
         }
-        return { separators: separators, parts: parts };
+        return {separators: separators, parts: parts};
       },
       parseDate: function (date, format, language) {
         if (!date)
@@ -1570,12 +1546,14 @@ onMounted(() => {
             return $.inArray(p, setters_order) !== -1;
           }).toArray();
         }
+
         // Process remainder
         function match_part() {
           var m = this.slice(0, parts[i].length),
               p = parts[i].slice(0, m.length);
           return m === p;
         }
+
         if (parts.length === fparts.length) {
           var cnt;
           for (i = 0, cnt = fparts.length; i < cnt; i++) {
@@ -2001,8 +1979,6 @@ onMounted(() => {
     // }
 
 
-
-
     /*=============================================
               =    		Isotope	Active  	      =
           =============================================*/
@@ -2054,17 +2030,45 @@ onMounted(() => {
   axios.get('http://localhost:8080/starAirlines/flight_address').then((response) => {
     console.log(response.data.data);
     address.value = response.data.data
-    depart.value=address.value[0]
-    arrival.value=address.value[1]
+    depart.value = address.value[0]
+    arrival.value = address.value[1]
   })
-  axios.get('http://localhost:8080/starAirlines/flight?date=2023-06-30').then((response) =>{
+  axios.get('http://localhost:8080/starAirlines/flight?date=2023-06-30').then((response) => {
     console.log(response.data.data)
-    flights.value=response.data.data
+    let all_flights = []
+    let filtered_flights=[]
+    let depart_T = ''
+    let arrival_T = ''
+    const temp = [[], [], [], [], []]
+    all_flights = response.data.data
+    for (let i = 0; i < all_flights.length; i++) {
+      if (all_flights[i]['type']==1)
+        filtered_flights.push(all_flights[i])
+    }
+    console.log(filtered_flights)
+    for (let i = 0; i < 7; i++) {
+      if (i==4 || i==5){
+        continue
+      }
+      temp[0].push(filtered_flights[i]['depart'])
+      temp[1].push(filtered_flights[i]['arrival'])
+      depart_T = filtered_flights[i]['departTime']
+      temp[2].push(depart_T.substring(0, 4) + '/' + depart_T.substring(5, 7) + '/' + depart_T.substring(8, 10))
+      arrival_T = filtered_flights[i]['arrivalTime']
+      temp[3].push(arrival_T.substring(0, 4) + '/' + arrival_T.substring(5, 7) + '/' + arrival_T.substring(8, 10))
+      temp[4].push(filtered_flights[i]['price'])
+    }
+    console.log(temp)
+    departs.value = temp[0]
+    arrivals.value = temp[1]
+    depart_time.value = temp[2]
+    arrival_time.value = temp[3]
+    prices.value = temp[4]
   })
 });
-const open=()=>{
-  ElMessageBox.alert('Blanket<br> Gift card<br>Canvas bag','Redemption Items', {
-    confirmButtonText: 'OK',dangerouslyUseHTMLString: true,
+const open = () => {
+  ElMessageBox.alert('Blanket<br> Gift card<br>Canvas bag', 'Redemption Items', {
+    confirmButtonText: 'OK', dangerouslyUseHTMLString: true,
   })
 }
 
@@ -2095,7 +2099,7 @@ const debounce = (fn, delay) => {
   }
 }
 const _ResizeObserver = window.ResizeObserver;
-window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
+window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
   constructor(callback) {
     callback = debounce(callback, 16);
     super(callback);
@@ -2145,7 +2149,9 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                     style="top: 0px !important;margin-top: 0px;height: 10vh" src="../assets/logo4.png" alt=""></a></div>
                 <div class="navbar-wrap main-menu d-none d-lg-flex"> <!--字体大小 navbar-wrap -->
                   <ul class="navigation">
-                    <li class="active"><router-link to="/flight">Flight</router-link></li>
+                    <li class="active">
+                      <router-link to="/flight">Flight</router-link>
+                    </li>
                     <li class="menu-item-has-children"><a href="#">Hotel</a>
                       <ul class="submenu">
                         <li><a href="#">Booking List</a></li>
@@ -2197,50 +2203,59 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
       <div class="slider-active">
         <el-carousel height="auto" autoplay>
           <el-carousel-item style="height: 800px">
-        <div class="single-slider slider-bg"><!--第一条轮播-->
-          <div class="container">
-            <div class="row">
-              <div class="col-xl-8 col-lg-10">
-                <div class="slider-content">
-                  <h2 class="title" data-animation="fadeInUp" data-delay=".2s">Start your journey with us.</h2>
-                  <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant savings of 10% or more with a free Star Airlines account</p>
-<!--                  <a href="#" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in / Register</a>-->
-                  <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">Sign in / Register</button>
+            <div class="single-slider slider-bg"><!--第一条轮播-->
+              <div class="container">
+                <div class="row">
+                  <div class="col-xl-8 col-lg-10">
+                    <div class="slider-content">
+                      <h2 class="title" data-animation="fadeInUp" data-delay=".2s">Start your journey with us.</h2>
+                      <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant
+                        savings of 10% or more with a free Star Airlines account</p>
+                      <!--                  <a href="#" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in / Register</a>-->
+                      <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">
+                        Sign in / Register
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
           </el-carousel-item>
           <el-carousel-item style="height: 800px">
-        <div class="single-slider slider-bg2" >
-          <div class="container">
-            <div class="row">
-              <div class="col-xl-8 col-lg-10">
-                <div class="slider-content">
-                  <h2 class="title" data-animation="fadeInUp" data-delay=".2s">A Lifetime of Discounts? It's Genius.</h2>
-                  <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant savings of 10% or more with a free Geairinfo.com account</p>
-                  <a href="contact.html" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in / Register</a>
+            <div class="single-slider slider-bg2">
+              <div class="container">
+                <div class="row">
+                  <div class="col-xl-8 col-lg-10">
+                    <div class="slider-content">
+                      <h2 class="title" data-animation="fadeInUp" data-delay=".2s">A Lifetime of Discounts? It's
+                        Genius.</h2>
+                      <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant
+                        savings of 10% or more with a free Geairinfo.com account</p>
+                      <a href="contact.html" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in /
+                        Register</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
           </el-carousel-item>
           <el-carousel-item style="height: 800px">
-        <div class="single-slider slider-bg3" >
-          <div class="container">
-            <div class="row">
-              <div class="col-xl-8 col-lg-10">
-                <div class="slider-content">
-                  <h2 class="title" data-animation="fadeInUp" data-delay=".2s">A Lifetime of Discounts? It's Genius.</h2>
-                  <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant savings of 10% or more with a free Geairinfo.com account</p>
-                  <a href="contact.html" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in / Register</a>
+            <div class="single-slider slider-bg3">
+              <div class="container">
+                <div class="row">
+                  <div class="col-xl-8 col-lg-10">
+                    <div class="slider-content">
+                      <h2 class="title" data-animation="fadeInUp" data-delay=".2s">A Lifetime of Discounts? It's
+                        Genius.</h2>
+                      <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant
+                        savings of 10% or more with a free Geairinfo.com account</p>
+                      <a href="contact.html" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in /
+                        Register</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -2255,20 +2270,30 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
             <div class="booking-wrap">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="air-tab" data-bs-toggle="tab" data-bs-target="#air-tab-pane" type="button"
-                          role="tab" aria-controls="air-tab-pane" aria-selected="true"><i class="flaticon-flight"></i>air BOOKing</button>
+                  <button class="nav-link active" id="air-tab" data-bs-toggle="tab" data-bs-target="#air-tab-pane"
+                          type="button"
+                          role="tab" aria-controls="air-tab-pane" aria-selected="true"><i class="flaticon-flight"></i>air
+                    BOOKing
+                  </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel-tab-pane" type="button"
-                          role="tab" aria-controls="hotel-tab-pane" aria-selected="false"><i class="flaticon-home"></i> Hotel Booking</button>
+                  <button class="nav-link" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel-tab-pane"
+                          type="button"
+                          role="tab" aria-controls="hotel-tab-pane" aria-selected="false"><i class="flaticon-home"></i>
+                    Hotel Booking
+                  </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="status-tab" data-bs-toggle="tab" data-bs-target="#status-tab-pane" type="button"
-                          role="tab" aria-controls="status-tab-pane" aria-selected="false"><i class="flaticon-clock"></i> Flight status</button>
+                  <button class="nav-link" id="status-tab" data-bs-toggle="tab" data-bs-target="#status-tab-pane"
+                          type="button"
+                          role="tab" aria-controls="status-tab-pane" aria-selected="false"><i
+                      class="flaticon-clock"></i> Flight status
+                  </button>
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="air-tab-pane" role="tabpanel" aria-labelledby="air-tab" tabindex="0"><!--航班-->
+                <div class="tab-pane fade show active" id="air-tab-pane" role="tabpanel" aria-labelledby="air-tab"
+                     tabindex="0"><!--航班-->
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">
@@ -2277,17 +2302,19 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                             <li>
                               <div class="form-grp select">
                                 <label for="From">From</label>
-                                <select id="From" name="select" class="form-select" aria-label="Default select example" :value="depart">
-<!--                                  <option value="">Guangzhou</option>-->
-                                  <option v-for="i in address" :key="i.id" :value="i" >{{i}}</option>
+                                <select id="From" name="select" class="form-select" aria-label="Default select example"
+                                        :value="depart">
+                                  <!--                                  <option value="">Guangzhou</option>-->
+                                  <option v-for="i in address" :key="i.id" :value="i">{{ i }}</option>
                                 </select>
                               </div>
                             </li>
                             <li>
                               <div class="form-grp select">
                                 <label for="To">To</label>
-                                <select id="To" name="select" class="form-select" aria-label="Default select example" :value="arrival">
-                                  <option v-for="i in address" :key="i.id">{{i}}</option>
+                                <select id="To" name="select" class="form-select" aria-label="Default select example"
+                                        :value="arrival">
+                                  <option v-for="i in address" :key="i.id">{{ i }}</option>
                                 </select>
                                 <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
                               </div>
@@ -2306,7 +2333,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                               <div class="form-grp economy">
                                 <label for="text">Class</label>
                                 <el-select v-model="grade">
-<!--                                  style="background-color:rgba(0,0,0,0);border: none"-->
+                                  <!--                                  style="background-color:rgba(0,0,0,0);border: none"-->
                                   <el-option value="Economy">Economy</el-option>
                                   <el-option value="Business">Business</el-option>
                                   <el-option value="First">First</el-option>
@@ -2315,19 +2342,21 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                             </li>
                             <li>
                               <div class="form-grp economy" style="border-left:rgba(144,144,144,0.29) 1px solid;">
-                                <label for="text" style="text-decoration: underline" @click="open">Redemption of points</label>
+                                <label for="text" style="text-decoration: underline" @click="open">Redemption of
+                                  points</label>
                               </div>
                             </li>
                           </ul>
                         </form>
-                        <div class="content-bottom" >
+                        <div class="content-bottom">
                           <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="hotel-tab-pane" role="tabpanel" aria-labelledby="hotel-tab" tabindex="0"><!--酒店-->
+                <div class="tab-pane fade" id="hotel-tab-pane" role="tabpanel" aria-labelledby="hotel-tab" tabindex="0">
+                  <!--酒店-->
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">
@@ -2375,7 +2404,8 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="status-tab-pane" role="tabpanel" aria-labelledby="status-tab" tabindex="0">
+                <div class="tab-pane fade" id="status-tab-pane" role="tabpanel" aria-labelledby="status-tab"
+                     tabindex="0">
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">
@@ -2390,7 +2420,8 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <a href="booking-details.html" class="btn">Show Flight Status <i class="flaticon-flight-1"></i></a>
+                          <a href="booking-details.html" class="btn">Show Flight Status <i
+                              class="flaticon-flight-1"></i></a>
                         </div>
                       </div>
                     </div>
@@ -2416,7 +2447,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
               <div class="features-content"><a href="https://github.com/hikeerer/vue-file">
                 <h6 class="title">We are now available</h6>
                 <p>Visit github.com/hikeerer/vue-file to contact with us</p>
-                </a></div>
+              </a></div>
             </div>
           </div>
           <div class="col-xl-6 col-lg-6 col-sm-10">
@@ -2459,16 +2490,16 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                 <img src="../assets/img/images/Guangzhou_1.jpg" alt="">
               </div>
               <div class="flight-offer-content">
-                <h2 class="title">Dhaka to Guangzhou</h2>
-                <span>18 Jun 2023</span>
+                <h2 class="title">{{ departs[3] }} to {{ arrivals[3] }}</h2>
+                <span>{{ depart_time[3] }} - {{arrival_time[3]}}</span>
                 <p>Economy from</p>
-                <h4 class="price">$ 980</h4>
+                <h4 class="price">$ {{ prices[3] }}</h4>
               </div>
               <div class="overlay-content">
-                <h2 class="title">Dhaka to Guangzhou</h2>
-                <span>18 Jun 2023</span>
+                <h2 class="title">{{ departs[3] }} to {{ arrivals[3] }}</h2>
+                <span>{{ depart_time[3] }} - {{arrival_time[3]}}</span>
                 <p>Economy from</p>
-                <h4 class="price">$ 980</h4>
+                <h4 class="price">$ {{ prices[3] }}</h4>
                 <div class="content-bottom">
                   <a href="booking-details.html" class="btn">Booking Now</a>
                   <a href="booking-list.html" class="discover">Discover</a>
@@ -2481,19 +2512,19 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
               <div class="col-sm-6">
                 <div class="flight-offer-item offer-item-two">
                   <div class="flight-offer-thumb">
-                    <img src="../assets/img/images/offer_img02.jpg" alt="">
+                    <img src="../assets/img/images/durban.jpg" alt="">
                   </div>
                   <div class="flight-offer-content">
-                    <h2 class="title">New York to California</h2>
-                    <span>09 Jun 2022 - 16 Jun 2022</span>
+                    <h2 class="title">{{ departs[2] }} to {{ arrivals[2] }}</h2>
+                    <span>{{ depart_time[2] }} - {{arrival_time[3]}}</span>
                     <p>Economy from</p>
-                    <h4 class="price">$ 290</h4>
+                    <h4 class="price">$ {{ prices[2] }}</h4>
                   </div>
                   <div class="overlay-content">
-                    <h2 class="title">New York to California</h2>
-                    <span>09 Jun 2022 - 16 Jun 2022</span>
+                    <h2 class="title">{{ departs[2] }} to {{ arrivals[2] }}</h2>
+                    <span>{{ depart_time[2] }} - {{arrival_time[2]}}</span>
                     <p>Economy from</p>
-                    <h4 class="price">$ 290</h4>
+                    <h4 class="price">$ {{ prices[2] }}</h4>
                     <div class="content-bottom">
                       <a href="booking-details.html" class="btn">Booking Now</a>
                       <a href="booking-list.html" class="discover">Discover</a>
@@ -2504,19 +2535,19 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
               <div class="col-sm-6">
                 <div class="flight-offer-item offer-item-two">
                   <div class="flight-offer-thumb">
-                    <img src="../assets/img/images/offer_img03.jpg" alt="">
+                    <img src="../assets/img/images/tokyo.jpg" alt="">
                   </div>
                   <div class="flight-offer-content">
-                    <h2 class="title">Malaga to Finland</h2>
-                    <span>09 Jun 2022 - 16 Jun 2022</span>
+                    <h2 class="title">{{ departs[1] }} to {{ arrivals[1] }}</h2>
+                    <span>{{ depart_time[1] }} - {{arrival_time[1]}}</span>
                     <p>Economy from</p>
-                    <h4 class="price">$ 792</h4>
+                    <h4 class="price">$ {{ prices[1] }}</h4>
                   </div>
                   <div class="overlay-content">
-                    <h2 class="title">Malaga to Finland</h2>
-                    <span>09 Jun 2022 - 16 Jun 2022</span>
+                    <h2 class="title">{{ departs[1] }} to {{ arrivals[1] }}</h2>
+                    <span>{{ depart_time[1] }} - {{arrival_time[1]}}</span>
                     <p>Economy from</p>
-                    <h4 class="price">$ 792</h4>
+                    <h4 class="price">$ {{ prices[1] }}</h4>
                     <div class="content-bottom">
                       <a href="booking-details.html" class="btn">Booking Now</a>
                       <a href="booking-list.html" class="discover">Discover</a>
@@ -2527,19 +2558,19 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
               <div class="col-sm-6">
                 <div class="flight-offer-item offer-item-two">
                   <div class="flight-offer-thumb">
-                    <img src="../assets/img/images/offer_img04.jpg" alt="">
+                    <img src="../assets/img/images/paris.jpg" alt="">
                   </div>
                   <div class="flight-offer-content">
-                    <h2 class="title">Dubai to Maldives</h2>
-                    <span>09 Jun 2022 - 16 Jun 2022</span>
+                    <h2 class="title">{{ departs[0] }} to {{ arrivals[0] }}</h2>
+                    <span>{{ depart_time[0] }} - {{arrival_time[0]}}</span>
                     <p>Economy from</p>
-                    <h4 class="price">$ 980</h4>
+                    <h4 class="price">$ {{ prices[0] }}</h4>
                   </div>
                   <div class="overlay-content">
-                    <h2 class="title">Dubai to Maldives</h2>
-                    <span>09 Jun 2022 - 16 Jun 2022</span>
+                    <h2 class="title">{{ departs[0] }} to {{ arrivals[0] }}</h2>
+                    <span>{{ depart_time[0] }} - {{arrival_time[0]}}</span>
                     <p>Economy from</p>
-                    <h4 class="price">$ 980</h4>
+                    <h4 class="price">$ {{ prices[0] }}</h4>
                     <div class="content-bottom">
                       <a href="booking-details.html" class="btn">Booking Now</a>
                       <a href="booking-list.html" class="discover">Discover</a>
@@ -2550,19 +2581,19 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
               <div class="col-sm-6">
                 <div class="flight-offer-item offer-item-two">
                   <div class="flight-offer-thumb">
-                    <img src="../assets/img/images/offer_img05.jpg" alt="">
+                    <img src="../assets/img/images/brussels.jpg" alt="">
                   </div>
                   <div class="flight-offer-content">
-                    <h2 class="title">Dubai to New York</h2>
-                    <span>09 Jun 2022 - 16 Jun 2022</span>
+                    <h2 class="title">{{ departs[4] }} to {{ arrivals[4] }}</h2>
+                    <span>{{ depart_time[4] }} - {{arrival_time[4]}}</span>
                     <p>Economy from</p>
-                    <h4 class="price">$ 350</h4>
+                    <h4 class="price">$ {{ prices[4] }}</h4>
                   </div>
                   <div class="overlay-content">
-                    <h2 class="title">Dubai to New York</h2>
-                    <span>09 Jun 2022 - 16 Jun 2022</span>
+                    <h2 class="title">{{ departs[4] }} to {{ arrivals[4] }}</h2>
+                    <span>{{ depart_time[4] }} - {{arrival_time[4]}}</span>
                     <p>Economy from</p>
-                    <h4 class="price">$ 350</h4>
+                    <h4 class="price">$ {{ prices[4] }}</h4>
                     <div class="content-bottom">
                       <a href="booking-details.html" class="btn">Booking Now</a>
                       <a href="booking-list.html" class="discover">Discover</a>
@@ -2587,7 +2618,8 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
               <h2 class="title">Your Great Destination</h2>
             </div>
             <div class="destination-content">
-              <p>Get rewarded for your travels – unlock instant savings of 10% or more with a free <span>Star Airlines</span> account</p>
+              <p>Get rewarded for your travels – unlock instant savings of 10% or more with a free
+                <span>Star Airlines</span> account</p>
               <ul>
                 <li>
                   <div class="counter-item">
@@ -2831,86 +2863,86 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
         </div>
         <div class="row service-active">
           <el-carousel type="card" height="auto" autoplay>
-          <div class="col-lg-4">
-            <el-carousel-item style="height: 400px">
-            <div class="service-item">
-              <div class="service-icon">
-                <img src="../assets/img/icon/service_icon01.png" alt="">
-              </div>
-              <div class="service-content">
-                <span>Service 01</span>
-                <h2 class="title">Pre-Book Your Baggage</h2>
-                <div class="service-list">
-                  <ul>
-                    <li>Pre-book your baggage <i class="flaticon-check-mark"></i></li>
-                    <li>Allowance now and save up <i class="flaticon-check-mark"></i></li>
-                    <li>90% of baggage charges <i class="flaticon-check-mark"></i></li>
-                  </ul>
+            <div class="col-lg-4">
+              <el-carousel-item style="height: 400px">
+                <div class="service-item">
+                  <div class="service-icon">
+                    <img src="../assets/img/icon/service_icon01.png" alt="">
+                  </div>
+                  <div class="service-content">
+                    <span>Service 01</span>
+                    <h2 class="title">Pre-Book Your Baggage</h2>
+                    <div class="service-list">
+                      <ul>
+                        <li>Pre-book your baggage <i class="flaticon-check-mark"></i></li>
+                        <li>Allowance now and save up <i class="flaticon-check-mark"></i></li>
+                        <li>90% of baggage charges <i class="flaticon-check-mark"></i></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </el-carousel-item>
             </div>
-            </el-carousel-item>
-          </div>
-          <div class="col-lg-4">
-            <el-carousel-item style="height: 400px">
-            <div class="service-item">
-              <div class="service-icon">
-                <img src="../assets/img/icon/service_icon02.png" alt="">
-              </div>
-              <div class="service-content">
-                <span>Service 02</span>
-                <h2 class="title">Reserve preferred seat!</h2>
-                <div class="service-list">
-                  <ul>
-                    <li>What will it be, window or aisle? <i class="flaticon-check-mark"></i></li>
-                    <li>Select your preferred seat prior <i class="flaticon-check-mark"></i></li>
-                    <li>Reserved for you. <i class="flaticon-check-mark"></i></li>
-                  </ul>
+            <div class="col-lg-4">
+              <el-carousel-item style="height: 400px">
+                <div class="service-item">
+                  <div class="service-icon">
+                    <img src="../assets/img/icon/service_icon02.png" alt="">
+                  </div>
+                  <div class="service-content">
+                    <span>Service 02</span>
+                    <h2 class="title">Reserve preferred seat!</h2>
+                    <div class="service-list">
+                      <ul>
+                        <li>What will it be, window or aisle? <i class="flaticon-check-mark"></i></li>
+                        <li>Select your preferred seat prior <i class="flaticon-check-mark"></i></li>
+                        <li>Reserved for you. <i class="flaticon-check-mark"></i></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </el-carousel-item>
             </div>
-            </el-carousel-item>
-          </div>
-          <div class="col-lg-4">
-            <el-carousel-item style="height: 400px">
-            <div class="service-item">
-              <div class="service-icon">
-                <img src="../assets/img/icon/service_icon03.png" alt="">
-              </div>
-              <div class="service-content">
-                <span>Service 03</span>
-                <h2 class="title">Enjoy stress-free travel</h2>
-                <div class="service-list">
-                  <ul>
-                    <li>Travel stress-free by getting<i class="flaticon-check-mark"></i></li>
-                    <li>Covered for flight modification <i class="flaticon-check-mark"></i></li>
-                    <li>Cancellation, accident & medical <i class="flaticon-check-mark"></i></li>
-                  </ul>
+            <div class="col-lg-4">
+              <el-carousel-item style="height: 400px">
+                <div class="service-item">
+                  <div class="service-icon">
+                    <img src="../assets/img/icon/service_icon03.png" alt="">
+                  </div>
+                  <div class="service-content">
+                    <span>Service 03</span>
+                    <h2 class="title">Enjoy stress-free travel</h2>
+                    <div class="service-list">
+                      <ul>
+                        <li>Travel stress-free by getting<i class="flaticon-check-mark"></i></li>
+                        <li>Covered for flight modification <i class="flaticon-check-mark"></i></li>
+                        <li>Cancellation, accident & medical <i class="flaticon-check-mark"></i></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </el-carousel-item>
             </div>
-            </el-carousel-item>
-          </div>
-          <div class="col-lg-4">
-            <el-carousel-item style="height: 400px">
-            <div class="service-item">
-              <div class="service-icon">
-                <img src="../assets/img/icon/service_icon02.png" alt="">
-              </div>
-              <div class="service-content">
-                <span>Service 02</span>
-                <h2 class="title">Reserve preferred seat!</h2>
-                <div class="service-list">
-                  <ul>
-                    <li>What will it be, window or aisle? <i class="flaticon-check-mark"></i></li>
-                    <li>Select your preferred seat prior <i class="flaticon-check-mark"></i></li>
-                    <li>Reserved for you. <i class="flaticon-check-mark"></i></li>
-                  </ul>
+            <div class="col-lg-4">
+              <el-carousel-item style="height: 400px">
+                <div class="service-item">
+                  <div class="service-icon">
+                    <img src="../assets/img/icon/service_icon02.png" alt="">
+                  </div>
+                  <div class="service-content">
+                    <span>Service 02</span>
+                    <h2 class="title">Reserve preferred seat!</h2>
+                    <div class="service-list">
+                      <ul>
+                        <li>What will it be, window or aisle? <i class="flaticon-check-mark"></i></li>
+                        <li>Select your preferred seat prior <i class="flaticon-check-mark"></i></li>
+                        <li>Reserved for you. <i class="flaticon-check-mark"></i></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </el-carousel-item>
             </div>
-            </el-carousel-item>
-          </div>
           </el-carousel>
         </div>
       </div>
@@ -2941,7 +2973,8 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                     <li><i class="fa-solid fa-calendar-days"></i> February 19, 2022</li>
                   </ul>
                 </div>
-                <h2 class="title"><a href="blog-details.html">Depending on your departure point and destination flights</a></h2>
+                <h2 class="title"><a href="blog-details.html">Depending on your departure point and destination
+                  flights</a></h2>
               </div>
             </div>
           </div>
@@ -2971,7 +3004,8 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                     <li><i class="fa-solid fa-calendar-days"></i> February 19, 2022</li>
                   </ul>
                 </div>
-                <h2 class="title"><a href="blog-details.html">The US is a Large Country and Climate Varies by Region</a></h2>
+                <h2 class="title"><a href="blog-details.html">The US is a Large Country and Climate Varies by Region</a>
+                </h2>
               </div>
             </div>
             <div class="blog-item small-item">
@@ -2985,7 +3019,8 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver{
                     <li><i class="fa-solid fa-calendar-days"></i> February 19, 2022</li>
                   </ul>
                 </div>
-                <h2 class="title"><a href="blog-details.html">But There are Dozen of Low-cost Airlines Including</a></h2>
+                <h2 class="title"><a href="blog-details.html">But There are Dozen of Low-cost Airlines Including</a>
+                </h2>
               </div>
             </div>
           </div>
