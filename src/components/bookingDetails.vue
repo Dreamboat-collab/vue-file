@@ -1,14 +1,10 @@
 <script setup>
 import {onBeforeMount, onMounted, ref, watch} from 'vue';
-import IndexFooter1 from "@/components/indexFooter1.vue";
-import IndexHeader1 from "@/components/indexHeader1.vue";
-
 import $ from 'jquery';
-// 引入bootstrap样式
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
-import 'wowjs/css/libs/animate.css'
+import 'wowjs/css/libs/animate.css';
 import '@/assets/CSS/fontawesome-all.min.css';
 import '@/assets/CSS/bootstrap-datepicker.min.css';
 import '@/assets/CSS/odometer.css';
@@ -19,16 +15,19 @@ import '@/assets/CSS/styleFlight.css';
 import '@/assets/CSS/responsive.css';
 import '@/assets/js/jquery.odometer.min.js';
 import "@/assets/js/jquery-ui.min.js";
-import {WOW} from 'wowjs';
+import IndexHeader1 from "@/components/indexHeader1.vue";
+import IndexFooter1 from "@/components/indexFooter1.vue";
 import axios from "axios";
 import router from "@/router";
 import {ElMessageBox} from "element-plus";
 
-import '@/assets/js/slick.min.js';
-import '@/assets/CSS/slick.css';
-
-
 onMounted(() => {
+  // const jump = localStorage.getItem('jump')
+  // if (jump == '1') {
+  //   localStorage.setItem('jump', 0)
+  //   console.log(jump)
+  //   location.reload()
+  // }
 // 这里是原来的 JavaScript 代码 bootstrap-datepicker.min.js
   (function ($, undefined) {
 
@@ -1799,6 +1798,7 @@ onMounted(() => {
   (function ($) {
     "use strict";
 
+
     /*=============================================
               =     Menu sticky & Scroll to top      =
           =============================================*/
@@ -1827,6 +1827,7 @@ onMounted(() => {
 
       });
     }
+
 
     /*=============================================
               =    	   Toggle Active  	         =
@@ -1880,6 +1881,8 @@ onMounted(() => {
       event.preventDefault();
     });
 
+
+
   })($);
 });
 
@@ -1890,9 +1893,9 @@ onMounted(() => {
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-
   <body class="white-background">
 
   <!-- Scroll-top -->
@@ -1914,11 +1917,11 @@ onMounted(() => {
         <div class="row justify-content-center">
           <div class="col-lg-8">
             <div class="breadcrumb-content text-center">
-              <h2 class="title">Booking List</h2>
+              <h2 class="title">Booking Details</h2>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><router-link to="/flight">Home</router-link></li>
-                  <li class="breadcrumb-item active" aria-current="page">Booking List</li>
+                  <li class="breadcrumb-item active" aria-current="page">Booking Details</li>
                 </ol>
               </nav>
             </div>
@@ -1928,639 +1931,261 @@ onMounted(() => {
     </section>
     <!-- breadcrumb-area-end -->
 
-    <!-- booking-area -->
-    <div class="booking-area booking-style-two">
+    <!-- customer-details-area -->
+    <section class="customer-details-area">
       <div class="container">
         <div class="row">
-          <div class="col-lg-12">
-            <div class="booking-wrap">
-              <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="air-tab" data-bs-toggle="tab" data-bs-target="#air-tab-pane"
-                          type="button"
-                          role="tab" aria-controls="air-tab-pane" aria-selected="true"><i class="flaticon-flight"></i>air
-                    BOOKing
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel-tab-pane"
-                          type="button"
-                          role="tab" aria-controls="hotel-tab-pane" aria-selected="false"><i class="flaticon-home"></i>
-                    Hotel Booking
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="status-tab" data-bs-toggle="tab" data-bs-target="#status-tab-pane"
-                          type="button"
-                          role="tab" aria-controls="status-tab-pane" aria-selected="false"><i
-                      class="flaticon-clock"></i> Flight status
-                  </button>
-                </li>
-              </ul>
-              <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="air-tab-pane" role="tabpanel" aria-labelledby="air-tab"
-                     tabindex="0"><!--航班-->
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="tab-content-wrap">
-                        <form action="#" class="booking-form">
-                          <ul>
-                            <li>
-                              <div class="form-grp select">
-                                <label for="From">From</label>
-                                <select id="From" name="select" class="form-select" aria-label="Default select example"
-                                        :value="depart">
-                                  <!--                                  <option value="">Guangzhou</option>-->
-                                  <option v-for="i in address" :key="i.id" :value="i">{{ i }}</option>
-                                </select>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp select">
-                                <label for="To">To</label>
-                                <select id="To" name="select" class="form-select" aria-label="Default select example"
-                                        :value="arrival">
-                                  <option v-for="i in address" :key="i.id">{{ i }}</option>
-                                </select>
-                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp date">
-                                <ul>
-                                  <li>
-                                    <label for="flightDate">Departure Date</label>
-                                    <input type="text" class="date" placeholder="Select Date" id="flightDate">
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp economy">
-                                <label for="text">Class</label>
-                                <el-select v-model="grade">
-                                  <!--                                  style="background-color:rgba(0,0,0,0);border: none"-->
-                                  <el-option value="Economy">Economy</el-option>
-                                  <el-option value="Business">Business</el-option>
-                                  <el-option value="First">First</el-option>
-                                </el-select>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp economy" style="border-left:rgba(144,144,144,0.29) 1px solid;">
-                                <label for="text" style="text-decoration: underline" @click="open">Redeem points</label>
-                              </div>
-                            </li>
-                          </ul>
-                        </form>
-                        <div class="content-bottom">
-                          <router-link to="/bklist" class="btn">Show Flights <i class="flaticon-flight-1"></i></router-link>
-                        </div>
-                      </div>
-                    </div>
+          <div class="col-12">
+            <div class="customer-details-content">
+              <div class="icon">
+                <img src="assets/img/icon/customer_det_icon.jpg" alt="">
+              </div>
+              <div class="content">
+                <h2 class="title">Customer Details: Please fill in with valid information.</h2>
+                <div class="customer-progress-wrap">
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0"
+                         aria-valuemax="100"></div>
+                  </div>
+                  <div class="customer-progress-step">
+                    <ul>
+                      <li>
+                        <span>1</span>
+                        <p>Guest Information</p>
+                      </li>
+                      <li>
+                        <span>2</span>
+                        <p>Payment</p>
+                      </li>
+                      <li>
+                        <span>3</span>
+                        <p>Confirmation</p>
+                      </li>
+                    </ul>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="hotel-tab-pane" role="tabpanel" aria-labelledby="hotel-tab" tabindex="0">
-                  <!--酒店-->
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="tab-content-wrap">
-                        <form action="#" class="booking-form">
-                          <ul>
-                            <li>
-                              <div class="form-grp select">
-                                <label for="shortByThree">Trip</label>
-                                <select id="shortByThree" name="select" class="form-select"
-                                        aria-label="Default select example">
-                                  <option value="">Tour type</option>
-                                  <option>Adventure Travel</option>
-                                  <option>Family Tours</option>
-                                  <option>Newest Item</option>
-                                  <option>Nature & wildlife</option>
-                                </select>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp date">
-                                <ul>
-                                  <li>
-                                    <label for="inDate">Check-in Date</label>
-                                    <input type="text" class="date" placeholder="Select Date" id="inDate">
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp date">
-                                <ul>
-                                  <li>
-                                    <label for="outDate">Check-out Date</label>
-                                    <input type="text" class="date" placeholder="Select Date" id="outDate">
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
-                          </ul>
-                        </form>
-                        <div class="content-bottom">
-                          <a href="booking-details.html" class="btn">Show Hotels <i class="flaticon-home"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="status-tab-pane" role="tabpanel" aria-labelledby="status-tab"
-                     tabindex="0">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="tab-content-wrap">
-                        <form action="#" class="booking-form">
-                          <ul>
-                            <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="Flight No.">
-                              </div>
-                            </li>
-
-                          </ul>
-                        </form>
-                        <div class="content-bottom">
-                          <a href="booking-details.html" class="btn">Show Flight Status <i
-                              class="flaticon-flight-1"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div><!--航班状态-->
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- booking-area-end -->
+    </section>
+    <!-- customer-details-area-end -->
 
-    <!-- booking-list-area -->
-    <div class="booking-list-area">
+    <!-- booking-details-area -->
+    <section class="booking-details-area">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-27 order-2 order-xl-0">
-            <aside class="booking-sidebar">
-              <div class="widget filters">
-                <h2 class="title">filters</h2>
-                <div class="filters-wrap">
-                  <h2 class="widget-title">Price Range</h2>
-                  <div class="price_filter">
-                    <div id="slider-range"></div>
-                    <div class="price_slider_amount">
-                      <span>Price :</span>
-                      <input type="text" id="amount" name="price" placeholder="Add Your Price" />
-                      <input type="submit" class="btn" value="Filter">
+          <div class="col-73">
+            <div class="primary-contact">
+              <i class="fa-regular fa-user"></i>
+              <h2 class="title">Passenger 1: Ms (Primary Contact)</h2>
+            </div>
+            <div class="booking-details-wrap">
+              <form action="#">
+                <div class="form-grp select-form">
+                  <div class="icon">
+                    <i class="flaticon-add-user"></i>
+                  </div>
+                  <div class="form">
+                    <label for="shortBy">Select Travellers from your Favourties List</label>
+                    <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
+                      <option value="">Select One..</option>
+                      <option>Select Two..</option>
+                      <option>Select Three..</option>
+                      <option>Select Four..</option>
+                      <option>Select Five..</option>
+                    </select>
+                  </div>
+                </div>
+                <ul>
+                  <li>
+                    <div class="form-grp">
+                      <div class="icon">
+                        <i class="flaticon-user-1"></i>
+                      </div>
+                      <div class="form">
+                        <select id="title" name="select" class="form-select" aria-label="Default select example">
+                          <option value="">Mr.</option>
+                          <option>Mrs.</option>
+                          <option>Others..</option>
+                        </select>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-grp">
+                      <input type="text" placeholder="Give Name">
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-grp">
+                      <input type="text" placeholder="Sur Name *">
+                    </div>
+                  </li>
+                </ul>
+                <div class="gender-select">
+                  <h2 class="title">Select Your Gender*</h2>
+                  <ul>
+                    <li class="active"><i class="flaticon-little-kid"></i> Male</li>
+                    <li><i class="flaticon-little-girl"></i> Female</li>
+                  </ul>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-grp">
+                      <div class="icon">
+                        <i class="flaticon-globe-1"></i>
+                      </div>
+                      <div class="form">
+                        <label for="nationality">Nationality</label>
+                        <select id="nationality" name="select" class="form-select" aria-label="Default select example">
+                          <option value="">Bangladesh</option>
+                          <option>United States</option>
+                          <option>Dubai</option>
+                          <option>Saudi Arabia</option>
+                          <option>Australia</option>
+                          <option>South Africa</option>
+                          <option>Pakistan</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-grp">
+                      <div class="icon">
+                        <i class="flaticon-telephone-call"></i>
+                      </div>
+                      <div class="form">
+                        <input type="number" placeholder="Mobile Number *">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-grp">
+                      <div class="icon">
+                        <i class="flaticon-calendar"></i>
+                      </div>
+                      <div class="form">
+                        <label for="shortBy">Date of Birth</label>
+                        <input type="text" class="date" placeholder="Select Date">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-grp">
+                      <div class="icon">
+                        <i class="flaticon-home"></i>
+                      </div>
+                      <div class="form">
+                        <input type="text" placeholder="Post Code *">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-grp">
+                      <div class="icon">
+                        <i class="flaticon-arroba"></i>
+                      </div>
+                      <div class="form">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" placeholder="youinfo@gmail.com">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-grp">
+                      <div class="icon">
+                        <i class="flaticon-five-stars"></i>
+                      </div>
+                      <div class="form">
+                        <input type="text" placeholder="FlyerNumber :  98265">
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+                <div class="optional-item">
+                  <div class="form-grp">
+                    <div class="form">
+                      <select id="optional" name="select" class="form-select" aria-label="Default select example">
+                        <option value="">Select meal type ( optional )</option>
+                        <option>Select meal type ( optional )</option>
+                        <option>Select meal type ( optional )</option>
+                        <option>Select meal type ( optional )</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-grp">
+                    <div class="form">
+                      <select id="optionalTwo" name="select" class="form-select" aria-label="Default select example">
+                        <option value="">Request wheelchair ( optional )</option>
+                        <option>Request wheelchair ( optional )</option>
+                        <option>Select meal type ( optional )</option>
+                        <option>Select meal type ( optional )</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-grp checkbox-grp">
+                  <input type="checkbox" id="checkbox">
+                  <label for="checkbox">Add this person to passenger quick pick list</label>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-27">
+            <aside class="booking-sidebar">
+              <h2 class="main-title">Booking Info</h2>
               <div class="widget">
-                <h2 class="widget-title">Departure Time</h2>
-                <ul class="departure-wrap">
-                  <li><a href="#"><i class="flaticon-sunrise"></i>00:00 - 05:59</a></li>
-                  <li><a href="#"><i class="flaticon-sunny"></i>06:00 - 11:59</a></li>
-                  <li><a href="#"><i class="flaticon-sunset"></i>12:00 - 17:59</a></li>
-                  <li><a href="#"><i class="flaticon-crescent-moon"></i>18:00 - 23:59</a></li>
+                <ul class="flight-info">
+                  <li><img src="assets/img/icon/sidebar_flight_icon.jpg" alt=""> <p>12:0 (DEK) <span>Dubai</span></p></li>
+                  <li><p>16:30 (DEK) <span>istanbul</span></p></li>
                 </ul>
               </div>
               <div class="widget">
-                <h2 class="widget-title">Number of Stops</h2>
-                <form action="#" class="flight-stops">
-                  <label for="stopNumber"><i class="flaticon-flight"></i></label>
-                  <select id="stopNumber" name="select" class="form-select" aria-label="Default select example">
-                    <option value="">Direct</option>
-                    <option>One Stops</option>
-                    <option>Two Stops</option>
-                  </select>
+                <h2 class="widget-title">Select Discount Option</h2>
+                <form action="#" class="discount-form">
+                  <i class="flaticon-coupon"></i>
+                  <input type="text" placeholder="Enter Code">
+                  <button type="submit"><i class="flaticon-tick-1"></i></button>
                 </form>
               </div>
               <div class="widget">
-                <h2 class="widget-title">Airlines</h2>
-                <ul class="airlines-cat-list">
-                  <li>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="catOne">
-                      <label class="form-check-label" for="catOne">Etihad Airway<span>(12)</span></label>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="catTwo">
-                      <label class="form-check-label" for="catTwo">Lankan Airlines<span>(09)</span></label>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="catThree">
-                      <label class="form-check-label" for="catThree">Dubai Airway<span>(12)</span></label>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="catFour">
-                      <label class="form-check-label" for="catFour">NOVOAIR<span>(36)</span></label>
-                    </div>
-                  </li>
+                <h2 class="widget-title">Your Preferred Bank</h2>
+                <ul class="preferred-bank-wrap">
+                  <li><a href="#"><img src="assets/img/images/bank_logo01.png" alt=""></a></li>
+                  <li><a href="#"><img src="assets/img/images/bank_logo02.png" alt=""></a></li>
+                  <li><a href="#"><img src="assets/img/images/bank_logo03.png" alt=""></a></li>
+                  <li><a href="#"><img src="assets/img/images/bank_logo04.png" alt=""></a></li>
+                  <li><a href="#"><img src="assets/img/images/bank_logo05.png" alt=""></a></li>
+                  <li><a href="#"><img src="assets/img/images/bank_logo06.png" alt=""></a></li>
                 </ul>
               </div>
               <div class="widget">
-                <h2 class="widget-title">Weights</h2>
-                <ul class="airlines-cat-list weights-list">
-                  <li>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="weightsOne">
-                      <label class="form-check-label" for="weightsOne">25 KG</label>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="widget">
-                <h2 class="widget-title">Refundable</h2>
-                <ul class="airlines-cat-list">
-                  <li>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="refOne">
-                      <label class="form-check-label" for="refOne">Non Refundable</label>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="refTwo">
-                      <label class="form-check-label" for="refTwo">Refundable</label>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="refThree">
-                      <label class="form-check-label" for="refThree">Rules Wise</label>
-                    </div>
-                  </li>
-                </ul>
+                <h2 class="widget-title">Your price summary</h2>
+                <div class="price-summary-top">
+                  <ul>
+                    <li>Details</li>
+                    <li>Amount</li>
+                  </ul>
+                </div>
+                <div class="price-summary-detail">
+                  <ul>
+                    <li>Adult x 1 <span>$1,056</span></li>
+                    <li>Tax x 1 <span>$35</span></li>
+                    <li>Total Airfare: <span>$1,091</span></li>
+                    <li>Discount<span>- $110</span></li>
+                    <li>Total Payable<span>$981.00</span></li>
+                  </ul>
+                  <a href="#" class="btn">Pay now</a>
+                </div>
               </div>
             </aside>
           </div>
-          <div class="col-73">
-            <div class="booking-list-item">
-              <div class="booking-list-item-inner">
-                <div class="booking-list-top">
-                  <div class="flight-airway">
-                    <div class="flight-logo">
-                      <img src="assets/img/icon/booking_icon01.jpg" alt="">
-                      <h5 class="title">Etihad Airway</h5>
-                    </div>
-                    <span>Operated by Emirates</span>
-                  </div>
-                  <ul class="flight-info">
-                    <li>Thursday, <span>Jun 16</span></li>
-                    <li class="time"><span>12: 55</span>DAC</li>
-                    <li>22h<span>2 Stops</span></li>
-                  </ul>
-                  <div class="flight-price">
-                    <h4 class="title">US$ 1,056.40</h4>
-                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
-                  </div>
-                </div>
-                <div class="booking-list-bottom">
-                  <ul>
-                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
-                    <li>Price per person (incl. taxes & fees)</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="flight-detail-wrap">
-                <div class="flight-date">
-                  <ul>
-                    <li>Thursday, Jun 16</li>
-                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
-                    <li>Friday, Jun 17 - 03:20</li>
-                  </ul>
-                </div>
-                <div class="flight-detail-right">
-                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
-                  <div class="flight-detail-info">
-                    <img src="assets/img/icon/booking_icon01.jpg" alt="">
-                    <ul>
-                      <li>Tpm Line</li>
-                      <li>Operated by Airlines</li>
-                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
-                      <li>Adult(s): 25KG luggage free</li>
-                    </ul>
-                  </div>
-                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
-                </div>
-              </div>
-            </div>
-            <div class="booking-list-item">
-              <div class="booking-list-item-inner">
-                <div class="booking-list-top">
-                  <div class="flight-airway">
-                    <div class="flight-logo">
-                      <img src="assets/img/icon/booking_icon02.jpg" alt="">
-                      <h5 class="title">Qatar Airways</h5>
-                    </div>
-                    <span>Operated by Emirates</span>
-                  </div>
-                  <ul class="flight-info">
-                    <li>Thursday, <span>Jun 16</span></li>
-                    <li class="time"><span>12: 55</span>DAC</li>
-                    <li>22h<span>2 Stops</span></li>
-                  </ul>
-                  <div class="flight-price">
-                    <h4 class="title">US$ 1,099.40</h4>
-                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
-                  </div>
-                </div>
-                <div class="booking-list-bottom">
-                  <ul>
-                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
-                    <li>Price per person (incl. taxes & fees)</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="flight-detail-wrap">
-                <div class="flight-date">
-                  <ul>
-                    <li>Thursday, Jun 16</li>
-                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
-                    <li>Friday, Jun 17 - 03:20</li>
-                  </ul>
-                </div>
-                <div class="flight-detail-right">
-                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
-                  <div class="flight-detail-info">
-                    <img src="assets/img/icon/booking_icon02.jpg" alt="">
-                    <ul>
-                      <li>Tpm Line</li>
-                      <li>Operated by Airlines</li>
-                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
-                      <li>Adult(s): 25KG luggage free</li>
-                    </ul>
-                  </div>
-                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
-                </div>
-              </div>
-            </div>
-            <div class="booking-list-item">
-              <div class="booking-list-item-inner">
-                <div class="booking-list-top">
-                  <div class="flight-airway">
-                    <div class="flight-logo">
-                      <img src="assets/img/icon/booking_icon03.jpg" alt="">
-                      <h5 class="title">Envat (DXB)</h5>
-                    </div>
-                    <span>Operated by Emirates</span>
-                  </div>
-                  <ul class="flight-info">
-                    <li>Thursday, <span>Jun 16</span></li>
-                    <li class="time"><span>12: 55</span>DAC</li>
-                    <li>22h<span>2 Stops</span></li>
-                  </ul>
-                  <div class="flight-price">
-                    <h4 class="title">US$ 1,200.00</h4>
-                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
-                  </div>
-                </div>
-                <div class="booking-list-bottom">
-                  <ul>
-                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
-                    <li>Price per person (incl. taxes & fees)</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="flight-detail-wrap">
-                <div class="flight-date">
-                  <ul>
-                    <li>Thursday, Jun 16</li>
-                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
-                    <li>Friday, Jun 17 - 03:20</li>
-                  </ul>
-                </div>
-                <div class="flight-detail-right">
-                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
-                  <div class="flight-detail-info">
-                    <img src="assets/img/icon/booking_icon03.jpg" alt="">
-                    <ul>
-                      <li>Tpm Line</li>
-                      <li>Operated by Airlines</li>
-                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
-                      <li>Adult(s): 25KG luggage free</li>
-                    </ul>
-                  </div>
-                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
-                </div>
-              </div>
-            </div>
-            <div class="booking-list-item">
-              <div class="booking-list-item-inner">
-                <div class="booking-list-top">
-                  <div class="flight-airway">
-                    <div class="flight-logo">
-                      <img src="assets/img/icon/booking_icon04.jpg" alt="">
-                      <h5 class="title">Lankan Airlines</h5>
-                    </div>
-                    <span>Operated by Emirates</span>
-                  </div>
-                  <ul class="flight-info">
-                    <li>Thursday, <span>Jun 16</span></li>
-                    <li class="time"><span>12: 55</span>DAC</li>
-                    <li>22h<span>2 Stops</span></li>
-                  </ul>
-                  <div class="flight-price">
-                    <h4 class="title">US$ 1,056.40</h4>
-                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
-                  </div>
-                </div>
-                <div class="booking-list-bottom">
-                  <ul>
-                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
-                    <li>Price per person (incl. taxes & fees)</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="flight-detail-wrap">
-                <div class="flight-date">
-                  <ul>
-                    <li>Thursday, Jun 16</li>
-                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
-                    <li>Friday, Jun 17 - 03:20</li>
-                  </ul>
-                </div>
-                <div class="flight-detail-right">
-                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
-                  <div class="flight-detail-info">
-                    <img src="assets/img/icon/booking_icon04.jpg" alt="">
-                    <ul>
-                      <li>Tpm Line</li>
-                      <li>Operated by Airlines</li>
-                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
-                      <li>Adult(s): 25KG luggage free</li>
-                    </ul>
-                  </div>
-                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
-                </div>
-              </div>
-            </div>
-            <div class="booking-list-item">
-              <div class="booking-list-item-inner">
-                <div class="booking-list-top">
-                  <div class="flight-airway">
-                    <div class="flight-logo">
-                      <img src="assets/img/icon/booking_icon05.jpg" alt="">
-                      <h5 class="title">Dubai (DXB)</h5>
-                    </div>
-                    <span>Operated by Emirates</span>
-                  </div>
-                  <ul class="flight-info">
-                    <li>Thursday, <span>Jun 16</span></li>
-                    <li class="time"><span>12: 55</span>DAC</li>
-                    <li>22h<span>2 Stops</span></li>
-                  </ul>
-                  <div class="flight-price">
-                    <h4 class="title">US$ 1,056.40</h4>
-                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
-                  </div>
-                </div>
-                <div class="booking-list-bottom">
-                  <ul>
-                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
-                    <li>Price per person (incl. taxes & fees)</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="flight-detail-wrap">
-                <div class="flight-date">
-                  <ul>
-                    <li>Thursday, Jun 16</li>
-                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
-                    <li>Friday, Jun 17 - 03:20</li>
-                  </ul>
-                </div>
-                <div class="flight-detail-right">
-                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
-                  <div class="flight-detail-info">
-                    <img src="assets/img/icon/booking_icon05.jpg" alt="">
-                    <ul>
-                      <li>Tpm Line</li>
-                      <li>Operated by Airlines</li>
-                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
-                      <li>Adult(s): 25KG luggage free</li>
-                    </ul>
-                  </div>
-                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
-                </div>
-              </div>
-            </div>
-            <div class="booking-list-item">
-              <div class="booking-list-item-inner">
-                <div class="booking-list-top">
-                  <div class="flight-airway">
-                    <div class="flight-logo">
-                      <img src="assets/img/icon/booking_icon01.jpg" alt="">
-                      <h5 class="title">Etihad Airway</h5>
-                    </div>
-                    <span>Operated by Emirates</span>
-                  </div>
-                  <ul class="flight-info">
-                    <li>Thursday, <span>Jun 16</span></li>
-                    <li class="time"><span>12: 55</span>DAC</li>
-                    <li>22h<span>2 Stops</span></li>
-                  </ul>
-                  <div class="flight-price">
-                    <h4 class="title">US$ 1,056.40</h4>
-                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
-                  </div>
-                </div>
-                <div class="booking-list-bottom">
-                  <ul>
-                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
-                    <li>Price per person (incl. taxes & fees)</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="flight-detail-wrap">
-                <div class="flight-date">
-                  <ul>
-                    <li>Thursday, Jun 16</li>
-                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
-                    <li>Friday, Jun 17 - 03:20</li>
-                  </ul>
-                </div>
-                <div class="flight-detail-right">
-                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
-                  <div class="flight-detail-info">
-                    <img src="assets/img/icon/booking_icon01.jpg" alt="">
-                    <ul>
-                      <li>Tpm Line</li>
-                      <li>Operated by Airlines</li>
-                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
-                      <li>Adult(s): 25KG luggage free</li>
-                    </ul>
-                  </div>
-                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
-                </div>
-              </div>
-            </div>
-            <div class="booking-list-item">
-              <div class="booking-list-item-inner">
-                <div class="booking-list-top">
-                  <div class="flight-airway">
-                    <div class="flight-logo">
-                      <img src="assets/img/icon/booking_icon02.jpg" alt="">
-                      <h5 class="title">Tom Line (DXB)</h5>
-                    </div>
-                    <span>Operated by Emirates</span>
-                  </div>
-                  <ul class="flight-info">
-                    <li>Thursday, <span>Jun 16</span></li>
-                    <li class="time"><span>12: 55</span>DAC</li>
-                    <li>22h<span>2 Stops</span></li>
-                  </ul>
-                  <div class="flight-price">
-                    <h4 class="title">US$ 1,056.40</h4>
-                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
-                  </div>
-                </div>
-                <div class="booking-list-bottom">
-                  <ul>
-                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
-                    <li>Price per person (incl. taxes & fees)</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="flight-detail-wrap">
-                <div class="flight-date">
-                  <ul>
-                    <li>Thursday, Jun 16</li>
-                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
-                    <li>Friday, Jun 17 - 03:20</li>
-                  </ul>
-                </div>
-                <div class="flight-detail-right">
-                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
-                  <div class="flight-detail-info">
-                    <img src="assets/img/icon/booking_icon02.jpg" alt="">
-                    <ul>
-                      <li>Tpm Line</li>
-                      <li>Operated by Airlines</li>
-                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
-                      <li>Adult(s): 25KG luggage free</li>
-                    </ul>
-                  </div>
-                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-    </div>
-    <!-- booking-list-area-end -->
+    </section>
+    <!-- booking-details-area-end -->
 
   </main>
   <!-- main-area-end -->

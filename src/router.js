@@ -10,6 +10,7 @@ const routes = [
     { path: '/footer1', component: () => import('@/components/indexFooter1.vue') },
     { path: '/about', component: () => import('@/components/AboutView.vue') },
     { path: '/bklist', component: () => import('@/components/bookingList.vue') },
+    { path: '/bkdtls', component: () => import('@/components/bookingDetails.vue') },
     // 其他路由配置项
     { path: '/', redirect: '/about' }, // 将根路径重定向到'/home'页面
 ];

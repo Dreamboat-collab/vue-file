@@ -1,5 +1,4 @@
 <script setup>
-import IndexHeader from "@/components/IndexHeader.vue";
 import IndexHeader1 from "@/components/indexHeader1.vue";
 import IndexFooter1 from "@/components/indexFooter1.vue";
 // 图标
