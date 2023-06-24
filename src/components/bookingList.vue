@@ -1,5 +1,7 @@
 <script setup>
 import {onBeforeMount, onMounted, ref, watch} from 'vue';
+import IndexFooter1 from "@/components/indexFooter1.vue";
+import IndexHeader1 from "@/components/indexHeader1.vue";
 
 import $ from 'jquery';
 // 引入bootstrap样式
@@ -17,31 +19,16 @@ import '@/assets/CSS/styleFlight.css';
 import '@/assets/CSS/responsive.css';
 import '@/assets/js/jquery.odometer.min.js';
 import "@/assets/js/jquery-ui.min.js";
-import {WOW} from 'wowjs'
-import IndexHeader1 from "@/components/indexHeader1.vue";
-import IndexFooter1 from "@/components/indexFooter1.vue";
+import {WOW} from 'wowjs';
 import axios from "axios";
 import router from "@/router";
 import {ElMessageBox} from "element-plus";
 
-const address = ref([]);
-const depart = ref();
-const arrival = ref();
-const grade = ref('Economy');
-const prices = ref([])
-const departs = ref([])
-const arrivals = ref([])
-const depart_time = ref([])
-const arrival_time = ref([])
+import '@/assets/js/slick.min.js';
+import '@/assets/CSS/slick.css';
 
 
 onMounted(() => {
-  // const jump = localStorage.getItem('jump')
-  // if (jump == '1') {
-  //   localStorage.setItem('jump', 0)
-  //   console.log(jump)
-  //   location.reload()
-  // }
 // 这里是原来的 JavaScript 代码 bootstrap-datepicker.min.js
   (function ($, undefined) {
 
@@ -2007,99 +1994,24 @@ onMounted(() => {
 
 
   })($);
-  // 获取航班地点
-  axios.get('http://localhost:8080/starAirlines/flight_address').then((response) => {
-    console.log(response.data.data);
-    address.value = response.data.data
-    depart.value = address.value[0]
-    arrival.value = address.value[1]
-  })
-  axios.get('http://localhost:8080/starAirlines/flight?date=2023-06-30').then((response) => {
-    console.log(response.data.data)
-    let all_flights = []
-    let filtered_flights=[]
-    let depart_T = ''
-    let arrival_T = ''
-    const temp = [[], [], [], [], []]
-    all_flights = response.data.data
-    for (let i = 0; i < all_flights.length; i++) {
-      if (all_flights[i]['type']==1)
-        filtered_flights.push(all_flights[i])
-    }
-    console.log(filtered_flights)
-    for (let i = 0; i < 7; i++) {
-      if (i==4 || i==5){
-        continue
-      }
-      temp[0].push(filtered_flights[i]['depart'])
-      temp[1].push(filtered_flights[i]['arrival'])
-      depart_T = filtered_flights[i]['departTime']
-      temp[2].push(depart_T.substring(0, 4) + '/' + depart_T.substring(5, 7) + '/' + depart_T.substring(8, 10))
-      arrival_T = filtered_flights[i]['arrivalTime']
-      temp[3].push(arrival_T.substring(0, 4) + '/' + arrival_T.substring(5, 7) + '/' + arrival_T.substring(8, 10))
-      temp[4].push(filtered_flights[i]['price'])
-    }
-    console.log(temp)
-    departs.value = temp[0]
-    arrivals.value = temp[1]
-    depart_time.value = temp[2]
-    arrival_time.value = temp[3]
-    prices.value = temp[4]
-  })
 });
-const open = () => {
-  ElMessageBox.alert('Blanket<br> Gift card<br>Canvas bag', 'Redemption Items', {
-    confirmButtonText: 'OK', dangerouslyUseHTMLString: true,
-  })
-}
-
-
-// 实现页面跳转
-const navigateToAnotherPage1 = () => {
-  router.push('/userinfo'); // 替换 '/another-page' 为你想要跳转的实际路由路径
-  console.log('true')
-};
-const navigateToAnotherPage2 = () => {
-  router.push('/login'); // 替换 '/another-page' 为你想要跳转的实际路由路径
-  console.log('true')
-};
-const methods = {
-  navigateToAnotherPage1,
-};
-
-//忽略element-plus 报错 ResizeObserver loop limit exceeded
-const debounce = (fn, delay) => {
-  let timer = null;
-  return function () {
-    let context = this;
-    let args = arguments;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-      fn.apply(context, args);
-    }, delay);
-  }
-}
-const _ResizeObserver = window.ResizeObserver;
-window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
-  constructor(callback) {
-    callback = debounce(callback, 16);
-    super(callback);
-  }
-}
 
 </script>
 
-
 <template>
-  <html class="no-js" lang="en">
+  <html class="no-js" lang="">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="public/favicon.ico">
+
+    <!-- CSS here -->
+<!--    <link rel="stylesheet" href="assets/css/magnific-popup.css">-->
   </head>
 
-  <body>
+  <body class="white-background">
+
   <!-- preloader -->
   <div id="preloader">
     <div id="loading-center">
@@ -2109,186 +2021,102 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
       </div>
     </div>
   </div>
+  <!-- preloader-end -->
 
-  <!-- Scroll-top 返回页顶按钮 在style.css-->
+  <!-- Scroll-top -->
   <button class="scroll-top scroll-to-target" data-target="html">
     <i class="fas fa-angle-up"></i>
   </button>
   <!-- Scroll-top-end-->
 
-   <index-header1></index-header1>
+  <!-- header-area -->
+  <index-header1></index-header1>
+  <!-- header-area-end -->
 
   <!-- main-area -->
   <main>
 
-    <!-- slider-area -->
-    <section class="slider-area">
-      <div class="slider-active">
-        <el-carousel height="auto" autoplay>
-          <el-carousel-item style="height: 800px">
-            <div class="single-slider slider-bg"><!--第一条轮播-->
-              <div class="container">
-                <div class="row">
-                  <div class="col-xl-8 col-lg-10">
-                    <div class="slider-content">
-                      <h2 class="title" data-animation="fadeInUp" data-delay=".2s">Start your journey with us.</h2>
-                      <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant
-                        savings of 10% or more with a free Star Airlines account</p>
-                      <!--                  <a href="#" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in / Register</a>-->
-                      <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">
-                        Sign in / Register
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+    <!-- breadcrumb-area -->
+    <section class="breadcrumb-area breadcrumb-bg">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="breadcrumb-content text-center">
+              <h2 class="title">Booking List</h2>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Booking List</li>
+                </ol>
+              </nav>
             </div>
-          </el-carousel-item>
-          <el-carousel-item style="height: 800px">
-            <div class="single-slider slider-bg2">
-              <div class="container">
-                <div class="row">
-                  <div class="col-xl-8 col-lg-10">
-                    <div class="slider-content">
-                      <h2 class="title" data-animation="fadeInUp" data-delay=".2s">A Lifetime of Discounts? It's
-                        Genius.</h2>
-                      <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant
-                        savings of 10% or more with a free Geairinfo.com account</p>
-                      <a href="contact.html" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in /
-                        Register</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </el-carousel-item>
-          <el-carousel-item style="height: 800px">
-            <div class="single-slider slider-bg3">
-              <div class="container">
-                <div class="row">
-                  <div class="col-xl-8 col-lg-10">
-                    <div class="slider-content">
-                      <h2 class="title" data-animation="fadeInUp" data-delay=".2s">A Lifetime of Discounts? It's
-                        Genius.</h2>
-                      <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant
-                        savings of 10% or more with a free Geairinfo.com account</p>
-                      <a href="contact.html" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in /
-                        Register</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </el-carousel-item>
-        </el-carousel>
+          </div>
+        </div>
       </div>
     </section>
-    <!-- slider-area-end -->
+    <!-- breadcrumb-area-end -->
 
     <!-- booking-area -->
-    <div class="booking-area">
+    <div class="booking-area booking-style-two">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
             <div class="booking-wrap">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="air-tab" data-bs-toggle="tab" data-bs-target="#air-tab-pane"
-                          type="button"
-                          role="tab" aria-controls="air-tab-pane" aria-selected="true"><i class="flaticon-flight"></i>air
-                    BOOKing
-                  </button>
+                  <button class="nav-link active" id="bOOKing-tab" data-bs-toggle="tab"
+                          data-bs-target="#bOOKing-tab-pane" type="button" role="tab"
+                          aria-controls="bOOKing-tab-pane" aria-selected="true"><i class="flaticon-flight"></i>air
+                    BOOKing</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel-tab-pane"
-                          type="button"
-                          role="tab" aria-controls="hotel-tab-pane" aria-selected="false"><i class="flaticon-home"></i>
-                    Hotel Booking
-                  </button>
+                  <button class="nav-link" id="trips-tab" data-bs-toggle="tab"
+                          data-bs-target="#trips-tab-pane" type="button" role="tab" aria-controls="trips-tab-pane"
+                          aria-selected="false"><i class="flaticon-file"></i> my trips</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="status-tab" data-bs-toggle="tab" data-bs-target="#status-tab-pane"
-                          type="button"
-                          role="tab" aria-controls="status-tab-pane" aria-selected="false"><i
-                      class="flaticon-clock"></i> Flight status
-                  </button>
+                  <button class="nav-link" id="check-tab" data-bs-toggle="tab"
+                          data-bs-target="#check-tab-pane" type="button" role="tab" aria-controls="check-tab-pane"
+                          aria-selected="false"><i class="flaticon-tick"></i> check-in</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="flight-tab" data-bs-toggle="tab"
+                          data-bs-target="#flight-tab-pane" type="button" role="tab"
+                          aria-controls="flight-tab-pane" aria-selected="false"><i class="flaticon-clock"></i>
+                    Flight status</button>
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="air-tab-pane" role="tabpanel" aria-labelledby="air-tab"
-                     tabindex="0"><!--航班-->
+                <div class="tab-pane fade show active" id="bOOKing-tab-pane" role="tabpanel"
+                     aria-labelledby="bOOKing-tab" tabindex="0">
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">
-                        <form action="#" class="booking-form">
+                        <div class="content-top">
                           <ul>
-                            <li>
-                              <div class="form-grp select">
-                                <label for="From">From</label>
-                                <select id="From" name="select" class="form-select" aria-label="Default select example"
-                                        :value="depart">
-                                  <!--                                  <option value="">Guangzhou</option>-->
-                                  <option v-for="i in address" :key="i.id" :value="i">{{ i }}</option>
-                                </select>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp select">
-                                <label for="To">To</label>
-                                <select id="To" name="select" class="form-select" aria-label="Default select example"
-                                        :value="arrival">
-                                  <option v-for="i in address" :key="i.id">{{ i }}</option>
-                                </select>
-                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp date">
-                                <ul>
-                                  <li>
-                                    <label for="flightDate">Departure Date</label>
-                                    <input type="text" class="date" placeholder="Select Date" id="flightDate">
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp economy">
-                                <label for="text">Class</label>
-                                <el-select v-model="grade">
-                                  <!--                                  style="background-color:rgba(0,0,0,0);border: none"-->
-                                  <el-option value="Economy">Economy</el-option>
-                                  <el-option value="Business">Business</el-option>
-                                  <el-option value="First">First</el-option>
-                                </el-select>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp economy" style="border-left:rgba(144,144,144,0.29) 1px solid;">
-                                <label for="text" style="text-decoration: underline" @click="open">Redemption of
-                                  points</label>
-                              </div>
-                            </li>
+                            <li class="active"><a href="#">Roundtrip</a></li>
+                            <li><a href="#">One-way</a></li>
+                            <li><a href="#">Multi-city</a></li>
                           </ul>
-                        </form>
-                        <div class="content-bottom">
-                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="hotel-tab-pane" role="tabpanel" aria-labelledby="hotel-tab" tabindex="0">
-                  <!--酒店-->
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="tab-content-wrap">
                         <form action="#" class="booking-form">
                           <ul>
                             <li>
+                              <div class="form-grp">
+                                <input type="text" placeholder="From">
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp">
+                                <input type="text" placeholder="To">
+                                <button class="exchange-icon"><i
+                                    class="flaticon-exchange-1"></i></button>
+                              </div>
+                            </li>
+                            <li>
                               <div class="form-grp select">
-                                <label for="shortByThree">Trip</label>
-                                <select id="shortByThree" name="select" class="form-select"
+                                <label for="shortBy">Trip</label>
+                                <select id="shortBy" name="select" class="form-select"
                                         aria-label="Default select example">
                                   <option value="">Tour type</option>
                                   <option>Adventure Travel</option>
@@ -2302,54 +2130,235 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
                               <div class="form-grp date">
                                 <ul>
                                   <li>
-                                    <label for="inDate">Check-in Date</label>
-                                    <input type="text" class="date" placeholder="Select Date" id="inDate">
+                                    <label for="shortBy">Depart</label>
+                                    <input type="text" class="date"
+                                           placeholder="Select Date">
+                                  </li>
+                                  <li>
+                                    <label for="shortBy">Return</label>
+                                    <input type="text" class="date"
+                                           placeholder="Select Date">
                                   </li>
                                 </ul>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp economy">
+                                <label for="text">Passenger/ Class</label>
+                                <input type="text" id="text" placeholder="1 Passenger, Economy">
+                              </div>
+                            </li>
+                          </ul>
+                        </form>
+                        <div class="content-bottom">
+                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
+                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="trips-tab-pane" role="tabpanel" aria-labelledby="trips-tab"
+                     tabindex="0">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="tab-content-wrap">
+                        <div class="content-top">
+                          <ul>
+                            <li class="active"><a href="#">Roundtrip</a></li>
+                            <li><a href="#">One-way</a></li>
+                            <li><a href="#">Multi-city</a></li>
+                          </ul>
+                        </div>
+                        <form action="#" class="booking-form">
+                          <ul>
+                            <li>
+                              <div class="form-grp">
+                                <input type="text" placeholder="From">
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp">
+                                <input type="text" placeholder="To">
+                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp select">
+                                <label for="shortByTwo">Trip</label>
+                                <select id="shortByTwo" name="select" class="form-select" aria-label="Default select example">
+                                  <option value="">Tour type</option>
+                                  <option>Adventure Travel</option>
+                                  <option>Family Tours</option>
+                                  <option>Newest Item</option>
+                                  <option>Nature & wildlife</option>
+                                </select>
                               </div>
                             </li>
                             <li>
                               <div class="form-grp date">
                                 <ul>
                                   <li>
-                                    <label for="outDate">Check-out Date</label>
-                                    <input type="text" class="date" placeholder="Select Date" id="outDate">
+                                    <label for="shortBy">Depart</label>
+                                    <input type="text" class="date" placeholder="Select Date">
+                                  </li>
+                                  <li>
+                                    <label for="shortBy">Return</label>
+                                    <input type="text" class="date" placeholder="Select Date">
                                   </li>
                                 </ul>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp economy">
+                                <label for="textTwo">Passenger/ Class</label>
+                                <input type="text" id="textTwo" placeholder="1 Passenger, Economy">
                               </div>
                             </li>
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <a href="booking-details.html" class="btn">Show Hotels <i class="flaticon-home"></i></a>
+                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
+                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="status-tab-pane" role="tabpanel" aria-labelledby="status-tab"
+                <div class="tab-pane fade" id="check-tab-pane" role="tabpanel" aria-labelledby="check-tab"
                      tabindex="0">
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">
+                        <div class="content-top">
+                          <ul>
+                            <li class="active"><a href="#">Roundtrip</a></li>
+                            <li><a href="#">One-way</a></li>
+                            <li><a href="#">Multi-city</a></li>
+                          </ul>
+                        </div>
                         <form action="#" class="booking-form">
                           <ul>
                             <li>
                               <div class="form-grp">
-                                <input type="text" placeholder="Flight No.">
+                                <input type="text" placeholder="From">
                               </div>
                             </li>
-
+                            <li>
+                              <div class="form-grp">
+                                <input type="text" placeholder="To">
+                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp select">
+                                <label for="shortByThree">Trip</label>
+                                <select id="shortByThree" name="select" class="form-select" aria-label="Default select example">
+                                  <option value="">Tour type</option>
+                                  <option>Adventure Travel</option>
+                                  <option>Family Tours</option>
+                                  <option>Newest Item</option>
+                                  <option>Nature & wildlife</option>
+                                </select>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp date">
+                                <ul>
+                                  <li>
+                                    <label for="shortBy">Depart</label>
+                                    <input type="text" class="date" placeholder="Select Date">
+                                  </li>
+                                  <li>
+                                    <label for="shortBy">Return</label>
+                                    <input type="text" class="date" placeholder="Select Date">
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp economy">
+                                <label for="textThree">Passenger/ Class</label>
+                                <input type="text" id="textThree" placeholder="1 Passenger, Economy">
+                              </div>
+                            </li>
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <a href="booking-details.html" class="btn">Show Flight Status <i
-                              class="flaticon-flight-1"></i></a>
+                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
+                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div><!--航班状态-->
+                </div>
+                <div class="tab-pane fade" id="flight-tab-pane" role="tabpanel" aria-labelledby="flight-tab"
+                     tabindex="0">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="tab-content-wrap">
+                        <div class="content-top">
+                          <ul>
+                            <li class="active"><a href="#">Roundtrip</a></li>
+                            <li><a href="#">One-way</a></li>
+                            <li><a href="#">Multi-city</a></li>
+                          </ul>
+                        </div>
+                        <form action="#" class="booking-form">
+                          <ul>
+                            <li>
+                              <div class="form-grp">
+                                <input type="text" placeholder="From">
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp">
+                                <input type="text" placeholder="To">
+                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp select">
+                                <label for="shortByFour">Trip</label>
+                                <select id="shortByFour" name="select" class="form-select" aria-label="Default select example">
+                                  <option value="">Tour type</option>
+                                  <option>Adventure Travel</option>
+                                  <option>Family Tours</option>
+                                  <option>Newest Item</option>
+                                  <option>Nature & wildlife</option>
+                                </select>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp date">
+                                <ul>
+                                  <li>
+                                    <label for="shortBy">Depart</label>
+                                    <input type="text" class="date" placeholder="Select Date">
+                                  </li>
+                                  <li>
+                                    <label for="shortBy">Return</label>
+                                    <input type="text" class="date" placeholder="Select Date">
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp economy">
+                                <label for="textFour">Passenger/ Class</label>
+                                <input type="text" id="textFour" placeholder="1 Passenger, Economy">
+                              </div>
+                            </li>
+                          </ul>
+                        </form>
+                        <div class="content-bottom">
+                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
+                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -2358,599 +2367,467 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
     </div>
     <!-- booking-area-end -->
 
-    <!-- features-area -->
-    <section class="features-area">
+    <!-- booking-list-area -->
+    <div class="booking-list-area">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-xl-6 col-lg-6 col-sm-10">
-            <div class="features-item">
-              <div class="features-icon">
-                <i class="flaticon-help"></i>
-              </div>
-              <div class="features-content"><a href="https://github.com/hikeerer/vue-file">
-                <h6 class="title">We are now available</h6>
-                <p>Visit github.com/hikeerer/vue-file to contact with us</p>
-              </a></div>
-            </div>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-sm-10">
-            <div class="features-item">
-              <div class="features-icon">
-                <i class="flaticon-plane"></i>
-              </div>
-              <div class="features-content">
-                <h6 class="title">International Flight</h6>
-                <p>Call +86 114 5141 9198 for booking assistance</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-    <!-- features-area-end -->
-
-    <!-- flight-offer-area -->
-    <section class="flight-offer-area">
-      <div class="container">
-        <div class="row align-items-center mb-35">
-          <div class="col-md-8">
-            <div class="section-title">
-              <span class="sub-title">Offer Deals</span>
-              <h2 class="title">Flight Offer Deals</h2>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="best-price text-end">
-              <a href="#">Best Price Guarantee <i class="flaticon-check"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-lg-6 col-md-10">
-            <div class="flight-offer-item">
-              <div class="flight-offer-thumb">
-                <img src="../assets/img/images/Guangzhou_1.jpg" alt="">
-              </div>
-              <div class="flight-offer-content">
-                <h2 class="title">{{ departs[3] }} to {{ arrivals[3] }}</h2>
-                <span>{{ depart_time[3] }} - {{arrival_time[3]}}</span>
-                <p>Economy from</p>
-                <h4 class="price">$ {{ prices[3] }}</h4>
-              </div>
-              <div class="overlay-content">
-                <h2 class="title">{{ departs[3] }} to {{ arrivals[3] }}</h2>
-                <span>{{ depart_time[3] }} - {{arrival_time[3]}}</span>
-                <p>Economy from</p>
-                <h4 class="price">$ {{ prices[3] }}</h4>
-                <div class="content-bottom">
-                  <a href="booking-details.html" class="btn">Booking Now</a>
-                  <a href="booking-list.html" class="discover">Discover</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-10">
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="flight-offer-item offer-item-two">
-                  <div class="flight-offer-thumb">
-                    <img src="../assets/img/images/durban.jpg" alt="">
-                  </div>
-                  <div class="flight-offer-content">
-                    <h2 class="title">{{ departs[2] }} to {{ arrivals[2] }}</h2>
-                    <span>{{ depart_time[2] }} - {{arrival_time[3]}}</span>
-                    <p>Economy from</p>
-                    <h4 class="price">$ {{ prices[2] }}</h4>
-                  </div>
-                  <div class="overlay-content">
-                    <h2 class="title">{{ departs[2] }} to {{ arrivals[2] }}</h2>
-                    <span>{{ depart_time[2] }} - {{arrival_time[2]}}</span>
-                    <p>Economy from</p>
-                    <h4 class="price">$ {{ prices[2] }}</h4>
-                    <div class="content-bottom">
-                      <a href="booking-details.html" class="btn">Booking Now</a>
-                      <a href="booking-list.html" class="discover">Discover</a>
+          <div class="col-27 order-2 order-xl-0">
+            <aside class="booking-sidebar">
+              <div class="widget filters">
+                <h2 class="title">filters</h2>
+                <div class="filters-wrap">
+                  <h2 class="widget-title">Price Range</h2>
+                  <div class="price_filter">
+                    <div id="slider-range"></div>
+                    <div class="price_slider_amount">
+                      <span>Price :</span>
+                      <input type="text" id="amount" name="price" placeholder="Add Your Price" />
+                      <input type="submit" class="btn" value="Filter">
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6">
-                <div class="flight-offer-item offer-item-two">
-                  <div class="flight-offer-thumb">
-                    <img src="../assets/img/images/tokyo.jpg" alt="">
-                  </div>
-                  <div class="flight-offer-content">
-                    <h2 class="title">{{ departs[1] }} to {{ arrivals[1] }}</h2>
-                    <span>{{ depart_time[1] }} - {{arrival_time[1]}}</span>
-                    <p>Economy from</p>
-                    <h4 class="price">$ {{ prices[1] }}</h4>
-                  </div>
-                  <div class="overlay-content">
-                    <h2 class="title">{{ departs[1] }} to {{ arrivals[1] }}</h2>
-                    <span>{{ depart_time[1] }} - {{arrival_time[1]}}</span>
-                    <p>Economy from</p>
-                    <h4 class="price">$ {{ prices[1] }}</h4>
-                    <div class="content-bottom">
-                      <a href="booking-details.html" class="btn">Booking Now</a>
-                      <a href="booking-list.html" class="discover">Discover</a>
+              <div class="widget">
+                <h2 class="widget-title">Departure Time</h2>
+                <ul class="departure-wrap">
+                  <li><a href="#"><i class="flaticon-sunrise"></i>00:00 - 05:59</a></li>
+                  <li><a href="#"><i class="flaticon-sunny"></i>06:00 - 11:59</a></li>
+                  <li><a href="#"><i class="flaticon-sunset"></i>12:00 - 17:59</a></li>
+                  <li><a href="#"><i class="flaticon-crescent-moon"></i>18:00 - 23:59</a></li>
+                </ul>
+              </div>
+              <div class="widget">
+                <h2 class="widget-title">Number of Stops</h2>
+                <form action="#" class="flight-stops">
+                  <label for="stopNumber"><i class="flaticon-flight"></i></label>
+                  <select id="stopNumber" name="select" class="form-select" aria-label="Default select example">
+                    <option value="">Direct</option>
+                    <option>One Stops</option>
+                    <option>Two Stops</option>
+                  </select>
+                </form>
+              </div>
+              <div class="widget">
+                <h2 class="widget-title">Airlines</h2>
+                <ul class="airlines-cat-list">
+                  <li>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="catOne">
+                      <label class="form-check-label" for="catOne">Etihad Airway<span>(12)</span></label>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="flight-offer-item offer-item-two">
-                  <div class="flight-offer-thumb">
-                    <img src="../assets/img/images/paris.jpg" alt="">
-                  </div>
-                  <div class="flight-offer-content">
-                    <h2 class="title">{{ departs[0] }} to {{ arrivals[0] }}</h2>
-                    <span>{{ depart_time[0] }} - {{arrival_time[0]}}</span>
-                    <p>Economy from</p>
-                    <h4 class="price">$ {{ prices[0] }}</h4>
-                  </div>
-                  <div class="overlay-content">
-                    <h2 class="title">{{ departs[0] }} to {{ arrivals[0] }}</h2>
-                    <span>{{ depart_time[0] }} - {{arrival_time[0]}}</span>
-                    <p>Economy from</p>
-                    <h4 class="price">$ {{ prices[0] }}</h4>
-                    <div class="content-bottom">
-                      <a href="booking-details.html" class="btn">Booking Now</a>
-                      <a href="booking-list.html" class="discover">Discover</a>
+                  </li>
+                  <li>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="catTwo">
+                      <label class="form-check-label" for="catTwo">Lankan Airlines<span>(09)</span></label>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="flight-offer-item offer-item-two">
-                  <div class="flight-offer-thumb">
-                    <img src="../assets/img/images/brussels.jpg" alt="">
-                  </div>
-                  <div class="flight-offer-content">
-                    <h2 class="title">{{ departs[4] }} to {{ arrivals[4] }}</h2>
-                    <span>{{ depart_time[4] }} - {{arrival_time[4]}}</span>
-                    <p>Economy from</p>
-                    <h4 class="price">$ {{ prices[4] }}</h4>
-                  </div>
-                  <div class="overlay-content">
-                    <h2 class="title">{{ departs[4] }} to {{ arrivals[4] }}</h2>
-                    <span>{{ depart_time[4] }} - {{arrival_time[4]}}</span>
-                    <p>Economy from</p>
-                    <h4 class="price">$ {{ prices[4] }}</h4>
-                    <div class="content-bottom">
-                      <a href="booking-details.html" class="btn">Booking Now</a>
-                      <a href="booking-list.html" class="discover">Discover</a>
+                  </li>
+                  <li>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="catThree">
+                      <label class="form-check-label" for="catThree">Dubai Airway<span>(12)</span></label>
                     </div>
+                  </li>
+                  <li>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="catFour">
+                      <label class="form-check-label" for="catFour">NOVOAIR<span>(36)</span></label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="widget">
+                <h2 class="widget-title">Weights</h2>
+                <ul class="airlines-cat-list weights-list">
+                  <li>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="weightsOne">
+                      <label class="form-check-label" for="weightsOne">25 KG</label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="widget">
+                <h2 class="widget-title">Refundable</h2>
+                <ul class="airlines-cat-list">
+                  <li>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="refOne">
+                      <label class="form-check-label" for="refOne">Non Refundable</label>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="refTwo">
+                      <label class="form-check-label" for="refTwo">Refundable</label>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="refThree">
+                      <label class="form-check-label" for="refThree">Rules Wise</label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+          <div class="col-73">
+            <div class="booking-list-item">
+              <div class="booking-list-item-inner">
+                <div class="booking-list-top">
+                  <div class="flight-airway">
+                    <div class="flight-logo">
+                      <img src="assets/img/icon/booking_icon01.jpg" alt="">
+                      <h5 class="title">Etihad Airway</h5>
+                    </div>
+                    <span>Operated by Emirates</span>
+                  </div>
+                  <ul class="flight-info">
+                    <li>Thursday, <span>Jun 16</span></li>
+                    <li class="time"><span>12: 55</span>DAC</li>
+                    <li>22h<span>2 Stops</span></li>
+                  </ul>
+                  <div class="flight-price">
+                    <h4 class="title">US$ 1,056.40</h4>
+                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
                   </div>
                 </div>
+                <div class="booking-list-bottom">
+                  <ul>
+                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
+                    <li>Price per person (incl. taxes & fees)</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- flight-offer-area-end -->
-
-    <!-- destination-area -->
-    <section class="destination-area destination-bg">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8">
-            <div class="section-title">
-              <span class="sub-title">Offer Deals</span>
-              <h2 class="title">Your Great Destination</h2>
-            </div>
-            <div class="destination-content">
-              <p>Get rewarded for your travels – unlock instant savings of 10% or more with a free
-                <span>Star Airlines</span> account</p>
-              <ul>
-                <li>
-                  <div class="counter-item">
-                    <div class="counter-content">
-                      <h2 class="count"><span class="odometer" data-count="1234"></span>+</h2>
-                      <p>Happy Customers</p>
-                    </div>
-                    <div class="counter-icon">
-                      <i class="flaticon-group"></i>
-                    </div>
+              <div class="flight-detail-wrap">
+                <div class="flight-date">
+                  <ul>
+                    <li>Thursday, Jun 16</li>
+                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
+                    <li>Friday, Jun 17 - 03:20</li>
+                  </ul>
+                </div>
+                <div class="flight-detail-right">
+                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
+                  <div class="flight-detail-info">
+                    <img src="assets/img/icon/booking_icon01.jpg" alt="">
+                    <ul>
+                      <li>Tpm Line</li>
+                      <li>Operated by Airlines</li>
+                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
+                      <li>Adult(s): 25KG luggage free</li>
+                    </ul>
                   </div>
-                </li>
-                <li>
-                  <div class="counter-item">
-                    <div class="counter-content">
-                      <h2 class="count"><span class="odometer" data-count="100"></span>%</h2>
-                      <p>Client Setisfied</p>
+                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
+                </div>
+              </div>
+            </div>
+            <div class="booking-list-item">
+              <div class="booking-list-item-inner">
+                <div class="booking-list-top">
+                  <div class="flight-airway">
+                    <div class="flight-logo">
+                      <img src="assets/img/icon/booking_icon02.jpg" alt="">
+                      <h5 class="title">Qatar Airways</h5>
                     </div>
-                    <div class="counter-icon">
-                      <i class="flaticon-globe"></i>
-                    </div>
+                    <span>Operated by Emirates</span>
                   </div>
-                </li>
-              </ul>
-              <div class="content-bottom">
-                <p>Discover the latest offers & news and start planning</p>
-                <a href="https://github.com/hikeerer/vue-file">contact us</a>
+                  <ul class="flight-info">
+                    <li>Thursday, <span>Jun 16</span></li>
+                    <li class="time"><span>12: 55</span>DAC</li>
+                    <li>22h<span>2 Stops</span></li>
+                  </ul>
+                  <div class="flight-price">
+                    <h4 class="title">US$ 1,099.40</h4>
+                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
+                  </div>
+                </div>
+                <div class="booking-list-bottom">
+                  <ul>
+                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
+                    <li>Price per person (incl. taxes & fees)</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- destination-area-end -->
-
-    <!-- fly-next-area -->
-    <section class="fly-next-area">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="section-title text-center">
-              <span class="sub-title">Flynext Package</span>
-              <h2 class="title">Destination Hotels</h2>
-            </div>
-          </div>
-        </div>
-        <div class="row fly-next-active justify-content-center">
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img01.jpg" alt=""></a>
-              </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Four Seasons Hotel</h4>
-                <h4 class="title">Guangzhou</h4>
-                <div class="content-bottom">
-                  <p>From</p>
-                  <h4 class="price">$195</h4>
+              <div class="flight-detail-wrap">
+                <div class="flight-date">
+                  <ul>
+                    <li>Thursday, Jun 16</li>
+                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
+                    <li>Friday, Jun 17 - 03:20</li>
+                  </ul>
+                </div>
+                <div class="flight-detail-right">
+                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
+                  <div class="flight-detail-info">
+                    <img src="assets/img/icon/booking_icon02.jpg" alt="">
+                    <ul>
+                      <li>Tpm Line</li>
+                      <li>Operated by Airlines</li>
+                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
+                      <li>Adult(s): 25KG luggage free</li>
+                    </ul>
+                  </div>
+                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-one cat-two">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img02.jpg" alt=""></a>
+            <div class="booking-list-item">
+              <div class="booking-list-item-inner">
+                <div class="booking-list-top">
+                  <div class="flight-airway">
+                    <div class="flight-logo">
+                      <img src="assets/img/icon/booking_icon03.jpg" alt="">
+                      <h5 class="title">Envat (DXB)</h5>
+                    </div>
+                    <span>Operated by Emirates</span>
+                  </div>
+                  <ul class="flight-info">
+                    <li>Thursday, <span>Jun 16</span></li>
+                    <li class="time"><span>12: 55</span>DAC</li>
+                    <li>22h<span>2 Stops</span></li>
+                  </ul>
+                  <div class="flight-price">
+                    <h4 class="title">US$ 1,200.00</h4>
+                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
+                  </div>
+                </div>
+                <div class="booking-list-bottom">
+                  <ul>
+                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
+                    <li>Price per person (incl. taxes & fees)</li>
+                  </ul>
+                </div>
               </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Switzerland (SWL)</h4>
-                <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Business Class</p>
-                  <h4 class="price">$800</h4>
+              <div class="flight-detail-wrap">
+                <div class="flight-date">
+                  <ul>
+                    <li>Thursday, Jun 16</li>
+                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
+                    <li>Friday, Jun 17 - 03:20</li>
+                  </ul>
+                </div>
+                <div class="flight-detail-right">
+                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
+                  <div class="flight-detail-info">
+                    <img src="assets/img/icon/booking_icon03.jpg" alt="">
+                    <ul>
+                      <li>Tpm Line</li>
+                      <li>Operated by Airlines</li>
+                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
+                      <li>Adult(s): 25KG luggage free</li>
+                    </ul>
+                  </div>
+                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img03.jpg" alt=""></a>
+            <div class="booking-list-item">
+              <div class="booking-list-item-inner">
+                <div class="booking-list-top">
+                  <div class="flight-airway">
+                    <div class="flight-logo">
+                      <img src="assets/img/icon/booking_icon04.jpg" alt="">
+                      <h5 class="title">Lankan Airlines</h5>
+                    </div>
+                    <span>Operated by Emirates</span>
+                  </div>
+                  <ul class="flight-info">
+                    <li>Thursday, <span>Jun 16</span></li>
+                    <li class="time"><span>12: 55</span>DAC</li>
+                    <li>22h<span>2 Stops</span></li>
+                  </ul>
+                  <div class="flight-price">
+                    <h4 class="title">US$ 1,056.40</h4>
+                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
+                  </div>
+                </div>
+                <div class="booking-list-bottom">
+                  <ul>
+                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
+                    <li>Price per person (incl. taxes & fees)</li>
+                  </ul>
+                </div>
               </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Denmark (DEK)</h4>
-                <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Economy from</p>
-                  <h4 class="price">$ 350</h4>
+              <div class="flight-detail-wrap">
+                <div class="flight-date">
+                  <ul>
+                    <li>Thursday, Jun 16</li>
+                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
+                    <li>Friday, Jun 17 - 03:20</li>
+                  </ul>
+                </div>
+                <div class="flight-detail-right">
+                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
+                  <div class="flight-detail-info">
+                    <img src="assets/img/icon/booking_icon04.jpg" alt="">
+                    <ul>
+                      <li>Tpm Line</li>
+                      <li>Operated by Airlines</li>
+                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
+                      <li>Adult(s): 25KG luggage free</li>
+                    </ul>
+                  </div>
+                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-one">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img04.jpg" alt=""></a>
+            <div class="booking-list-item">
+              <div class="booking-list-item-inner">
+                <div class="booking-list-top">
+                  <div class="flight-airway">
+                    <div class="flight-logo">
+                      <img src="assets/img/icon/booking_icon05.jpg" alt="">
+                      <h5 class="title">Dubai (DXB)</h5>
+                    </div>
+                    <span>Operated by Emirates</span>
+                  </div>
+                  <ul class="flight-info">
+                    <li>Thursday, <span>Jun 16</span></li>
+                    <li class="time"><span>12: 55</span>DAC</li>
+                    <li>22h<span>2 Stops</span></li>
+                  </ul>
+                  <div class="flight-price">
+                    <h4 class="title">US$ 1,056.40</h4>
+                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
+                  </div>
+                </div>
+                <div class="booking-list-bottom">
+                  <ul>
+                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
+                    <li>Price per person (incl. taxes & fees)</li>
+                  </ul>
+                </div>
               </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Jakarta (DXB)</h4>
-                <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Business Class</p>
-                  <h4 class="price">$ 220</h4>
+              <div class="flight-detail-wrap">
+                <div class="flight-date">
+                  <ul>
+                    <li>Thursday, Jun 16</li>
+                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
+                    <li>Friday, Jun 17 - 03:20</li>
+                  </ul>
+                </div>
+                <div class="flight-detail-right">
+                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
+                  <div class="flight-detail-info">
+                    <img src="assets/img/icon/booking_icon05.jpg" alt="">
+                    <ul>
+                      <li>Tpm Line</li>
+                      <li>Operated by Airlines</li>
+                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
+                      <li>Adult(s): 25KG luggage free</li>
+                    </ul>
+                  </div>
+                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img05.jpg" alt=""></a>
+            <div class="booking-list-item">
+              <div class="booking-list-item-inner">
+                <div class="booking-list-top">
+                  <div class="flight-airway">
+                    <div class="flight-logo">
+                      <img src="assets/img/icon/booking_icon01.jpg" alt="">
+                      <h5 class="title">Etihad Airway</h5>
+                    </div>
+                    <span>Operated by Emirates</span>
+                  </div>
+                  <ul class="flight-info">
+                    <li>Thursday, <span>Jun 16</span></li>
+                    <li class="time"><span>12: 55</span>DAC</li>
+                    <li>22h<span>2 Stops</span></li>
+                  </ul>
+                  <div class="flight-price">
+                    <h4 class="title">US$ 1,056.40</h4>
+                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
+                  </div>
+                </div>
+                <div class="booking-list-bottom">
+                  <ul>
+                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
+                    <li>Price per person (incl. taxes & fees)</li>
+                  </ul>
+                </div>
               </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Dubai (DXB)</h4>
-                <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Economy from</p>
-                  <h4 class="price">$195</h4>
+              <div class="flight-detail-wrap">
+                <div class="flight-date">
+                  <ul>
+                    <li>Thursday, Jun 16</li>
+                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
+                    <li>Friday, Jun 17 - 03:20</li>
+                  </ul>
+                </div>
+                <div class="flight-detail-right">
+                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
+                  <div class="flight-detail-info">
+                    <img src="assets/img/icon/booking_icon01.jpg" alt="">
+                    <ul>
+                      <li>Tpm Line</li>
+                      <li>Operated by Airlines</li>
+                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
+                      <li>Adult(s): 25KG luggage free</li>
+                    </ul>
+                  </div>
+                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-one">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img06.jpg" alt=""></a>
-              </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Dubai (DXB)</h4>
-                <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Business Class</p>
-                  <h4 class="price">$175</h4>
+            <div class="booking-list-item">
+              <div class="booking-list-item-inner">
+                <div class="booking-list-top">
+                  <div class="flight-airway">
+                    <div class="flight-logo">
+                      <img src="assets/img/icon/booking_icon02.jpg" alt="">
+                      <h5 class="title">Tom Line (DXB)</h5>
+                    </div>
+                    <span>Operated by Emirates</span>
+                  </div>
+                  <ul class="flight-info">
+                    <li>Thursday, <span>Jun 16</span></li>
+                    <li class="time"><span>12: 55</span>DAC</li>
+                    <li>22h<span>2 Stops</span></li>
+                  </ul>
+                  <div class="flight-price">
+                    <h4 class="title">US$ 1,056.40</h4>
+                    <a href="booking-details.html" class="btn">Select <i class="flaticon-flight-1"></i></a>
+                  </div>
+                </div>
+                <div class="booking-list-bottom">
+                  <ul>
+                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
+                    <li>Price per person (incl. taxes & fees)</li>
+                  </ul>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two cat-one">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img07.jpg" alt=""></a>
-              </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Switzerland (SWL)</h4>
-                <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Economy from</p>
-                  <h4 class="price">$195</h4>
+              <div class="flight-detail-wrap">
+                <div class="flight-date">
+                  <ul>
+                    <li>Thursday, Jun 16</li>
+                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
+                    <li>Friday, Jun 17 - 03:20</li>
+                  </ul>
+                </div>
+                <div class="flight-detail-right">
+                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
+                  <div class="flight-detail-info">
+                    <img src="assets/img/icon/booking_icon02.jpg" alt="">
+                    <ul>
+                      <li>Tpm Line</li>
+                      <li>Operated by Airlines</li>
+                      <li>Economy | Flight EK585 | Aircraft BOEING 777-300ER</li>
+                      <li>Adult(s): 25KG luggage free</li>
+                    </ul>
+                  </div>
+                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img08.jpg" alt=""></a>
-              </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Turkish (SWL)</h4>
-                <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Business Class</p>
-                  <h4 class="price">$350</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- fly-next-area-end -->
-
-    <!-- brand-area -->
-    <div class="brand-area brand-bg">
-      <div class="container">
-
-        <div class="row brand-active">
-          <div class="col-2">
-            <div class="brand-item">
-              <img src="../assets/img/brand/brand_img01.png" alt="">
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="brand-item">
-              <img src="../assets/img/brand/brand_img02.png" alt="">
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="brand-item">
-              <img src="../assets/img/brand/brand_img03.png" alt="">
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="brand-item">
-              <img src="../assets/img/brand/brand_img04.png" alt="">
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="brand-item">
-              <img src="../assets/img/brand/brand_img05.png" alt="">
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="brand-item">
-              <img src="../assets/img/brand/brand_img06.png" alt="">
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- brand-area-end -->
-
-    <!-- service-area -->
-    <section class="service-area">
-      <div class="container">
-        <div class="row align-items-end mb-50">
-          <div class="col-md-8">
-            <div class="section-title">
-              <span class="sub-title">Why Air geair</span>
-              <h2 class="title">Our Great Flight Options</h2>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="service-nav"></div>
-          </div>
-        </div>
-        <div class="row service-active">
-          <el-carousel type="card" height="auto" autoplay>
-            <div class="col-lg-4">
-              <el-carousel-item style="height: 400px">
-                <div class="service-item">
-                  <div class="service-icon">
-                    <img src="../assets/img/icon/service_icon01.png" alt="">
-                  </div>
-                  <div class="service-content">
-                    <span>Service 01</span>
-                    <h2 class="title">Pre-Book Your Baggage</h2>
-                    <div class="service-list">
-                      <ul>
-                        <li>Pre-book your baggage <i class="flaticon-check-mark"></i></li>
-                        <li>Allowance now and save up <i class="flaticon-check-mark"></i></li>
-                        <li>90% of baggage charges <i class="flaticon-check-mark"></i></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </el-carousel-item>
-            </div>
-            <div class="col-lg-4">
-              <el-carousel-item style="height: 400px">
-                <div class="service-item">
-                  <div class="service-icon">
-                    <img src="../assets/img/icon/service_icon02.png" alt="">
-                  </div>
-                  <div class="service-content">
-                    <span>Service 02</span>
-                    <h2 class="title">Reserve preferred seat!</h2>
-                    <div class="service-list">
-                      <ul>
-                        <li>What will it be, window or aisle? <i class="flaticon-check-mark"></i></li>
-                        <li>Select your preferred seat prior <i class="flaticon-check-mark"></i></li>
-                        <li>Reserved for you. <i class="flaticon-check-mark"></i></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </el-carousel-item>
-            </div>
-            <div class="col-lg-4">
-              <el-carousel-item style="height: 400px">
-                <div class="service-item">
-                  <div class="service-icon">
-                    <img src="../assets/img/icon/service_icon03.png" alt="">
-                  </div>
-                  <div class="service-content">
-                    <span>Service 03</span>
-                    <h2 class="title">Enjoy stress-free travel</h2>
-                    <div class="service-list">
-                      <ul>
-                        <li>Travel stress-free by getting<i class="flaticon-check-mark"></i></li>
-                        <li>Covered for flight modification <i class="flaticon-check-mark"></i></li>
-                        <li>Cancellation, accident & medical <i class="flaticon-check-mark"></i></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </el-carousel-item>
-            </div>
-            <div class="col-lg-4">
-              <el-carousel-item style="height: 400px">
-                <div class="service-item">
-                  <div class="service-icon">
-                    <img src="../assets/img/icon/service_icon02.png" alt="">
-                  </div>
-                  <div class="service-content">
-                    <span>Service 02</span>
-                    <h2 class="title">Reserve preferred seat!</h2>
-                    <div class="service-list">
-                      <ul>
-                        <li>What will it be, window or aisle? <i class="flaticon-check-mark"></i></li>
-                        <li>Select your preferred seat prior <i class="flaticon-check-mark"></i></li>
-                        <li>Reserved for you. <i class="flaticon-check-mark"></i></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </el-carousel-item>
-            </div>
-          </el-carousel>
-        </div>
-      </div>
-    </section>
-    <!-- service-area-end -->
-
-    <!-- blog-area -->
-    <section class="blog-area blog-bg">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="section-title text-center">
-              <span class="sub-title">our News Feeds</span>
-              <h2 class="title">Latest News Update</h2>
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-53">
-            <div class="blog-item">
-              <div class="blog-thumb">
-                <a href="blog-details.html"><img src="../assets/img/blog/blog_img01.jpg" alt=""></a>
-              </div>
-              <div class="blog-content">
-                <div class="blog-meta">
-                  <ul>
-                    <li><i class="fa-regular fa-user"></i> <a href="#">Emely Watson</a></li>
-                    <li><i class="fa-solid fa-calendar-days"></i> February 19, 2022</li>
-                  </ul>
-                </div>
-                <h2 class="title"><a href="blog-details.html">Depending on your departure point and destination
-                  flights</a></h2>
-              </div>
-            </div>
-          </div>
-          <div class="col-47">
-            <div class="blog-item small-item">
-              <div class="blog-thumb">
-                <a href="blog-details.html"><img src="../assets/img/blog/blog_img02.jpg" alt=""></a>
-              </div>
-              <div class="blog-content">
-                <div class="blog-meta">
-                  <ul>
-                    <li><i class="fa-regular fa-user"></i> <a href="#">Emely Watson</a></li>
-                    <li><i class="fa-solid fa-calendar-days"></i> February 19, 2022</li>
-                  </ul>
-                </div>
-                <h2 class="title"><a href="blog-details.html">Happy International Country Flight Attendant Day</a></h2>
-              </div>
-            </div>
-            <div class="blog-item small-item">
-              <div class="blog-thumb">
-                <a href="blog-details.html"><img src="../assets/img/blog/blog_img03.jpg" alt=""></a>
-              </div>
-              <div class="blog-content">
-                <div class="blog-meta">
-                  <ul>
-                    <li><i class="fa-regular fa-user"></i> <a href="#">Emely Watson</a></li>
-                    <li><i class="fa-solid fa-calendar-days"></i> February 19, 2022</li>
-                  </ul>
-                </div>
-                <h2 class="title"><a href="blog-details.html">The US is a Large Country and Climate Varies by Region</a>
-                </h2>
-              </div>
-            </div>
-            <div class="blog-item small-item">
-              <div class="blog-thumb">
-                <a href="blog-details.html"><img src="../assets/img/blog/blog_img04.jpg" alt=""></a>
-              </div>
-              <div class="blog-content">
-                <div class="blog-meta">
-                  <ul>
-                    <li><i class="fa-regular fa-user"></i> <a href="#">Emely Watson</a></li>
-                    <li><i class="fa-solid fa-calendar-days"></i> February 19, 2022</li>
-                  </ul>
-                </div>
-                <h2 class="title"><a href="blog-details.html">But There are Dozen of Low-cost Airlines Including</a>
-                </h2>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- blog-area-end -->
+    <!-- booking-list-area-end -->
 
   </main>
   <!-- main-area-end -->
@@ -2959,10 +2836,11 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
   <index-footer1></index-footer1>
   <!-- footer-area-end -->
 
+
+
   </body>
   </html>
 </template>
-
 
 <style scoped>
 

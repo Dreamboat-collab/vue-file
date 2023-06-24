@@ -9,6 +9,7 @@ const routes = [
     { path: '/flight', component: () => import('@/components/flightPage.vue') },
     { path: '/footer1', component: () => import('@/components/indexFooter1.vue') },
     { path: '/main', component: () => import('@/components/VueMain.vue') },
+    { path: '/bklist', component: () => import('@/components/bookingList.vue') },
     // 其他路由配置项
     { path: '/', redirect: '/login' }, // 将根路径重定向到'/login'页面
 ];
