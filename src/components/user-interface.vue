@@ -86,8 +86,8 @@ const tableData = [
     username: '',
     // password: null,
     email: '',
-    // phone: null,
-    // cardNum: null,
+    phone: null,
+    cardNum: null,
     point: 0
   });
 
@@ -115,10 +115,8 @@ onMounted(() => {
       // userData.value.id = data.id;
       userData.value.username = data.username;
       console.log(userData.value.username)
-      // userData.value.password = data.password;
       userData.value.email = data.email;
-      // userData.value.phone = data.phone;
-      // userData.value.cardNum = data.cardNum;
+      userData.value.phone = data.phone;
       userData.value.point = data.point;
     }
   })
@@ -160,6 +158,43 @@ const handleSubmit = (e) => {
   const { username, Email, Password, } = user.value; // 解构出属性
 }
 
+// 手机号信息编辑
+const editMode = ref(false);
+const editedPhone = ref('');
+
+function toggleEditMode() {
+  editedPhone.value = userData.value.phone !== null ? userData.value.phone : '';
+  editMode.value = true;
+}
+
+function savePhone() {
+  if (editedPhone.value.length === 11 && /^\d+$/.test(editedPhone.value)) {
+    userData.value.phone = editedPhone.value;
+    editMode.value = false;
+  } else {
+// 手机号码不满足要求，提示错误信息
+    alert('Invalid phone number. Please enter a valid 11-digit number.');
+  }
+}
+
+// 信用卡信息编辑
+const editMode1 = ref(false);
+const editedcard = ref('');
+
+function toggleEditMode1() {
+  editedcard.value = userData.value.cardNum !== null ? userData.value.cardNum : '';
+  editMode1.value = true;
+}
+
+function savecard() {
+  if (editedcard.value.length === 16 && /^\d+$/.test(editedcard.value)) {
+    userData.value.cardNum = editedcard.value;
+    editMode1.value = false;
+  } else {
+// 信用卡号不满足要求，提示错误信息
+    alert('Invalid card number. Please enter a valid 16-digit number.');
+  }
+}
 </script>
 
 <template>
@@ -206,7 +241,7 @@ const handleSubmit = (e) => {
               Username
             </div>
           </template>
-          Jeddy
+          {{ userData.username }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
@@ -217,42 +252,73 @@ const handleSubmit = (e) => {
               Email
             </div>
           </template>
-          1556782359@qq.com
-<!--          {{ userData.value.email }}-->
+          {{ userData.email }}
         </el-descriptions-item>
+<!--        手机号信息-->
         <el-descriptions-item>
           <template #label>
             <div class="cell-item">
               <el-icon :style="iconStyle">
                 <location/>
               </el-icon>
-              Telephone
+              Phone
             </div>
           </template>
-          18924669438
+          <div v-if="editMode">
+          <el-tooltip content="11 digit phone number">
+            <el-input v-model="editedPhone" style="width: 20vw"></el-input>
+          </el-tooltip>
+            <el-button @click="savePhone">Save</el-button>
+          </div>
+          <div v-else>
+            <span>{{ userData.phone }}</span>
+            <el-button @click="toggleEditMode">Edit</el-button>
+          </div>
         </el-descriptions-item>
+<!--        信用卡信息-->
+        <el-descriptions-item>
+          <template #label>
+            <div class="cell-item">
+              <el-icon :style="iconStyle">
+                <location/>
+              </el-icon>
+              Credit card
+            </div>
+          </template>
+          <div v-if="editMode1">
+          <el-tooltip content="16 digit card number">
+            <el-input v-model="editedcard" style="width: 20vw"></el-input>
+          </el-tooltip>
+            <el-button @click="savecard">Save</el-button>
+          </div>
+          <div v-else>
+            <span>{{ userData.cardNum }}</span>
+            <el-button @click="toggleEditMode1">Edit</el-button>
+          </div>
+        </el-descriptions-item>
+
         <el-descriptions-item>
           <template #label>
             <div class="cell-item">
               <el-icon :style="iconStyle">
                 <tickets/>
               </el-icon>
-              Membership level
+              Point
             </div>
           </template>
-          <el-tag size="small">first</el-tag>
+          <el-tag size="small">{{ userData.point }}</el-tag>
         </el-descriptions-item>
-        <el-descriptions-item>
-          <template #label>
-            <div class="cell-item">
-              <el-icon :style="iconStyle">
-                <office-building/>
-              </el-icon>
-              Address
-            </div>
-          </template>
-          No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
-        </el-descriptions-item>
+<!--        <el-descriptions-item>-->
+<!--          <template #label>-->
+<!--            <div class="cell-item">-->
+<!--              <el-icon :style="iconStyle">-->
+<!--                <office-building/>-->
+<!--              </el-icon>-->
+<!--              Address-->
+<!--            </div>-->
+<!--          </template>-->
+<!--          No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province-->
+<!--        </el-descriptions-item>-->
       </el-descriptions>
     </div>
 
