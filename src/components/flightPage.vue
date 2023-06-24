@@ -1815,15 +1815,14 @@ onMounted(() => {
     /*=============================================
               =    		 Preloader			      =
           =============================================*/
-    function preloader() {
-      $('#preloader').delay(0).fadeOut();
-    }
-
-    $(window).on('load', function () {
-      preloader();
-      // mainSlider();
-      wowAnimation();
-    });
+    // function preloader() {
+    //   $('#preloader').delay(0).fadeOut();
+    // }
+    //
+    // $(window).on('load', function () {
+    //   preloader();
+    //   wowAnimation();
+    // });
 
     /*=============================================
               =    		Mobile Menu			      =
@@ -1885,13 +1884,6 @@ onMounted(() => {
       });
     }
 
-    /*=============================================
-         =          Data Background     弃用        =
-          =============================================*/
-    /* $("[data-background]").each(function () {
-       $(this).css("background-image", "url(" + $(this).attr("data-background") + ")")
-     })
-     */
 
     /*=============================================
               =    	   Toggle Active  	         =
@@ -1937,51 +1929,8 @@ onMounted(() => {
       });
     });
 
-    /*=============================================
-              =    		Magnific Popup		      =
-          =============================================*/
-    // window.onload = function() {
-    //   // 在这里编写需要在 DOM 加载后执行的代码
-    //   $('.popup-image').magnificPopup({
-    //     type: 'image',
-    //     gallery: {
-    //       enabled: true
-    //     }
-    //   });
-    // }
-    //
-    //
-    //  /* magnificPopup video view */
-    // window.onload = function() {
-    //   // 在这里编写需要在 DOM 加载后执行的代码
-    //   $('.popup-video').magnificPopup({
-    //     type: 'iframe'
-    //   });
-    // }
 
 
-    /*=============================================
-              =    		Isotope	Active  	      =
-          =============================================*/
-    // $(document).ready(function (){
-    //   // 在这里编写需要在 DOM 加载后执行的代码
-    //   $('.fly-next-active').imagesLoaded(function () {
-    //     // init Isotope
-    //     var $grid = $('.fly-next-active').isotope({
-    //       itemSelector: '.grid-item',
-    //       percentPosition: true,
-    //       masonry: {
-    //         columnWidth: '.grid-item',
-    //       }
-    //     });
-    //     // filter items on button click
-    //     $('.fly-next-nav').on('click', 'button', function () {
-    //       var filterValue = $(this).attr('data-filter');
-    //       $grid.isotope({ filter: filterValue });
-    //     });
-    //
-    //   });
-    // });
 
 //for menu active class
     $('.fly-next-nav button, .content-top li, .gender-select ul li').on('click', function (event) {
@@ -1994,16 +1943,16 @@ onMounted(() => {
     /*=============================================
               =    		 Wow Active  	         =
           =============================================*/
-    function wowAnimation() {
-      var wow = new WOW({
-        boxClass: 'wow',
-        animateClass: 'animated',
-        offset: 0,
-        mobile: false,
-        live: true
-      });
-      wow.init();
-    }
+    // function wowAnimation() {
+    //   var wow = new WOW({
+    //     boxClass: 'wow',
+    //     animateClass: 'animated',
+    //     offset: 0,
+    //     mobile: false,
+    //     live: true
+    //   });
+    //   wow.init();
+    // }
 
 
   })($);
@@ -2101,14 +2050,14 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
 
   <body>
   <!-- preloader -->
-  <div id="preloader">
-    <div id="loading-center">
-      <div class="loader">
-        <div class="loader-outter"></div>
-        <div class="loader-inner"></div>
-      </div>
-    </div>
-  </div>
+<!--  <div id="preloader">-->
+<!--    <div id="loading-center">-->
+<!--      <div class="loader">-->
+<!--        <div class="loader-outter"></div>-->
+<!--        <div class="loader-inner"></div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 
   <!-- Scroll-top 返回页顶按钮 在style.css-->
   <button class="scroll-top scroll-to-target" data-target="html">
@@ -2153,9 +2102,10 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
                       <h2 class="title" data-animation="fadeInUp" data-delay=".2s">A Lifetime of Discounts? It's
                         Genius.</h2>
                       <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant
-                        savings of 10% or more with a free Geairinfo.com account</p>
-                      <a href="contact.html" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in /
-                        Register</a>
+                        savings of 10% or more with a free Star Airlines account</p>
+                      <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">
+                        Sign in / Register
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -2171,9 +2121,10 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
                       <h2 class="title" data-animation="fadeInUp" data-delay=".2s">A Lifetime of Discounts? It's
                         Genius.</h2>
                       <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant
-                        savings of 10% or more with a free Geairinfo.com account</p>
-                      <a href="contact.html" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in /
-                        Register</a>
+                        savings of 10% or more with a free Star Airlines account</p>
+                      <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">
+                        Sign in / Register
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -2265,14 +2216,13 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
                             </li>
                             <li>
                               <div class="form-grp economy" style="border-left:rgba(144,144,144,0.29) 1px solid;">
-                                <label for="text" style="text-decoration: underline" @click="open">Redemption of
-                                  points</label>
+                                <label for="text" style="text-decoration: underline" @click="open">Redeem points</label>
                               </div>
                             </li>
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
+                          <router-link to="/bklist" class="btn">Show Flights <i class="flaticon-flight-1"></i></router-link>
                         </div>
                       </div>
                     </div>
