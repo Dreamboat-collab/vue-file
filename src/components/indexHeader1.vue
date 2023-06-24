@@ -4,27 +4,16 @@ import axios from "axios";
 import router from '@/router';
 import $ from 'jquery';
 import 'bootstrap';
-// 引入bootstrap样式
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
-
-//css
 import 'wowjs/css/libs/animate.css'
 import '@/assets/CSS/fontawesome-all.min.css';
-import '@/assets/CSS/bootstrap-datepicker.min.css';
-import '@/assets/CSS/odometer.css';
 import '@/assets/CSS/flaticon.css';
 import '@/assets/CSS/jquery-ui.css';
-//import '@/assets/CSS/slick.css';
 import '@/assets/CSS/default.css';
 import '@/assets/CSS/styleFlight.css';
 import '@/assets/CSS/responsive.css';
-
-//js
-import '@/assets/js/jquery.odometer.min.js';
-//import '@/assets/js/slick.min.js';
 import "@/assets/js/jquery-ui.min.js";
-import {WOW} from 'wowjs'
 
 onMounted(() => {
 
@@ -101,15 +90,6 @@ onMounted(() => {
       $(this).parent().parent().parent().parent().find('.flight-detail-wrap').slideToggle();
     });
 
-    /*=============================================
-              =           DatePicker Active             =
-          =============================================*/
-    $(function () {
-      $(".form-grp .date").datepicker({
-        autoclose: true,
-        todayHighlight: true
-      }).datepicker('update', new Date());
-    });
 
     /*=============================================
               =    	 Slider Range Active  	         =
@@ -185,7 +165,7 @@ const setJump=()=>{
                     <li class="menu-item-has-children"><router-link to="/bklist">Book</router-link>
                       <ul class="submenu">
                         <li><router-link to="/bklist">Booking List</router-link></li>
-                        <li><a href="booking-details.html">Booking Details</a></li>
+                        <li><router-link to="/bkdtls">Booking Details</router-link></li>
                       </ul>
                     </li>
                     <li class="menu-item-has-children"><a href="#">Attractions</a>
