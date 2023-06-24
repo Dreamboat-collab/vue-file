@@ -5,12 +5,13 @@ const routes = [
     // { path: '/', redirect: 'http://localhost:8081/login' }, // 将根路径重定向到'/home'页面
     { path: '/home', component: () => import('@/components/VueMain.vue') },
     { path: '/login', component: () => import('@/components/login-user.vue') },
-    { path: '/user', component: () => import('@/components/user-interface.vue') },
+    { path: '/userinfo', component: () => import('@/components/user-interface.vue') },
     { path: '/flight', component: () => import('@/components/flightPage.vue') },
     { path: '/footer1', component: () => import('@/components/indexFooter1.vue') },
     { path: '/about', component: () => import('@/components/AboutUs.vue') },
+    { path: '/bklist', component: () => import('@/components/bookingList.vue') },
     // 其他路由配置项
-    { path: '/', redirect: '/about' }, // 将根路径重定向到'/home'页面
+    { path: '/', redirect: '/flight' }, // 将根路径重定向到'/home'页面
 ];
 
 // 创建路由实例
