@@ -4,7 +4,20 @@ import $ from 'jquery';
 
 import IndexFooter1 from "@/components/indexFooter1.vue";
 import IndexHeader1 from "@/components/IndexHeader.vue";
-import router from "@/router";
+import "@/assets/vendor/bootstrap/css/bootstrap.min.css";
+import "@/assets/vendor/swiper/swiper-bundle.min.css";
+import "@/assets/vendor/bootstrap-icons/bootstrap-icons.min.css";
+import "@/assets/vendor/glightbox/css/glightbox.min.css";
+import "@/assets/CSS/fontawesome-all.min.css";
+
+
+
+
+
+
+
+
+
 
 
 
@@ -36,20 +49,7 @@ import router from "@/router";
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link href="src/assets/CSS/bootstrap.min.css" rel="stylesheet">
-    <link href="src/assets/CSS/bootstrap-icons.css" rel="stylesheet">
-    <link href="src/assets/CSS/all.min.css" rel="stylesheet">
-    <link href="src/assets/CSS/aos.css" rel="stylesheet">
-    <link href="src/assets/CSS/glightbox.min.css" rel="stylesheet">
-    <link href="src/assets/CSS/swiper-bundle.min.css" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link href="src/assets/CSS/main.css" rel="stylesheet">
 
     <!-- =======================================================
     * Template Name: UpConstruction
@@ -313,6 +313,13 @@ import router from "@/router";
 
 </template>
 
-<style scoped>
+<style>
+
+
+
+
+
+
+
 
 </style>
