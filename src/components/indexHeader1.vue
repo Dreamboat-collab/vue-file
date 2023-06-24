@@ -1961,8 +1961,8 @@ const methods = {
   navigateToAnotherPage1,
 };
 
-const setJump=()=>{
-  localStorage.setItem('jump',1)
+const setJump = () => {
+  localStorage.setItem('jump', 1)
 }
 </script>
 
@@ -1999,7 +1999,10 @@ const setJump=()=>{
                     </li>
                     <li class="menu-item-has-children"><a href="#">Attractions</a>
                     </li>
-                    <li><a href="contact.html">About Us</a></li>
+                    <li>
+                      <router-link to="/about">About Us</router-link>
+<!--                      <a href="">About Us</a>-->
+                    </li>
                     <li id="logo1">
                       <div class="logo1" @click="navigateToAnotherPage1"><img src="../../public/account.png"
                                                                               @click="navigateToAnotherPage1"

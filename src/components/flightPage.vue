@@ -36,12 +36,12 @@ const arrival_time = ref([])
 
 
 onMounted(() => {
-  // const jump = localStorage.getItem('jump')
-  // if (jump == '1') {
-  //   localStorage.setItem('jump', 0)
-  //   console.log(jump)
-  //   location.reload()
-  // }
+  const jump = localStorage.getItem('jump')
+  if (jump == '1') {
+    localStorage.setItem('jump', 0)
+    console.log(jump)
+    location.reload()
+  }
 // 这里是原来的 JavaScript 代码 bootstrap-datepicker.min.js
   (function ($, undefined) {
 
@@ -2135,7 +2135,8 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
                       <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant
                         savings of 10% or more with a free Star Airlines account</p>
                       <!--                  <a href="#" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in / Register</a>-->
-                      <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">
+<!--                      <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">-->
+                        <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">
                         Sign in / Register
                       </button>
                     </div>
