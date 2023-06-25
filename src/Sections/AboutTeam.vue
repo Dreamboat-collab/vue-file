@@ -7,6 +7,7 @@ import artemis from "@/assets/img/developers/Artemis.jpg";
 import jeddy from "@/assets/img/developers/Jeddy.jpg";
 import ivana from "@/assets/img/developers/Franklif.jpg";
 import marquez from "@/assets/img/developers/hideonshit.jpg";
+
 const urls=["https://github.com/Artemis-Zeus","https://github.com/hikeerer","https://github.com/Franklif1","https://github.com/hideonshit202"]
 const ToDevs=(id)=>{
   window.open(urls[id])
@@ -58,8 +59,7 @@ const ToDevs=(id)=>{
             :image="ivana"
             :profile="{ name: 'Franklif', link: 'javascript:;' }"
             :position="{ label: '20202031041', color: 'success' }"
-            description="Artist is a term applied to a person who engages in an
-                    activity deemed to be an art."
+            description="Gamer, Britpop fan. Responsible for page Home, Booking List and Booking Details."
             @click="ToDevs(2)"
           />
         </div>

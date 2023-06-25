@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import {createRouter, createWebHistory} from 'vue-router';
 
 // 定义路由配置
 const routes = [
@@ -7,12 +7,11 @@ const routes = [
     { path: '/login', component: () => import('@/components/login-user.vue') },
     { path: '/userinfo', component: () => import('@/components/user-interface.vue') },
     { path: '/flight', component: () => import('@/components/flightPage.vue') },
-    { path: '/footer1', component: () => import('@/components/indexFooter1.vue') },
     { path: '/about', component: () => import('@/components/AboutView.vue') },
     { path: '/bklist', component: () => import('@/components/bookingList.vue') },
     { path: '/bkdtls', component: () => import('@/components/bookingDetails.vue') },
     // 其他路由配置项
-    { path: '/', redirect: '/about' }, // 将根路径重定向到'/home'页面
+    { path: '/', redirect: '/flight' }, // 将根路径重定向到'/home'页面
 ];
 
 // 创建路由实例

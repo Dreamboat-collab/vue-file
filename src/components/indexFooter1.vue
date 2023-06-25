@@ -25,9 +25,9 @@
                 </div>
                 <div class="fw-link">
                   <ul>
-                    <li style="width: 100%"><a href="#">Introduction</a></li>
-                    <li  style="width: 100%"><a href="#">Development Team</a></li>
-                    <li style="width: 100%"><a href="#">Project Description</a></li>
+                    <li style="width: 100%"><router-link to="/about">Introduction</router-link></li>
+                    <li  style="width: 100%"><router-link to="/about">Development Team</router-link></li>
+                    <li style="width: 100%"><router-link to="/about">Project Description</router-link></li>
                   </ul>
                 </div>
               </div>
@@ -50,13 +50,12 @@
             <div class="col-xl-3 col-lg-4 col-sm-8">
               <div class="footer-widget">
                 <div class="fw-title">
-                  <h4 class="title">Help</h4>
+                  <h4 class="title">More</h4>
                 </div>
                 <div class="fw-link">
                   <ul>
                     <li style="width: 100%"><a href="#">Supported Locations</a></li>
                     <li style="width: 100%"><a href="#">Supported Hotels</a></li>
-                    <li style="width: 100%"><a href="#">Supported Cars</a></li>
                     <li style="width: 100%"><a href="#">Supported Services</a></li>
                   </ul>
                 </div>

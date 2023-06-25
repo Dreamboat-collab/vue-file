@@ -177,15 +177,13 @@
 
 <script setup>
 import $ from 'jquery';
-  import {ref,onMounted} from 'vue'
-  import { ElMessage } from 'element-plus'
-  import axios from 'axios'
-  import IndexHeader from "@/components/IndexHeader.vue";
-  import router from '@/router';
-  import IndexHeader1 from "@/components/indexHeader1.vue";
-  import IndexFooter1 from "@/components/indexFooter1.vue";
+import {onMounted, ref} from 'vue'
+import {ElMessage} from 'element-plus'
+import axios from 'axios'
+import router from '@/router';
+import IndexHeader1 from "@/components/indexHeader1.vue";
 
-  //JS
+//JS
   onMounted(() => {
     const signInBtn = document.getElementById('signIn');
     const signUpBtn = document.getElementById('signUp');
