@@ -86,7 +86,7 @@
           <el-tooltip content="passwords with 8 or more digits">
           <input type="password" placeholder="Confirm Password" class="input" v-model="user.confirmPassword" />
           </el-tooltip>
-          <button class="btn" style="margin-top: 5vh">Register</button>
+          <button class="btn1" style="margin-top: 5vh">Register</button>
         </form>
       </div>
 <!--      错误提示框-->
@@ -125,7 +125,7 @@
           <input type="email" placeholder="Email" class="input" v-model="user_login.Email"/>
           <input type="password" placeholder="Password" class="input" v-model="user_login.Password"/>
           <a href="#" class="link" @click="centerDialogVisible8 = true">Forgot your password?</a>
-          <button class="btn" style="margin-top: 13.2vh" @click="open">Sign In</button>
+          <button class="btn1" style="margin-top: 13.2vh" @click="open">Sign In</button>
         </form>
       </div>
 
@@ -161,11 +161,11 @@
         <div class="overlay">
           <div class="overlay__panel overlay--left" >
             <img src="../assets/logo1.png" width="300px" height="240px">
-            <button class="btn" id="signIn" style="margin-top: 16.7vh">Sign In</button>
+            <button class="btn1" id="signIn" style="margin-top: 16.7vh">Sign In</button>
           </div>
           <div class="overlay__panel overlay--right">
             <img src="../assets/logo1.png" width="300px" height="240px">
-            <button class="btn" id="signUp" style="margin-top: 16.5vh">Register</button>
+            <button class="btn1" id="signUp" style="margin-top: 16.5vh">Register</button>
           </div>
         </div>
       </div>
@@ -498,7 +498,7 @@ $("#sticky-header").addClass("sticky-menu")
   transform: translateX(20%);
 }
 
-.btn {
+.btn1 {
   background-color: var(--blue);
   background-image: linear-gradient(90deg, var(--blue) 0%, var(--lightblue) 74%);
   border-radius: 20px;
@@ -515,15 +515,15 @@ $("#sticky-header").addClass("sticky-menu")
 
 }
 
-.form>.btn {
+.form>.btn1 {
   margin-top: 1.5rem;
 }
 
-.btn:active {
+.btn1:active {
   transform: scale(0.95);
 }
 
-.btn:focus {
+.btn1:focus {
   outline: none;
 }
 
@@ -570,8 +570,6 @@ $("#sticky-header").addClass("sticky-menu")
 
 }
 
-body {
-  background-color: #C0C0C0	; /* 设置整体背景色， */
-}
+//body {  background-color: #e30a0a; /* 设置整体背景色， */  }
 
 </style>
