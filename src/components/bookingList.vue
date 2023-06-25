@@ -1800,50 +1800,6 @@ onMounted(() => {
     "use strict";
 
     /*=============================================
-              =    		 Preloader			      =
-          =============================================*/
-    function preloader() {
-      $('#preloader').delay(0).fadeOut();
-    }
-
-    $(window).on('load', function () {
-      preloader();
-      // mainSlider();
-      wowAnimation();
-    });
-
-    /*=============================================
-              =    		Mobile Menu			      =
-          =============================================*/
-//SubMenu Dropdown Toggle
-    if ($('.menu-area li.menu-item-has-children ul').length) {
-      $('.menu-area .navigation li.menu-item-has-children').append('<div class="dropdown-btn"><span class="fas fa-angle-down"></span></div>');
-
-    }
-
-//Mobile Nav Hide Show
-    if ($('.mobile-menu').length) {
-
-      var mobileMenuContent = $('.menu-area .main-menu').html();
-      $('.mobile-menu .menu-box .menu-outer').append(mobileMenuContent);
-
-      //Dropdown Button
-      $('.mobile-menu li.menu-item-has-children .dropdown-btn').on('click', function () {
-        $(this).toggleClass('open');
-        $(this).prev('ul').slideToggle(500);
-      });
-      //Menu Toggle Btn
-      $('.mobile-nav-toggler').on('click', function () {
-        $('body').addClass('mobile-menu-visible');
-      });
-
-      //Menu Toggle Btn
-      $('.menu-backdrop, .mobile-menu .close-btn').on('click', function () {
-        $('body').removeClass('mobile-menu-visible');
-      });
-    }
-
-    /*=============================================
               =     Menu sticky & Scroll to top      =
           =============================================*/
     $(window).on('scroll', function () {
@@ -1871,14 +1827,6 @@ onMounted(() => {
 
       });
     }
-
-    /*=============================================
-         =          Data Background     弃用        =
-          =============================================*/
-    /* $("[data-background]").each(function () {
-       $(this).css("background-image", "url(" + $(this).attr("data-background") + ")")
-     })
-     */
 
     /*=============================================
               =    	   Toggle Active  	         =
@@ -1924,51 +1872,6 @@ onMounted(() => {
       });
     });
 
-    /*=============================================
-              =    		Magnific Popup		      =
-          =============================================*/
-    // window.onload = function() {
-    //   // 在这里编写需要在 DOM 加载后执行的代码
-    //   $('.popup-image').magnificPopup({
-    //     type: 'image',
-    //     gallery: {
-    //       enabled: true
-    //     }
-    //   });
-    // }
-    //
-    //
-    //  /* magnificPopup video view */
-    // window.onload = function() {
-    //   // 在这里编写需要在 DOM 加载后执行的代码
-    //   $('.popup-video').magnificPopup({
-    //     type: 'iframe'
-    //   });
-    // }
-
-
-    /*=============================================
-              =    		Isotope	Active  	      =
-          =============================================*/
-    // $(document).ready(function (){
-    //   // 在这里编写需要在 DOM 加载后执行的代码
-    //   $('.fly-next-active').imagesLoaded(function () {
-    //     // init Isotope
-    //     var $grid = $('.fly-next-active').isotope({
-    //       itemSelector: '.grid-item',
-    //       percentPosition: true,
-    //       masonry: {
-    //         columnWidth: '.grid-item',
-    //       }
-    //     });
-    //     // filter items on button click
-    //     $('.fly-next-nav').on('click', 'button', function () {
-    //       var filterValue = $(this).attr('data-filter');
-    //       $grid.isotope({ filter: filterValue });
-    //     });
-    //
-    //   });
-    // });
 
 //for menu active class
     $('.fly-next-nav button, .content-top li, .gender-select ul li').on('click', function (event) {
@@ -1976,22 +1879,6 @@ onMounted(() => {
       $(this).addClass('active');
       event.preventDefault();
     });
-
-
-    /*=============================================
-              =    		 Wow Active  	         =
-          =============================================*/
-    function wowAnimation() {
-      var wow = new WOW({
-        boxClass: 'wow',
-        animateClass: 'animated',
-        offset: 0,
-        mobile: false,
-        live: true
-      });
-      wow.init();
-    }
-
 
   })($);
 });
@@ -2004,24 +1891,9 @@ onMounted(() => {
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="public/favicon.ico">
-
-    <!-- CSS here -->
-<!--    <link rel="stylesheet" href="assets/css/magnific-popup.css">-->
   </head>
 
   <body class="white-background">
-
-  <!-- preloader -->
-  <div id="preloader">
-    <div id="loading-center">
-      <div class="loader">
-        <div class="loader-outter"></div>
-        <div class="loader-inner"></div>
-      </div>
-    </div>
-  </div>
-  <!-- preloader-end -->
 
   <!-- Scroll-top -->
   <button class="scroll-top scroll-to-target" data-target="html">
@@ -2045,7 +1917,7 @@ onMounted(() => {
               <h2 class="title">Booking List</h2>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                  <li class="breadcrumb-item"><router-link to="/flight">Home</router-link></li>
                   <li class="breadcrumb-item active" aria-current="page">Booking List</li>
                 </ol>
               </nav>
@@ -2064,59 +1936,101 @@ onMounted(() => {
             <div class="booking-wrap">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="bOOKing-tab" data-bs-toggle="tab"
-                          data-bs-target="#bOOKing-tab-pane" type="button" role="tab"
-                          aria-controls="bOOKing-tab-pane" aria-selected="true"><i class="flaticon-flight"></i>air
-                    BOOKing</button>
+                  <button class="nav-link active" id="air-tab" data-bs-toggle="tab" data-bs-target="#air-tab-pane"
+                          type="button"
+                          role="tab" aria-controls="air-tab-pane" aria-selected="true"><i class="flaticon-flight"></i>air
+                    BOOKing
+                  </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="trips-tab" data-bs-toggle="tab"
-                          data-bs-target="#trips-tab-pane" type="button" role="tab" aria-controls="trips-tab-pane"
-                          aria-selected="false"><i class="flaticon-file"></i> my trips</button>
+                  <button class="nav-link" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel-tab-pane"
+                          type="button"
+                          role="tab" aria-controls="hotel-tab-pane" aria-selected="false"><i class="flaticon-home"></i>
+                    Hotel Booking
+                  </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="check-tab" data-bs-toggle="tab"
-                          data-bs-target="#check-tab-pane" type="button" role="tab" aria-controls="check-tab-pane"
-                          aria-selected="false"><i class="flaticon-tick"></i> check-in</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="flight-tab" data-bs-toggle="tab"
-                          data-bs-target="#flight-tab-pane" type="button" role="tab"
-                          aria-controls="flight-tab-pane" aria-selected="false"><i class="flaticon-clock"></i>
-                    Flight status</button>
+                  <button class="nav-link" id="status-tab" data-bs-toggle="tab" data-bs-target="#status-tab-pane"
+                          type="button"
+                          role="tab" aria-controls="status-tab-pane" aria-selected="false"><i
+                      class="flaticon-clock"></i> Flight status
+                  </button>
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="bOOKing-tab-pane" role="tabpanel"
-                     aria-labelledby="bOOKing-tab" tabindex="0">
+                <div class="tab-pane fade show active" id="air-tab-pane" role="tabpanel" aria-labelledby="air-tab"
+                     tabindex="0"><!--航班-->
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">
-                        <div class="content-top">
-                          <ul>
-                            <li class="active"><a href="#">Roundtrip</a></li>
-                            <li><a href="#">One-way</a></li>
-                            <li><a href="#">Multi-city</a></li>
-                          </ul>
-                        </div>
                         <form action="#" class="booking-form">
                           <ul>
                             <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="From">
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="To">
-                                <button class="exchange-icon"><i
-                                    class="flaticon-exchange-1"></i></button>
+                              <div class="form-grp select">
+                                <label for="From">From</label>
+                                <select id="From" name="select" class="form-select" aria-label="Default select example"
+                                        :value="depart">
+                                  <!--                                  <option value="">Guangzhou</option>-->
+                                  <option v-for="i in address" :key="i.id" :value="i">{{ i }}</option>
+                                </select>
                               </div>
                             </li>
                             <li>
                               <div class="form-grp select">
-                                <label for="shortBy">Trip</label>
-                                <select id="shortBy" name="select" class="form-select"
+                                <label for="To">To</label>
+                                <select id="To" name="select" class="form-select" aria-label="Default select example"
+                                        :value="arrival">
+                                  <option v-for="i in address" :key="i.id">{{ i }}</option>
+                                </select>
+                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp date">
+                                <ul>
+                                  <li>
+                                    <label for="flightDate">Departure Date</label>
+                                    <input type="text" class="date" placeholder="Select Date" id="flightDate">
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp economy">
+                                <label for="text">Class</label>
+                                <el-select v-model="grade">
+                                  <!--                                  style="background-color:rgba(0,0,0,0);border: none"-->
+                                  <el-option value="Economy">Economy</el-option>
+                                  <el-option value="Business">Business</el-option>
+                                  <el-option value="First">First</el-option>
+                                </el-select>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp economy" style="border-left:rgba(144,144,144,0.29) 1px solid;">
+                                <label for="text" style="text-decoration: underline" @click="open">Redeem points</label>
+                              </div>
+                            </li>
+                          </ul>
+                        </form>
+                        <div class="content-bottom">
+                          <router-link to="/bklist" class="btn">Show Flights <i class="flaticon-flight-1"></i></router-link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="hotel-tab-pane" role="tabpanel" aria-labelledby="hotel-tab" tabindex="0">
+                  <!--酒店-->
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="tab-content-wrap">
+                        <form action="#" class="booking-form">
+                          <ul>
+                            <li>
+                              <div class="form-grp select">
+                                <label for="shortByThree">Trip</label>
+                                <select id="shortByThree" name="select" class="form-select"
                                         aria-label="Default select example">
                                   <option value="">Tour type</option>
                                   <option>Adventure Travel</option>
@@ -2130,235 +2044,54 @@ onMounted(() => {
                               <div class="form-grp date">
                                 <ul>
                                   <li>
-                                    <label for="shortBy">Depart</label>
-                                    <input type="text" class="date"
-                                           placeholder="Select Date">
-                                  </li>
-                                  <li>
-                                    <label for="shortBy">Return</label>
-                                    <input type="text" class="date"
-                                           placeholder="Select Date">
+                                    <label for="inDate">Check-in Date</label>
+                                    <input type="text" class="date" placeholder="Select Date" id="inDate">
                                   </li>
                                 </ul>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp economy">
-                                <label for="text">Passenger/ Class</label>
-                                <input type="text" id="text" placeholder="1 Passenger, Economy">
-                              </div>
-                            </li>
-                          </ul>
-                        </form>
-                        <div class="content-bottom">
-                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
-                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="trips-tab-pane" role="tabpanel" aria-labelledby="trips-tab"
-                     tabindex="0">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="tab-content-wrap">
-                        <div class="content-top">
-                          <ul>
-                            <li class="active"><a href="#">Roundtrip</a></li>
-                            <li><a href="#">One-way</a></li>
-                            <li><a href="#">Multi-city</a></li>
-                          </ul>
-                        </div>
-                        <form action="#" class="booking-form">
-                          <ul>
-                            <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="From">
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="To">
-                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp select">
-                                <label for="shortByTwo">Trip</label>
-                                <select id="shortByTwo" name="select" class="form-select" aria-label="Default select example">
-                                  <option value="">Tour type</option>
-                                  <option>Adventure Travel</option>
-                                  <option>Family Tours</option>
-                                  <option>Newest Item</option>
-                                  <option>Nature & wildlife</option>
-                                </select>
                               </div>
                             </li>
                             <li>
                               <div class="form-grp date">
                                 <ul>
                                   <li>
-                                    <label for="shortBy">Depart</label>
-                                    <input type="text" class="date" placeholder="Select Date">
-                                  </li>
-                                  <li>
-                                    <label for="shortBy">Return</label>
-                                    <input type="text" class="date" placeholder="Select Date">
+                                    <label for="outDate">Check-out Date</label>
+                                    <input type="text" class="date" placeholder="Select Date" id="outDate">
                                   </li>
                                 </ul>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp economy">
-                                <label for="textTwo">Passenger/ Class</label>
-                                <input type="text" id="textTwo" placeholder="1 Passenger, Economy">
                               </div>
                             </li>
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
-                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
+                          <a href="booking-details.html" class="btn">Show Hotels <i class="flaticon-home"></i></a>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="check-tab-pane" role="tabpanel" aria-labelledby="check-tab"
+                <div class="tab-pane fade" id="status-tab-pane" role="tabpanel" aria-labelledby="status-tab"
                      tabindex="0">
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="tab-content-wrap">
-                        <div class="content-top">
-                          <ul>
-                            <li class="active"><a href="#">Roundtrip</a></li>
-                            <li><a href="#">One-way</a></li>
-                            <li><a href="#">Multi-city</a></li>
-                          </ul>
-                        </div>
                         <form action="#" class="booking-form">
                           <ul>
                             <li>
                               <div class="form-grp">
-                                <input type="text" placeholder="From">
+                                <input type="text" placeholder="Flight No.">
                               </div>
                             </li>
-                            <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="To">
-                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp select">
-                                <label for="shortByThree">Trip</label>
-                                <select id="shortByThree" name="select" class="form-select" aria-label="Default select example">
-                                  <option value="">Tour type</option>
-                                  <option>Adventure Travel</option>
-                                  <option>Family Tours</option>
-                                  <option>Newest Item</option>
-                                  <option>Nature & wildlife</option>
-                                </select>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp date">
-                                <ul>
-                                  <li>
-                                    <label for="shortBy">Depart</label>
-                                    <input type="text" class="date" placeholder="Select Date">
-                                  </li>
-                                  <li>
-                                    <label for="shortBy">Return</label>
-                                    <input type="text" class="date" placeholder="Select Date">
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp economy">
-                                <label for="textThree">Passenger/ Class</label>
-                                <input type="text" id="textThree" placeholder="1 Passenger, Economy">
-                              </div>
-                            </li>
+
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
-                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
+                          <a href="booking-details.html" class="btn">Show Flight Status <i
+                              class="flaticon-flight-1"></i></a>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="tab-pane fade" id="flight-tab-pane" role="tabpanel" aria-labelledby="flight-tab"
-                     tabindex="0">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="tab-content-wrap">
-                        <div class="content-top">
-                          <ul>
-                            <li class="active"><a href="#">Roundtrip</a></li>
-                            <li><a href="#">One-way</a></li>
-                            <li><a href="#">Multi-city</a></li>
-                          </ul>
-                        </div>
-                        <form action="#" class="booking-form">
-                          <ul>
-                            <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="From">
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp">
-                                <input type="text" placeholder="To">
-                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp select">
-                                <label for="shortByFour">Trip</label>
-                                <select id="shortByFour" name="select" class="form-select" aria-label="Default select example">
-                                  <option value="">Tour type</option>
-                                  <option>Adventure Travel</option>
-                                  <option>Family Tours</option>
-                                  <option>Newest Item</option>
-                                  <option>Nature & wildlife</option>
-                                </select>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp date">
-                                <ul>
-                                  <li>
-                                    <label for="shortBy">Depart</label>
-                                    <input type="text" class="date" placeholder="Select Date">
-                                  </li>
-                                  <li>
-                                    <label for="shortBy">Return</label>
-                                    <input type="text" class="date" placeholder="Select Date">
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="form-grp economy">
-                                <label for="textFour">Passenger/ Class</label>
-                                <input type="text" id="textFour" placeholder="1 Passenger, Economy">
-                              </div>
-                            </li>
-                          </ul>
-                        </form>
-                        <div class="content-bottom">
-                          <a href="booking-details.html" class="promo-code">+ Add Promo code</a>
-                          <a href="booking-details.html" class="btn">Show Flights <i class="flaticon-flight-1"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                </div><!--航班状态-->
               </div>
             </div>
           </div>
@@ -2835,8 +2568,6 @@ onMounted(() => {
   <!-- footer-area -->
   <index-footer1></index-footer1>
   <!-- footer-area-end -->
-
-
 
   </body>
   </html>
