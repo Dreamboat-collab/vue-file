@@ -1842,16 +1842,6 @@ onMounted(() => {
       });
     }
 
-
-    /*=============================================
-              =    	   Toggle Active  	         =
-          =============================================*/
-    $('.flight-detail-wrap').slideUp();
-    $('.detail').on('click', function () {
-      $(this).toggleClass('show');
-      $(this).parent().parent().parent().parent().find('.flight-detail-wrap').slideToggle();
-    });
-
     /*=============================================
               =           DatePicker Active             =
           =============================================*/
@@ -1894,8 +1884,6 @@ onMounted(() => {
       $(this).addClass('active');
       event.preventDefault();
     });
-
-
 
   })($);
   // 获取航班地点
