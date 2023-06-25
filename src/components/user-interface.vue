@@ -90,6 +90,7 @@ const tableData = [
     point: 0
   });
 
+import { ElMessageBox, ElMessage } from 'element-plus';
 onMounted(() => {
   // 获取密匙
   const token = localStorage.getItem('securityKey');
@@ -106,8 +107,19 @@ onMounted(() => {
     console.log(response.data);
     // 密匙为空，跳转到登陆界面
     if (response.data.msg === 'NOT_LOGIN') {
-      router.push({path: '/login'});
-      return
+      ElMessageBox.confirm('Not loggerd in. Do you want to skip to the login interface?', 'alert', {
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      })
+          .then(() => {
+            router.push({ path: '/login' });
+          })
+          .catch(() => {
+            // 用户点击取消按钮时的处理逻辑
+            ElMessage.info('Skip canceled');
+          });
+      return;
     }
     if (response.data.msg === 'success') {
       const data = response.data.data;
