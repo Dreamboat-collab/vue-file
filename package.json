@@ -58,7 +58,17 @@
       "no-prototype-builtins": "off",
       "no-setter-return": "off",
       "no-cond-assign": "off",
-      "no-shadow-restricted-names": "off"
+      "no-shadow-restricted-names": "off",
+      "no-redeclare": "off",
+      "no-fallthrough": "off",
+      "no-undef": "off",
+      "no-control-regex": "off",
+      "no-self-assign":"off",
+      "no-inner-declarations": "off",
+      "getter-return": "off"
+
+
+
     }
   },
   "browserslist": [
