@@ -1,5 +1,5 @@
 <script setup>
-import {onBeforeMount, onMounted, ref, watch} from 'vue';
+import {onMounted} from 'vue';
 import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,9 +17,6 @@ import '@/assets/js/jquery.odometer.min.js';
 import "@/assets/js/jquery-ui.min.js";
 import IndexHeader1 from "@/components/indexHeader1.vue";
 import IndexFooter1 from "@/components/indexFooter1.vue";
-import axios from "axios";
-import router from "@/router";
-import {ElMessageBox} from "element-plus";
 
 onMounted(() => {
   // const jump = localStorage.getItem('jump')
@@ -1823,11 +1820,10 @@ onMounted(() => {
         // animate
         $('html, body').animate({
           scrollTop: $(target).offset().top
-        }, 1000);
+        }, 300);
 
       });
     }
-
 
     /*=============================================
               =    	   Toggle Active  	         =
@@ -1880,8 +1876,6 @@ onMounted(() => {
       $(this).addClass('active');
       event.preventDefault();
     });
-
-
 
   })($);
 });

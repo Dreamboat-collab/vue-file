@@ -2296,7 +2296,7 @@ label {
 	font-weight: 600;
 }
 .booking-list-item .flight-airway span {
-	font-size: 13px;
+	font-size: 18px;
 	color: #6a2e4d;
 	font-weight: 500;
 	display: block;
@@ -2442,6 +2442,7 @@ label {
 	font-weight: 500;
 	opacity: .76;
 	color: #6a2e4d;
+	padding-left: 120px;
 }
 .flight-detail-wrap .flight-detail-right .title.title-two {
 	margin-bottom: 0;

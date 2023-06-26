@@ -1,6 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted } from "vue";
-
+import {onMounted, onUnmounted} from "vue";
 
 //image
 import bg0 from "@/assets/img/bg.jpg";
@@ -82,7 +81,7 @@ const alertNum=()=>{
             <button type="submit" class="btn bg-white text-dark" @click="toLogin">
               Create Account
             </button>
-            <h6 class="text-white mb-2 mt-5">Find us on</h6>
+            <h4 class="text-white mb-2 mt-5">Find us on</h4>
             <div class="d-flex justify-content-center">
               <a href="javascript:;" @click="alertNum"
                 ><i class="fab fa-weixin text-lg text-white me-4"></i

@@ -1,5 +1,5 @@
 <script setup>
-import {onBeforeMount, onMounted, ref, watch} from 'vue';
+import {onMounted, ref} from 'vue';
 
 import $ from 'jquery';
 // 引入bootstrap样式
@@ -17,7 +17,6 @@ import '@/assets/CSS/styleFlight.css';
 import '@/assets/CSS/responsive.css';
 import '@/assets/js/jquery.odometer.min.js';
 import "@/assets/js/jquery-ui.min.js";
-import {WOW} from 'wowjs'
 import IndexHeader1 from "@/components/indexHeader1.vue";
 import IndexFooter1 from "@/components/indexFooter1.vue";
 import axios from "axios";
@@ -1837,20 +1836,10 @@ onMounted(() => {
         // animate
         $('html, body').animate({
           scrollTop: $(target).offset().top
-        }, 1000);
+        }, 300);
 
       });
     }
-
-
-    /*=============================================
-              =    	   Toggle Active  	         =
-          =============================================*/
-    $('.flight-detail-wrap').slideUp();
-    $('.detail').on('click', function () {
-      $(this).toggleClass('show');
-      $(this).parent().parent().parent().parent().find('.flight-detail-wrap').slideToggle();
-    });
 
     /*=============================================
               =           DatePicker Active             =
@@ -1862,19 +1851,6 @@ onMounted(() => {
       }).datepicker('update', new Date());
     });
 
-    /*=============================================
-              =    	 Slider Range Active  	         =
-          =============================================*/
-    $("#slider-range").slider({
-      range: true,
-      min: 300,
-      max: 5500,
-      values: [1000, 4500],
-      slide: function (event, ui) {
-        $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-      }
-    });
-    $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
 
     /*=============================================
               =    		Odometer Active  	       =
@@ -1894,8 +1870,6 @@ onMounted(() => {
       $(this).addClass('active');
       event.preventDefault();
     });
-
-
 
   })($);
   // 获取航班地点

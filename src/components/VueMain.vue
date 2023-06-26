@@ -1,11 +1,8 @@
 <script setup>
 
-// import IndexHeader from "@/components/IndexHeader.vue";
-import IndexFooter from "@/components/IndexFooter.vue";
 import IndexFlight from "@/components/IndexFlight.vue";
 import IndexHotel from "@/components/IndexHotel.vue";
 import indexHeader1 from "@/components/indexHeader1.vue";
-import router from '@/router';
 import IndexFooter1 from "@/components/indexFooter1.vue";
 // import { ref, onBeforeRouteEnter } from 'vue';
 // import axios from 'axios';
