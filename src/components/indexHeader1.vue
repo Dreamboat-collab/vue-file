@@ -168,7 +168,8 @@ const setJump = () => {
                         <li><router-link to="/bkdtls">Booking Details</router-link></li>
                       </ul>
                     </li>
-                    <li class="menu-item-has-children"><a href="#">Attractions</a>
+                    <li>
+                      <router-link to="/attraction">Attraction</router-link>
                     </li>
                     <li>
                       <router-link to="/about">About Us</router-link>
