@@ -176,10 +176,7 @@ const setJump = () => {
 <!--                      <a href="">About Us</a>-->
                     </li>
                     <li id="logo1">
-                      <router-link to="/userinfo"><img src="../../public/account.png" style="max-width: 35%;"></router-link>
-<!--                      <div class="logo1" @click="navigateToAnotherPage1"><img src="../../public/account.png"-->
-<!--                                                                              @click="navigateToAnotherPage1"-->
-<!--                                                                              style="max-width: 35%;"></div>-->
+                      <router-link to="/userinfo"><div class="logo1"><img src="../../public/account.png" style="max-width: 30%;margin-top: -1.5vh"></div></router-link>
                     </li>
                   </ul>
                 </div>

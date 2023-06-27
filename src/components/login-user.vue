@@ -510,7 +510,6 @@ $("#sticky-header").addClass("sticky-menu")
   text-transform: uppercase;
   transition: transform 80ms ease-in;
   margin-top: 4.4rem;
-
 }
 
 .form>.btn1 {
@@ -589,6 +588,15 @@ $("#sticky-header").addClass("sticky-menu")
     /* 其他样式调整... */
   }
 
-  /* 其他响应式样式调整... */
+  .container--signup {
+    display: none !important;
+  }
+
+  .overlay__panel overlay--right{
+    display: none !important;
+  }
+  .container__form container--signup{
+    display: none !important;
+  }
 }
 </style>
