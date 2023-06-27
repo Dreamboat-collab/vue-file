@@ -16,6 +16,8 @@ import "@/assets/CSS/style7.css";
 import {onMounted, ref} from 'vue'
 import axios from "axios";
 import router from "@/router";
+import {ElMessage, ElMessageBox} from 'element-plus';
+
 const activeIndex = ref('1'); // 默认选中的菜单项
 function handleSelect(index) {
   activeIndex.value = index;
@@ -90,7 +92,6 @@ const tableData = [
     point: 0
   });
 
-import { ElMessageBox, ElMessage } from 'element-plus';
 onMounted(() => {
   // 获取密匙
   const token = localStorage.getItem('securityKey');
@@ -209,7 +210,16 @@ function savecard() {
 </script>
 
 <template>
-  <index-header1></index-header1>
+  <html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+<body>
+<index-header1></index-header1>
+<main>
   <div class="card" style="margin-bottom: 0px;">
     <div class="section">
       <div class="pic">
@@ -265,7 +275,7 @@ function savecard() {
           </template>
           {{ userData.email }}
         </el-descriptions-item>
-<!--        手机号信息-->
+        <!--        手机号信息-->
         <el-descriptions-item>
           <template #label>
             <div class="cell-item">
@@ -276,9 +286,9 @@ function savecard() {
             </div>
           </template>
           <div v-if="editMode">
-          <el-tooltip content="11 digit phone number">
-            <el-input v-model="editedPhone" style="width: 20vw"></el-input>
-          </el-tooltip>
+            <el-tooltip content="11 digit phone number">
+              <el-input v-model="editedPhone" style="width: 20vw"></el-input>
+            </el-tooltip>
             <el-button @click="savePhone">Save</el-button>
           </div>
           <div v-else>
@@ -286,7 +296,7 @@ function savecard() {
             <el-button @click="toggleEditMode">Edit</el-button>
           </div>
         </el-descriptions-item>
-<!--        信用卡信息-->
+        <!--        信用卡信息-->
         <el-descriptions-item>
           <template #label>
             <div class="cell-item">
@@ -297,9 +307,9 @@ function savecard() {
             </div>
           </template>
           <div v-if="editMode1">
-          <el-tooltip content="16 digit card number">
-            <el-input v-model="editedcard" style="width: 20vw"></el-input>
-          </el-tooltip>
+            <el-tooltip content="16 digit card number">
+              <el-input v-model="editedcard" style="width: 20vw"></el-input>
+            </el-tooltip>
             <el-button @click="savecard">Save</el-button>
           </div>
           <div v-else>
@@ -319,17 +329,17 @@ function savecard() {
           </template>
           <el-tag size="small">{{ userData.point }}</el-tag>
         </el-descriptions-item>
-<!--        <el-descriptions-item>-->
-<!--          <template #label>-->
-<!--            <div class="cell-item">-->
-<!--              <el-icon :style="iconStyle">-->
-<!--                <office-building/>-->
-<!--              </el-icon>-->
-<!--              Address-->
-<!--            </div>-->
-<!--          </template>-->
-<!--          No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province-->
-<!--        </el-descriptions-item>-->
+        <!--        <el-descriptions-item>-->
+        <!--          <template #label>-->
+        <!--            <div class="cell-item">-->
+        <!--              <el-icon :style="iconStyle">-->
+        <!--                <office-building/>-->
+        <!--              </el-icon>-->
+        <!--              Address-->
+        <!--            </div>-->
+        <!--          </template>-->
+        <!--          No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province-->
+        <!--        </el-descriptions-item>-->
       </el-descriptions>
     </div>
 
@@ -418,9 +428,13 @@ function savecard() {
       </div>
     </div>
   </div>
+</main>
+<index-footer1></index-footer1>
+<router-view ></router-view>
+</body>
 
-  <index-footer1></index-footer1>
-  <router-view ></router-view>
+
+  </html>
 </template>
 
 <style scoped>
@@ -456,6 +470,5 @@ label {
 }
 
 .password-input {
-  width: 250px;
-}
+  width: 250px;}
 </style>

@@ -1,5 +1,5 @@
 <script setup>
-import {computed, onBeforeMount, onMounted, ref, watch} from 'vue';
+import {computed, onMounted, ref, watch} from 'vue';
 import IndexFooter1 from "@/components/indexFooter1.vue";
 import IndexHeader1 from "@/components/indexHeader1.vue";
 
@@ -24,6 +24,7 @@ import axios from "axios";
 import '@/assets/js/slick.min.js';
 import '@/assets/CSS/slick.css';
 import moment from "moment";
+
 const address = ref([]);
 const depart = ref();
 const arrival = ref();
@@ -1849,6 +1850,14 @@ onMounted(() => {
 
       });
     }
+    /*=============================================
+      =    	   Toggle Active  	         =
+    =============================================*/
+    $('.flight-detail-wrap').slideUp();
+    $('.detail').on('click', function () {
+      $(this).toggleClass('show');
+      $(this).parent().parent().parent().parent().find('.flight-detail-wrap').slideToggle();
+    });
 
 
     /*=============================================
