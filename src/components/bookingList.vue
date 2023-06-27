@@ -28,28 +28,144 @@ import moment from "moment";
 const address = ref([]);
 const depart = ref();
 const arrival = ref();
-const today=moment().format("YYYY-MM-DD")
-const dateTime=ref(today);
-console.log(today)
-const grade = ref('Economy');
-const prices = ref([])
-const departs = ref([])
-const arrivals = ref([])
-const depart_time = ref([])
-const arrival_time = ref([])
-const hotel_names=ref([])
-const hotel_prices=ref([])
-const hotel_locations=ref([])
-const depart_list=ref([])
-watch(arrival,(newVal,oldVal)=>{
-  console.log(dateTime)
+const today = moment().format("YYYY-MM-DD")
+const dateTime = ref(today);
+const grade = ref('All');
+// const prices = ref([])
+// const departs = ref([])
+// const arrivals = ref([])
+// const depart_date = ref([])
+// const arrival_date = ref([])
+// const depart_t_details = ref([])
+// const arrival_t_details = ref([])
+// const types = ref([])
+const len_result = ref(0)
+const flight_names = ref([])
+const hotel_names = ref([])
+const hotel_prices = ref([])
+const hotel_locations = ref([])
+const depart_list = ref([])
+const filter_l = ref(0)
+const filter_r = ref(5000)
+const search_results = ref([])
+watch(filter_l, (newVal, oldVal) => {
+  console.log(newVal)
+})
+const arrival_list = computed(() => {
+  return depart_list.value.filter(item => item !== depart.value)
 })
 
-const arrival_list=computed(()=>{
-  return depart_list.value.filter(item=>item!==depart.value)
-})
+// const arrival_list=computed(()=>{
+//   return depart_list.value.filter(item=>item!==depart.value)
+// })
 
 
+const showInfo = () => {
+  console.log(depart, arrival, dateTime, grade)
+  let type = null
+  switch (grade.value) {
+    case 'Economy':
+      type = 1;
+      break;
+    case  'Business':
+      type = 2;
+      break;
+    case 'First':
+      type = 3;
+      break;
+  }
+  // axios.get('/api/starAirlines/flight', {params:{
+  //     depart:depart.value,
+  //     arrival:arrival.value,
+  //     date:dateTime.value,
+  //     type:type
+  //   }
+  // })
+  //     .then(response => {
+  //       let flight_result=response.data.data
+  //       console.log(flight_result)
+  //       len_result.value=flight_result.length
+  //       let temp=[[],[],[],[],[],[],[],[],[]]
+  //       for (let i = 0; i < len_result.value; i++) {
+  //         temp[0].push(flight_result[i]['depart'])
+  //         temp[1].push(flight_result[i]['arrival'])
+  //         let dp_time=flight_result[i]['departTime']
+  //         temp[2].push(dp_time.substring(0,10))
+  //         temp[7].push(dp_time.substring(11,16))
+  //         let ar_time=flight_result[i]['arrivalTime']
+  //         temp[3].push(ar_time.substring(0,10))
+  //         temp[8].push(dp_time.substring(11,16))
+  //         temp[4].push(flight_result[i]['price'])
+  //         temp[6].push(flight_result[i]['name'])
+  //         let type=flight_result[i]['type']
+  //         switch (type){
+  //           case 1:
+  //             temp[5].push("Economy");
+  //             break;
+  //           case 2:
+  //             temp[5].push("Business");
+  //             break;
+  //           case 3:
+  //             temp[5].push("First")
+  //             break;
+  //         }
+  //       }
+  //       prices.value=temp[4]
+  //       departs.value=temp[0]
+  //       arrivals.value=temp[1]
+  //       depart_date.value=temp[2]
+  //       arrival_date.value=temp[3]
+  //       types.value=temp[5]
+  //       flight_names.value=temp[6]
+  //       depart_t_details.value=temp[7]
+  //       arrival_t_details.value=temp[8]
+  //       console.log(temp);
+  //     })
+  axios.get('/api/starAirlines/flight', {
+    params: {
+      depart: depart.value,
+      arrival: arrival.value,
+      date: dateTime.value,
+      type: type
+    }
+  })
+      .then(response => {
+        let flight_result = response.data.data
+        console.log(flight_result)
+        len_result.value = flight_result.length
+        let temp = []
+        for (let i = 0; i < len_result.value; i++) {
+
+          let dp_time = flight_result[i]['departTime']
+          let ar_time = flight_result[i]['arrivalTime']
+          let grade
+          switch (flight_result[i]['type']) {
+            case 1:
+              grade="Economy";
+              break;
+            case 2:
+              grade="Business";
+              break;
+            case 3:
+              grade="First"
+              break;
+          }
+          temp.push({
+            name: flight_result[i]['name'],
+            price:flight_result[i]['price'],
+            depart:flight_result[i]['depart'],
+            arrival:flight_result[i]['arrival'],
+            depart_date:dp_time.substring(0, 10),
+            arrival_date:ar_time.substring(0, 10),
+            depart_time:dp_time.substring(11, 16),
+            arrival_time:ar_time.substring(11, 16),
+            grade:grade
+          })
+        }
+        search_results.value = temp
+        console.log(search_results.value)
+      })
+}
 
 onMounted(() => {
 // 这里是原来的 JavaScript 代码 bootstrap-datepicker.min.js
@@ -1876,10 +1992,12 @@ onMounted(() => {
     $("#slider-range").slider({
       range: true,
       min: 0,
-      max: 5000,
-      values: [1000, 3000],
+      max: 60000,
+      values: [0, 60000],
       slide: function (event, ui) {
         $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+        filter_l.value = ui.values[0]
+        filter_r.value = ui.values[1]
       }
     });
     $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
@@ -1905,50 +2023,21 @@ onMounted(() => {
 
   })($);
   axios.get('http://localhost:8080/starAirlines/flight_address').then((response) => {
-    depart_list.value=response.data.data
+    depart_list.value = response.data.data
     depart.value = depart_list.value[0]
     arrival.value = arrival_list.value[0]
   })
-  axios.get('http://localhost:8080/starAirlines/flight?date=2023-06-30').then((response) => {
-    let all_flights = []
-    let filtered_flights=[]
-    let depart_T = ''
-    let arrival_T = ''
-    const temp = [[], [], [], [], []]
-    all_flights = response.data.data
-    for (let i = 0; i < all_flights.length; i++) {
-      if (all_flights[i]['type']==1)
-        filtered_flights.push(all_flights[i])
-    }
-    for (let i = 0; i < 7; i++) {
-      if (i==4 || i==5){
-        continue
-      }
-      temp[0].push(filtered_flights[i]['depart'])
-      temp[1].push(filtered_flights[i]['arrival'])
-      depart_T = filtered_flights[i]['departTime']
-      temp[2].push(depart_T.substring(0, 4) + '/' + depart_T.substring(5, 7) + '/' + depart_T.substring(8, 10))
-      arrival_T = filtered_flights[i]['arrivalTime']
-      temp[3].push(arrival_T.substring(0, 4) + '/' + arrival_T.substring(5, 7) + '/' + arrival_T.substring(8, 10))
-      temp[4].push(filtered_flights[i]['price'])
-    }
-    departs.value = temp[0]
-    arrivals.value = temp[1]
-    depart_time.value = temp[2]
-    arrival_time.value = temp[3]
-    prices.value = temp[4]
-  })
   axios.get('http://localhost:8080/starAirlines/hotels').then((response) => {
-    let hotels=response.data.data
-    let temp=[[],[],[]]
+    let hotels = response.data.data
+    let temp = [[], [], []]
     for (let i = 0; i < 8; i++) {
       temp[0].push(hotels[i]['name'])
       temp[1].push(hotels[i]['price'])
       temp[2].push(hotels[i]['address'])
     }
-    hotel_names.value=temp[0]
-    hotel_prices.value=temp[1]
-    hotel_locations.value=temp[2]
+    hotel_names.value = temp[0]
+    hotel_prices.value = temp[1]
+    hotel_locations.value = temp[2]
   })
 
 });
@@ -1987,7 +2076,9 @@ onMounted(() => {
               <h2 class="title">Booking List</h2>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><router-link to="/flight">Home</router-link></li>
+                  <li class="breadcrumb-item">
+                    <router-link to="/flight">Home</router-link>
+                  </li>
                   <li class="breadcrumb-item active" aria-current="page">Booking List</li>
                 </ol>
               </nav>
@@ -2070,6 +2161,7 @@ onMounted(() => {
                                 <label for="text">Class</label>
                                 <el-select v-model="grade">
                                   <!--style="background-color:rgba(0,0,0,0);border: none"-->
+                                  <el-option value="All">All</el-option>
                                   <el-option value="Economy">Economy</el-option>
                                   <el-option value="Business">Business</el-option>
                                   <el-option value="First">First</el-option>
@@ -2084,7 +2176,8 @@ onMounted(() => {
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <router-link to="/bklist" class="btn">Show Flights <i class="flaticon-flight-1"></i></router-link>
+                          <router-link to="/bklist" class="btn" @click="showInfo">Show Flights <i
+                              class="flaticon-flight-1"></i></router-link>
                         </div>
                       </div>
                     </div>
@@ -2184,204 +2277,158 @@ onMounted(() => {
                     <div id="slider-range"></div>
                     <div class="price_slider_amount">
                       <span>Price :</span>
-                      <input type="text" id="amount" name="price" placeholder="Add Your Price" />
-                      <input type="submit" class="btn" value="Filter">
+                      <input type="text" id="amount" name="price" placeholder="Add Your Price"/>
+                      <!--                      <input type="submit" class="btn" value="Filter">-->
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="widget">
-                <h2 class="widget-title">Departure Time</h2>
-                <ul class="departure-wrap">
-                  <li><a href="#"><i class="flaticon-sunrise"></i>00:00 - 05:59</a></li>
-                  <li><a href="#"><i class="flaticon-sunny"></i>06:00 - 11:59</a></li>
-                  <li><a href="#"><i class="flaticon-sunset"></i>12:00 - 17:59</a></li>
-                  <li><a href="#"><i class="flaticon-crescent-moon"></i>18:00 - 23:59</a></li>
-                </ul>
-              </div>
-              <div class="widget">
-                <h2 class="widget-title">Number of Stops</h2>
-                <form action="#" class="flight-stops">
-                  <label for="stopNumber"><i class="flaticon-flight"></i></label>
-                  <select id="stopNumber" name="select" class="form-select" aria-label="Default select example">
-                    <option value="">Direct</option>
-                    <option>One Stops</option>
-                    <option>Two Stops</option>
-                  </select>
-                </form>
-              </div>
-              <div class="widget">
-                <h2 class="widget-title">Refundable</h2>
-                <ul class="airlines-cat-list">
-                  <li>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="refOne">
-                      <label class="form-check-label" for="refOne">Non Refundable</label>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="refTwo">
-                      <label class="form-check-label" for="refTwo">Refundable</label>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="refThree">
-                      <label class="form-check-label" for="refThree">Rules Wise</label>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+              <!--              <div class="widget">-->
+              <!--                <h2 class="widget-title">Departure Time</h2>-->
+              <!--                <ul class="departure-wrap">-->
+              <!--                  <li><a href="#"><i class="flaticon-sunrise"></i>00:00 - 05:59</a></li>-->
+              <!--                  <li><a href="#"><i class="flaticon-sunny"></i>06:00 - 11:59</a></li>-->
+              <!--                  <li><a href="#"><i class="flaticon-sunset"></i>12:00 - 17:59</a></li>-->
+              <!--                  <li><a href="#"><i class="flaticon-crescent-moon"></i>18:00 - 23:59</a></li>-->
+              <!--                </ul>-->
+              <!--              </div>-->
+              <!--              <div class="widget">-->
+              <!--                <h2 class="widget-title">Number of Stops</h2>-->
+              <!--                <form action="#" class="flight-stops">-->
+              <!--                  <label for="stopNumber"><i class="flaticon-flight"></i></label>-->
+              <!--                  <select id="stopNumber" name="select" class="form-select" aria-label="Default select example">-->
+              <!--                    <option value="">Direct</option>-->
+              <!--                    <option>One Stops</option>-->
+              <!--                    <option>Two Stops</option>-->
+              <!--                  </select>-->
+              <!--                </form>-->
+              <!--              </div>-->
+              <!--              <div class="widget">-->
+              <!--                <h2 class="widget-title">Refundable</h2>-->
+              <!--                <ul class="airlines-cat-list">-->
+              <!--                  <li>-->
+              <!--                    <div class="form-check">-->
+              <!--                      <input class="form-check-input" type="checkbox" value="" id="refOne">-->
+              <!--                      <label class="form-check-label" for="refOne">Non Refundable</label>-->
+              <!--                    </div>-->
+              <!--                  </li>-->
+              <!--                  <li>-->
+              <!--                    <div class="form-check">-->
+              <!--                      <input class="form-check-input" type="checkbox" value="" id="refTwo">-->
+              <!--                      <label class="form-check-label" for="refTwo">Refundable</label>-->
+              <!--                    </div>-->
+              <!--                  </li>-->
+              <!--                  <li>-->
+              <!--                    <div class="form-check">-->
+              <!--                      <input class="form-check-input" type="checkbox" value="" id="refThree">-->
+              <!--                      <label class="form-check-label" for="refThree">Rules Wise</label>-->
+              <!--                    </div>-->
+              <!--                  </li>-->
+              <!--                </ul>-->
+              <!--              </div>-->
             </aside>
           </div>
+          <div class="col-73" v-if="len_result==0">- NULL -</div>
           <div class="col-73"><!--航班结果列-->
-            <div class="booking-list-item"><!--其中一个航班-->
-              <div class="booking-list-item-inner">
-                <div class="booking-list-top">
-                  <div class="flight-airway">
-                    <div class="flight-logo">
-                      <h5 class="title">Etihad Airway</h5>
-                    </div>
-                  </div>
-                  <ul class="flight-info">
-                    <li>Thursday, <span>Jun 16</span></li>
-                    <li class="time"><span>12: 55</span>DAC</li>
-                    <li>22h<span>2 Stops</span></li>
-                  </ul>
-                  <div class="flight-price">
-                    <h4 class="title">US$ 1,056.40</h4>
-                    <router-link to="/bkdtls" class="btn">Select <i class="flaticon-flight-1"></i></router-link>
-                  </div>
-                </div>
-                <div class="booking-list-bottom">
-                  <ul>
-                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
-                    <li>Price per person (incl. taxes & fees)</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="flight-detail-wrap">
-                <div class="flight-date">
-                  <ul>
-                    <li>EK585</li>
-                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
-                    <li>Friday, Jun 17 - 03:20</li>
-                  </ul>
-                </div>
-                <div class="flight-detail-right">
-                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
-                  <div class="flight-detail-info">
-                    <img src="../assets/img/icon/brand_img02.png" alt="">
-                    <ul>
-                      <li>Class: Economy</li>
-                      <li>Flight No.: EK585</li>
-                      <li>Aircraft: BOEING 777-300ER</li>
-                      <li>Adult(s): 25KG luggage free</li>
-                    </ul>
-                  </div>
-                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
-                </div>
-              </div>
-            </div>
-            <div class="booking-list-item"><!--其中一个航班-->
-              <div class="booking-list-item-inner">
-                <div class="booking-list-top">
-                  <div class="flight-airway">
-                    <div class="flight-logo">
-                      <img src="../assets/img/brand/brand_img02.png" alt="">
-                      <h5 class="title">Star Airlines</h5>
-                    </div>
-                  </div>
-                  <ul class="flight-info">
-                    <li>Thursday, <span>Jun 16</span></li>
-                    <li class="time"><span>12: 55</span>DAC</li>
-                    <li>22h<span>2 Stops</span></li>
-                  </ul>
-                  <div class="flight-price">
-                    <h4 class="title">US$ 1,056.40</h4>
-                    <router-link to="/bkdtls" class="btn">Select <i class="flaticon-flight-1"></i></router-link>
-                  </div>
-                </div>
-                <div class="booking-list-bottom">
-                  <ul>
-                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
-                    <li>Price per person (incl. taxes & fees)</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="flight-detail-wrap">
-                <div class="flight-date">
-                  <ul>
-                    <li>EK585</li>
-                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
-                    <li>Friday, Jun 17 - 03:20</li>
-                  </ul>
-                </div>
-                <div class="flight-detail-right">
-                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
-                  <div class="flight-detail-info">
-                    <img src="../assets/img/icon/brand_img02.png" alt="">
-                    <ul>
-                      <li>Class: Economy</li>
-                      <li>Flight No.: EK585</li>
-                      <li>Aircraft: BOEING 777-300ER</li>
-                      <li>Adult(s): 25KG luggage free</li>
-                    </ul>
-                  </div>
-                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
-                </div>
-              </div>
-            </div>
-            <div class="booking-list-item"><!--其中一个航班-->
-              <div class="booking-list-item-inner">
-                <div class="booking-list-top">
-                  <div class="flight-airway">
-                    <div class="flight-logo">
-                      <img src="../assets/img/brand/brand_img02.png" alt="">
-                      <h5 class="title">Star Airlines</h5>
-                    </div>
-                  </div>
-                  <ul class="flight-info">
-                    <li>Thursday, <span>Jun 16</span></li>
-                    <li class="time"><span>12: 55</span>DAC</li>
-                    <li>22h<span>2 Stops</span></li>
-                  </ul>
-                  <div class="flight-price">
-                    <h4 class="title">US$ 1,056.40</h4>
-                    <router-link to="/bkdtls" class="btn">Select <i class="flaticon-flight-1"></i></router-link>
-                  </div>
-                </div>
-                <div class="booking-list-bottom">
-                  <ul>
-                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
-                    <li>Price per person (incl. taxes & fees)</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="flight-detail-wrap">
-                <div class="flight-date">
-                  <ul>
-                    <li>EK585</li>
-                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>
-                    <li>Friday, Jun 17 - 03:20</li>
-                  </ul>
-                </div>
-                <div class="flight-detail-right">
-                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>
-                  <div class="flight-detail-info">
-                    <img src="../assets/img/icon/brand_img02.png" alt="">
-                    <ul>
-                      <li>Class: Economy</li>
-                      <li>Flight No.: EK585</li>
-                      <li>Aircraft: BOEING 777-300ER</li>
-                      <li>Adult(s): 25KG luggage free</li>
-                    </ul>
-                  </div>
-                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>
-                </div>
-              </div>
-            </div>
+<!--            <div class="booking-list-item" v-for="i in departs.length" :key="i.id">&lt;!&ndash;其中一个航班&ndash;&gt;-->
+<!--              <div class="booking-list-item-inner">-->
+<!--                <div class="booking-list-top">-->
+<!--                  <div class="flight-airway">-->
+<!--                    <div class="flight-logo">-->
+<!--                      <img src="../assets/img/brand/brand_img02.png" alt="">-->
+<!--                      <h5 class="title">Star Airlines</h5>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <ul class="flight-info">-->
+<!--                    <li>Depart Time<span>{{ depart_date[i - 1] }} {{ depart_t_details[i - 1] }}</span></li>-->
+<!--                    <li class="time"><span>Arrive Time</span>{{ arrival_date[i - 1] }} {{ arrival_t_details[i - 1] }}-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                  <div class="flight-price">-->
+<!--                    <h4 class="title">US$ {{ prices[i - 1] }}.00</h4>-->
+<!--                    <router-link to="/bkdtls" class="btn">Select <i class="flaticon-flight-1"></i></router-link>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="booking-list-bottom">-->
+<!--                  <ul>-->
+<!--                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>-->
+<!--                    <li>Price per person (incl. taxes & fees)</li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="flight-detail-wrap">-->
+<!--                <div class="flight-date">-->
+<!--                  <ul>-->
+<!--                    <li>{{ flight_names[i - 1] }}</li>-->
+<!--                    <li>{{ depart_date[i - 1] }} - {{ depart_t_details[i - 1] }}</li>-->
+<!--                    <li>To</li>-->
+<!--                    <li>{{ arrival_date[i - 1] }} - {{ arrival_t_details[i - 1] }}</li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--                <div class="flight-detail-right">-->
+<!--                  <h4 class="title">{{ departs[i - 1] }} &#45;&#45;&ndash;&gt; {{ arrivals[i - 1] }}</h4>-->
+<!--                  <div class="flight-detail-info">-->
+<!--                    <img src="../assets/img/icon/brand_img02.png" alt="">-->
+<!--                    <ul>-->
+<!--                      <li>Class: {{ types[i - 1] }}</li>-->
+<!--                      <li>Flight No.: {{ flight_names[i - 1] }}</li>-->
+<!--                      <li>Aircraft: BOEING 777-300ER</li>-->
+<!--                      <li>Adult(s): 25KG luggage free</li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+<!--                  <h4 class="title title-two"></h4>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+            <!--            <div class="booking-list-item">&lt;!&ndash;其中一个航班&ndash;&gt;-->
+            <!--              <div class="booking-list-item-inner">-->
+            <!--                <div class="booking-list-top">-->
+            <!--                  <div class="flight-airway">-->
+            <!--                    <div class="flight-logo">-->
+            <!--                      <img src="../assets/img/brand/brand_img02.png" alt="">-->
+            <!--                      <h5 class="title">Star Airlines</h5>-->
+            <!--                    </div>-->
+            <!--                  </div>-->
+            <!--                  <ul class="flight-info">-->
+            <!--                    <li>Thursday, <span>Jun 16</span></li>-->
+            <!--                    <li class="time"><span>12: 55</span>DAC</li>-->
+            <!--                    <li>22h<span>2 Stops</span></li>-->
+            <!--                  </ul>-->
+            <!--                  <div class="flight-price">-->
+            <!--                    <h4 class="title">US$ 1,056.40</h4>-->
+            <!--                    <router-link to="/bkdtls" class="btn">Select <i class="flaticon-flight-1"></i></router-link>-->
+            <!--                  </div>-->
+            <!--                </div>-->
+            <!--                <div class="booking-list-bottom">-->
+            <!--                  <ul>-->
+            <!--                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>-->
+            <!--                    <li>Price per person (incl. taxes & fees)</li>-->
+            <!--                  </ul>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--              <div class="flight-detail-wrap">-->
+            <!--                <div class="flight-date">-->
+            <!--                  <ul>-->
+            <!--                    <li>EK585</li>-->
+            <!--                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>-->
+            <!--                    <li>Friday, Jun 17 - 03:20</li>-->
+            <!--                  </ul>-->
+            <!--                </div>-->
+            <!--                <div class="flight-detail-right">-->
+            <!--                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>-->
+            <!--                  <div class="flight-detail-info">-->
+            <!--                    <img src="../assets/img/icon/brand_img02.png" alt="">-->
+            <!--                    <ul>-->
+            <!--                      <li>Class: Economy</li>-->
+            <!--                      <li>Flight No.: EK585</li>-->
+            <!--                      <li>Aircraft: BOEING 777-300ER</li>-->
+            <!--                      <li>Adult(s): 25KG luggage free</li>-->
+            <!--                    </ul>-->
+            <!--                  </div>-->
+            <!--                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--            </div>-->
           </div>
         </div>
       </div>
