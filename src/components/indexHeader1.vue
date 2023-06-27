@@ -1,6 +1,5 @@
 <script setup>
 import {onMounted} from 'vue';
-import axios from "axios";
 import router from '@/router';
 import $ from 'jquery';
 import 'bootstrap';
@@ -67,43 +66,6 @@ onMounted(() => {
       }
     });
 
-    /*=============================================
-              =    		 Scroll Up  	         =
-          =============================================*/
-    if ($('.scroll-to-target').length) {
-      $(".scroll-to-target").on('click', function () {
-        var target = $(this).attr('data-target');
-        // animate
-        $('html, body').animate({
-          scrollTop: $(target).offset().top
-        }, 1000);
-
-      });
-    }
-
-    /*=============================================
-              =    	   Toggle Active  	         =
-          =============================================*/
-    $('.flight-detail-wrap').slideUp();
-    $('.detail').on('click', function () {
-      $(this).toggleClass('show');
-      $(this).parent().parent().parent().parent().find('.flight-detail-wrap').slideToggle();
-    });
-
-
-    /*=============================================
-              =    	 Slider Range Active  	         =
-          =============================================*/
-    $("#slider-range").slider({
-      range: true,
-      min: 300,
-      max: 5500,
-      values: [1000, 4500],
-      slide: function (event, ui) {
-        $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-      }
-    });
-    $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
 
 //for menu active class
     $('.fly-next-nav button, .content-top li, .gender-select ul li').on('click', function (event) {
