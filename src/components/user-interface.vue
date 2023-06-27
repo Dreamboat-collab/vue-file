@@ -4,14 +4,6 @@ import IndexFooter1 from "@/components/indexFooter1.vue";
 // 图标
 import "@/assets/CSS/font-awesome-5.15.2.all.css";
 import "@/assets/CSS/tiktok.css";
-import "@/assets/CSS/style.css";
-import "@/assets/CSS/style1.css";
-import "@/assets/CSS/style2.css";
-import "@/assets/CSS/style3.css";
-import "@/assets/CSS/style4.css";
-import "@/assets/CSS/style5.css";
-import "@/assets/CSS/style6.css";
-import "@/assets/CSS/style7.css";
 
 import {onMounted, ref} from 'vue'
 import axios from "axios";
@@ -210,6 +202,7 @@ function savecard() {
 
 <template>
   <index-header1></index-header1>
+  <router-view ></router-view>
   <div class="card" style="margin-bottom: 0px;">
     <div class="section">
       <div class="pic">
@@ -218,7 +211,6 @@ function savecard() {
       <div class="name">Jeddy</div>
       <div class="tag">1556782359@qq.com</div>
     </div>
-
     <div class="bottom-section" style="height: 5vh !important;margin-bottom: 0px">
       <div class="social-media">
         <a href="#"><i class="fab fa-facebook"></i></a>
@@ -418,9 +410,7 @@ function savecard() {
       </div>
     </div>
   </div>
-
   <index-footer1></index-footer1>
-  <router-view ></router-view>
 </template>
 
 <style scoped>
@@ -458,4 +448,5 @@ label {
 .password-input {
   width: 250px;
 }
+
 </style>
