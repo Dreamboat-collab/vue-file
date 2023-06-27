@@ -32,13 +32,15 @@ const departs = ref([])
 const arrivals = ref([])
 const depart_time = ref([])
 const arrival_time = ref([])
+const hotel_names=ref([])
+const hotel_prices=ref([])
+const hotel_locations=ref([])
 
 
 onMounted(() => {
   const jump = localStorage.getItem('jump')
   if (jump == '1') {
     localStorage.setItem('jump', 0)
-    console.log(jump)
     location.reload()
   }
 // 这里是原来的 JavaScript 代码 bootstrap-datepicker.min.js
@@ -1874,13 +1876,11 @@ onMounted(() => {
   })($);
   // 获取航班地点
   axios.get('http://localhost:8080/starAirlines/flight_address').then((response) => {
-    console.log(response.data.data);
     address.value = response.data.data
     depart.value = address.value[0]
     arrival.value = address.value[1]
   })
   axios.get('http://localhost:8080/starAirlines/flight?date=2023-06-30').then((response) => {
-    console.log(response.data.data)
     let all_flights = []
     let filtered_flights=[]
     let depart_T = ''
@@ -1891,7 +1891,6 @@ onMounted(() => {
       if (all_flights[i]['type']==1)
         filtered_flights.push(all_flights[i])
     }
-    console.log(filtered_flights)
     for (let i = 0; i < 7; i++) {
       if (i==4 || i==5){
         continue
@@ -1904,12 +1903,23 @@ onMounted(() => {
       temp[3].push(arrival_T.substring(0, 4) + '/' + arrival_T.substring(5, 7) + '/' + arrival_T.substring(8, 10))
       temp[4].push(filtered_flights[i]['price'])
     }
-    console.log(temp)
     departs.value = temp[0]
     arrivals.value = temp[1]
     depart_time.value = temp[2]
     arrival_time.value = temp[3]
     prices.value = temp[4]
+  })
+  axios.get('http://localhost:8080/starAirlines/hotels').then((response) => {
+    let hotels=response.data.data
+    let temp=[[],[],[]]
+    for (let i = 0; i < 8; i++) {
+      temp[0].push(hotels[i]['name'])
+      temp[1].push(hotels[i]['price'])
+      temp[2].push(hotels[i]['address'])
+    }
+    hotel_names.value=temp[0]
+    hotel_prices.value=temp[1]
+    hotel_locations.value=temp[2]
   })
 });
 const open = () => {
@@ -2449,130 +2459,17 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
           </div>
         </div>
         <div class="row fly-next-active justify-content-center">
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two">
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two" v-for="i in 8" :key="i.id">
             <div class="fly-next-item">
               <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img01.jpg" alt=""></a>
+                <a href="booking-details.html"><img :src="require(`@/assets/img/hotel/hotel${i-1}.jpg`)" alt=""></a>
               </div>
               <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Four Seasons Hotel</h4>
-                <h4 class="title">Guangzhou</h4>
+                <h4 class="title">{{ hotel_names[i-1] }}</h4>
+                <h4 class="title">{{ hotel_locations[i-1] }}</h4>
                 <div class="content-bottom">
                   <p>Room from</p>
-                  <h4 class="price">$195</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-one cat-two">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img02.jpg" alt=""></a>
-              </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Switzerland (SWL)</h4>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Room from</p>
-                  <h4 class="price">$800</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img03.jpg" alt=""></a>
-              </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Denmark (DEK)</h4>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Room from</p>
-                  <h4 class="price">$ 350</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-one">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img04.jpg" alt=""></a>
-              </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Jakarta (DXB)</h4>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Room from</p>
-                  <h4 class="price">$ 220</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img05.jpg" alt=""></a>
-              </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Dubai (DXB)</h4>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Room from</p>
-                  <h4 class="price">$195</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-one">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img06.jpg" alt=""></a>
-              </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Dubai (DXB)</h4>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Room from</p>
-                  <h4 class="price">$175</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two cat-one">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img07.jpg" alt=""></a>
-              </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Switzerland (SWL)</h4>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Room from</p>
-                  <h4 class="price">$195</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two">
-            <div class="fly-next-item">
-              <div class="fly-next-thumb">
-                <a href="booking-details.html"><img src="../assets/img/images/fly_img08.jpg" alt=""></a>
-              </div>
-              <div class="fly-next-content">
-                <span>09 Jun 2022 - 16 Jun 2022</span>
-                <h4 class="title">Turkish (SWL)</h4>
-                <h4 class="title">New York (USA)</h4>
-                <div class="content-bottom">
-                  <p>Room from</p>
-                  <h4 class="price">$350</h4>
+                  <h4 class="price">${{hotel_prices[i-1]}}</h4>
                 </div>
               </div>
             </div>

@@ -43,12 +43,9 @@ const toLogin=()=>{
   router.push({path: '/login'})
 }
 const alertNum=()=>{
-  ElMessageBox.alert('+86 114 5141 9198 ', 'Our common WeChat account is', {
+  ElMessageBox.alert('+86 114 5141 9198', 'Our common WeChat account is:', {
     confirmButtonText: 'Confirm',
-    type: 'success'//success，error，info和warning
-    // callback: action => {
-    //   window.location.href = "/login"
-    // }
+    type: 'success'
   })
   setTimeout(() => {
     ElMessageBox.close();
@@ -83,7 +80,7 @@ const alertNum=()=>{
             </button>
             <h4 class="text-white mb-2 mt-5">Find us on</h4>
             <div class="d-flex justify-content-center">
-              <a href="javascript:;" @click="alertNum"
+              <a href="javascript:;" @click="alertNum()"
                 ><i class="fab fa-weixin text-lg text-white me-4"></i
               ></a>
               <a href="#end"
