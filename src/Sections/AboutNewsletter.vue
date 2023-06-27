@@ -6,11 +6,23 @@ import MaterialButton from "../components/Materia/MaterialButton.vue";
 
 // material-input
 import setMaterialInput from "@/assets/js/material-input";
+import {ElMessageBox} from "element-plus";
 
 onMounted(() => {
   setMaterialInput();
 });
-
+const alertNum=()=> {
+  ElMessageBox.alert('11451419198@van.com', 'Please send your resume to the following email', {
+    confirmButtonText: 'Confirm',
+    type: 'success'//success，error，info和warning
+    // callback: action => {
+    //   window.location.href = "/login"
+    // }
+  })
+  setTimeout(() => {
+    ElMessageBox.close();
+  }, 5000);
+}
 </script>
 <template>
   <section class="my-5 pt-5">
@@ -34,6 +46,7 @@ onMounted(() => {
                   variant="gradient"
                   color="success"
                   class="mb-0 h-100 position-relative z-index-2"
+                  @click="alertNum"
               >Join Us
               </MaterialButton
               >

@@ -7,7 +7,6 @@ import artemis from "@/assets/img/developers/Artemis.jpg";
 import jeddy from "@/assets/img/developers/Jeddy.jpg";
 import ivana from "@/assets/img/developers/Franklif.jpg";
 import marquez from "@/assets/img/developers/hideonshit.jpg";
-
 const urls=["https://github.com/Artemis-Zeus","https://github.com/hikeerer","https://github.com/Franklif1","https://github.com/hideonshit202"]
 const ToDevs=(id)=>{
   window.open(urls[id])
@@ -35,8 +34,7 @@ const ToDevs=(id)=>{
             :image="artemis"
             :profile="{ name: 'Hamilton', link: 'javascript:;' }"
             :position="{ label: '20202031058', color: 'success' }"
-            description="Artist is a term applied to a person who engages in an
-                    activity deemed to be an art."
+            description="Mainly responsible for back-end, a small amount of front-end page design, database design and system security."
             @click="ToDevs(0)"
           />
         </div>
@@ -46,8 +44,7 @@ const ToDevs=(id)=>{
             :image="jeddy"
             :profile="{ name: 'Jeddy', link: 'javascript:;' }"
             :position="{ label: '20202031008', color: 'success' }"
-            description="Artist is a term applied to a person who engages in an
-                    activity deemed to be an art."
+            description="Mainly responsible for front-end page writing, routing design and joint debugging of front-end and back-end."
             @click="ToDevs(1)"
           />
         </div>
@@ -59,7 +56,7 @@ const ToDevs=(id)=>{
             :image="ivana"
             :profile="{ name: 'Franklif', link: 'javascript:;' }"
             :position="{ label: '20202031041', color: 'success' }"
-            description="Gamer, Britpop fan. Responsible for page Home, Booking List and Booking Details."
+            description="Mainly responsible for the overall front-end UI design, animation design, code writing and testing of the front-end page. Gamer, Britpop fan. Responsible for page Home, Booking List and Booking Details."
             @click="ToDevs(2)"
           />
         </div>
@@ -69,8 +66,7 @@ const ToDevs=(id)=>{
             :image="marquez"
             :profile="{ name: 'Ezio', link: 'javascript:;' }"
             :position="{ label: '20202031069', color: 'success' }"
-            description="Artist is a term applied to a person who engages in an
-                    activity deemed to be an art."
+            description="Mainly responsible for front-end page design, code writing and testing."
             @click="ToDevs(3)"
           />
         </div>

@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from 'vue';
+import {computed, onBeforeMount, onMounted, ref, watch} from 'vue';
 import IndexFooter1 from "@/components/indexFooter1.vue";
 import IndexHeader1 from "@/components/indexHeader1.vue";
 
@@ -21,17 +21,34 @@ import '@/assets/js/jquery.odometer.min.js';
 import "@/assets/js/jquery-ui.min.js";
 import axios from "axios";
 
-// import '@/assets/js/slick.min.js';
-// import '@/assets/CSS/slick.css';
+import '@/assets/js/slick.min.js';
+import '@/assets/CSS/slick.css';
+import moment from "moment";
 const address = ref([]);
 const depart = ref();
 const arrival = ref();
+const today=moment().format("YYYY-MM-DD")
+const dateTime=ref(today);
+console.log(today)
 const grade = ref('Economy');
 const prices = ref([])
 const departs = ref([])
 const arrivals = ref([])
 const depart_time = ref([])
 const arrival_time = ref([])
+const hotel_names=ref([])
+const hotel_prices=ref([])
+const hotel_locations=ref([])
+const depart_list=ref([])
+watch(arrival,(newVal,oldVal)=>{
+  console.log(dateTime)
+})
+
+const arrival_list=computed(()=>{
+  return depart_list.value.filter(item=>item!==depart.value)
+})
+
+
 
 onMounted(() => {
 // 这里是原来的 JavaScript 代码 bootstrap-datepicker.min.js
@@ -1878,13 +1895,53 @@ onMounted(() => {
     });
 
   })($);
-  // 获取航班地点
   axios.get('http://localhost:8080/starAirlines/flight_address').then((response) => {
-    console.log(response.data.data);
-    address.value = response.data.data
-    depart.value = address.value[0]
-    arrival.value = address.value[1]
+    depart_list.value=response.data.data
+    depart.value = depart_list.value[0]
+    arrival.value = arrival_list.value[0]
   })
+  axios.get('http://localhost:8080/starAirlines/flight?date=2023-06-30').then((response) => {
+    let all_flights = []
+    let filtered_flights=[]
+    let depart_T = ''
+    let arrival_T = ''
+    const temp = [[], [], [], [], []]
+    all_flights = response.data.data
+    for (let i = 0; i < all_flights.length; i++) {
+      if (all_flights[i]['type']==1)
+        filtered_flights.push(all_flights[i])
+    }
+    for (let i = 0; i < 7; i++) {
+      if (i==4 || i==5){
+        continue
+      }
+      temp[0].push(filtered_flights[i]['depart'])
+      temp[1].push(filtered_flights[i]['arrival'])
+      depart_T = filtered_flights[i]['departTime']
+      temp[2].push(depart_T.substring(0, 4) + '/' + depart_T.substring(5, 7) + '/' + depart_T.substring(8, 10))
+      arrival_T = filtered_flights[i]['arrivalTime']
+      temp[3].push(arrival_T.substring(0, 4) + '/' + arrival_T.substring(5, 7) + '/' + arrival_T.substring(8, 10))
+      temp[4].push(filtered_flights[i]['price'])
+    }
+    departs.value = temp[0]
+    arrivals.value = temp[1]
+    depart_time.value = temp[2]
+    arrival_time.value = temp[3]
+    prices.value = temp[4]
+  })
+  axios.get('http://localhost:8080/starAirlines/hotels').then((response) => {
+    let hotels=response.data.data
+    let temp=[[],[],[]]
+    for (let i = 0; i < 8; i++) {
+      temp[0].push(hotels[i]['name'])
+      temp[1].push(hotels[i]['price'])
+      temp[2].push(hotels[i]['address'])
+    }
+    hotel_names.value=temp[0]
+    hotel_prices.value=temp[1]
+    hotel_locations.value=temp[2]
+  })
+
 });
 
 </script>
@@ -1973,9 +2030,9 @@ onMounted(() => {
                               <div class="form-grp select">
                                 <label for="From">From</label>
                                 <select id="From" name="select" class="form-select" aria-label="Default select example"
-                                        :value="depart">
+                                        v-model="depart">
                                   <!--                                  <option value="">Guangzhou</option>-->
-                                  <option v-for="i in address" :key="i.id" :value="i">{{ i }}</option>
+                                  <option v-for="i in depart_list" :key="i.id" :value="i">{{ i }}</option>
                                 </select>
                               </div>
                             </li>
@@ -1983,8 +2040,8 @@ onMounted(() => {
                               <div class="form-grp select">
                                 <label for="To">To</label>
                                 <select id="To" name="select" class="form-select" aria-label="Default select example"
-                                        :value="arrival">
-                                  <option v-for="i in address" :key="i.id">{{ i }}</option>
+                                        v-model="arrival">
+                                  <option v-for="i in arrival_list" :key="i.id">{{ i }}</option>
                                 </select>
                                 <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
                               </div>
@@ -1994,7 +2051,7 @@ onMounted(() => {
                                 <ul>
                                   <li>
                                     <label for="flightDate">Departure Date</label>
-                                    <input type="text" class="date" placeholder="Select Date" id="flightDate">
+                                    <input type="date" placeholder="Select Date" id="flightDate" v-model="dateTime">
                                   </li>
                                 </ul>
                               </div>
@@ -2175,8 +2232,7 @@ onMounted(() => {
                 <div class="booking-list-top">
                   <div class="flight-airway">
                     <div class="flight-logo">
-                      <img src="../assets/img/brand/brand_img02.png" alt="">
-                      <h5 class="title">Star Airlines</h5>
+                      <h5 class="title">Etihad Airway</h5>
                     </div>
                   </div>
                   <ul class="flight-info">
