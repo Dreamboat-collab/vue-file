@@ -2,7 +2,7 @@
 import {onBeforeMount, onMounted, ref, watch} from 'vue';
 import IndexHeader1 from "@/components/indexHeader1.vue";
 import IndexFooter1 from "@/components/indexFooter1.vue";
-import '@/assets/vendor/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/site/css/styleattraction.css'
 import '@/site/css/fonts.css'
 import router from "@/router";
@@ -58,18 +58,14 @@ import jQuery from "jquery"
   <html class="wide wow-animation" lang="en">
   <head>
     <!-- Site Title-->
-    <title>Home</title>
-    <meta name="format-detection" content="telephone=no">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
 
 
   </head>
   <body>
 
   <!-- Page-->
-  <div class="page"><a class="section section-banner text-center d-none d-xl-block" href="https://www.templatemonster.com/intense-multipurpose-html-template.html" style="background-image: url(../assets/img/images/Guangzhou_1.jpg); background-image: -webkit-image-set( url(../assets/img/images/Guangzhou_1.jpg) 1x, url(../assets/img/images/Guangzhou_1.jpg) 2x )"><img src="../assets/img/images/Guangzhou_1.jpg" srcset="../assets/img/images/Guangzhou_1.jpg" alt="" width="1920" height="766"></a>
+  <div class="page">
+    <a class="section section-banner text-center d-none d-xl-block" href="https://www.templatemonster.com/intense-multipurpose-html-template.html" style="background-image: url(../assets/img/images/Guangzhou_1.jpg); background-image: -webkit-image-set( url(../assets/img/images/Guangzhou_1.jpg) 1x, url(../assets/img/images/Guangzhou_1.jpg) 2x )"><img src="../assets/img/images/Guangzhou_1.jpg" srcset="../assets/img/images/Guangzhou_1.jpg" alt="" width="1920" height="766"></a>
     <!-- Page Header-->
     <header class="section page-header">
       <!-- RD Navbar-->
