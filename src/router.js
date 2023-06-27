@@ -10,8 +10,11 @@ const routes = [
     { path: '/about', component: () => import('@/components/AboutView.vue') },
     { path: '/bklist', component: () => import('@/components/bookingList.vue') },
     { path: '/bkdtls', component: () => import('@/components/bookingDetails.vue') },
+    { path: '/attraction', component: () => import('@/components/AttractionPage.vue') },
+    { path: '/userinfo1', component: () => import('@/components/user_interface.vue') },
     // 其他路由配置项
-    { path: '/', redirect: '/flight' }, // 将根路径重定向到'/home'页面
+    // { path: '/', redirect: '/attraction' }, // 将根路径重定向到'/home'页面
+    { path: '/', redirect: '/userinfo1' }, // 将根路径重定向到'/home'页面
 ];
 
 // 创建路由实例
