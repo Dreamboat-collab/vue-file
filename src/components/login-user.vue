@@ -78,14 +78,17 @@
           <form action="#" class="form" id="form1" @submit="handleSubmit">
             <h2 class="form__title">Register</h2>
             <input type="text" placeholder="Username" class="input" v-model="user.username"/>
-            <input type="email" placeholder="Email" class="input" v-model="user.Email"/>
+            <input type="email" placeholder="Email" class="input" v-model="user.email"/>
             <!-- 输入密码时的提示框,输入密码 -->
             <el-tooltip content="passwords with 8 or more digits">
-              <input type="password" placeholder="Password" class="input" v-model="user.Password"/>
+              <input type="password" placeholder="Password" class="input" v-model="user.password"/>
             </el-tooltip>
-            <el-tooltip content="passwords with 8 or more digits">
-              <input type="password" placeholder="Confirm Password" class="input" v-model="user.confirmPassword" />
-            </el-tooltip>
+            <input type="password" placeholder="Confirm Password" class="input" v-model="user.confirmPassword" @input="checkPasswordMatch" @focus="showIcon = true"/>
+            <div class="input-container">
+              <span class="icon-container">
+                <i class="fa" :class="passwordsMatch ? 'fa-check-circle' : 'fa-times-circle'" v-if="showIcon"></i>
+              </span>
+            </div>
             <button class="btn1" style="margin-top: 5vh">Register</button>
           </form>
         </div>
@@ -177,11 +180,18 @@
 
 <script setup>
 import $ from 'jquery';
-import {onMounted, ref} from 'vue'
+import {onMounted, ref, computed} from 'vue'
 import {ElMessage} from 'element-plus'
 import axios from 'axios'
 import router from '@/router';
 import IndexHeader1 from "@/components/indexHeader1.vue";
+
+// 注册时密码动态验证
+const showIcon=ref(false);
+const passwordsMatch = ref(false);
+function checkPasswordMatch() {
+  passwordsMatch.value = user.value.password === user.value.confirmPassword;
+}
 
 //JS
 onMounted(() => {
@@ -318,6 +328,17 @@ $("#sticky-header").addClass("sticky-menu")
 </script>
 
 <style>
+.input-container {
+  position: relative;
+}
+
+.icon-container {
+  position: absolute;
+  right: -11vw;
+  top: -4vh;
+  transform: translateY(-50%);
+}
+
 .dialog-mistake{
   width:30%;
   z-index:9999 !important;

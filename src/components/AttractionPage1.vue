@@ -3,6 +3,7 @@ import IndexFooter1 from "@/components/indexFooter1.vue";
 import IndexHeader1 from "@/components/indexHeader1.vue";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/assets/CSS/now-ui-kit.min.css'
+import bg0 from "@/assets/img/bg.jpg";
 </script>
 
 <template>
@@ -25,7 +26,7 @@ import '@/assets/CSS/now-ui-kit.min.css'
   <!-- End navbar1 -->
   <div class="wrapper">
     <div class="page-header1 page-header1-small">
-      <div class="page-header1-image" data-parallax="true" style="background-image: url('../assets/img/images/france.jpg');">
+      <div class="page-header1-image" data-parallax="true" style="background-image: url('../france.jpg');">
       </div>
       <div class="content-center">
         <div class="container">
@@ -56,7 +57,7 @@ import '@/assets/CSS/now-ui-kit.min.css'
         <div class="section-story-overview">
           <div class="row">
             <div class="col-md-6">
-              <div class="image-container image-left" style="background-image: url('../assets/img/images/france.jpg')">
+              <div class="image-container image-left" style="background-image: url('src/assets/bg.jpg')">
                 <!-- First image on the left side -->
                 <p class="blockquote blockquote-primary">"Over the span of the satellite record, Arctic sea ice has been declining significantly, while sea ice in the Antarctichas increased very slightly"
                   <br>
@@ -65,7 +66,7 @@ import '@/assets/CSS/now-ui-kit.min.css'
                 </p>
               </div>
               <!-- Second image on the left side of the article -->
-              <div class="image-container" style="background-image: url('../assets/img/images/france.jpg')"></div>
+              <div class="image-container" style="background-image: url('../assets/img/images/sharm.jpg')"></div>
             </div>
             <div class="col-md-5">
               <!-- First image on the right side, above the article -->
@@ -83,50 +84,7 @@ import '@/assets/CSS/now-ui-kit.min.css'
         </div>
       </div>
     </div>
-    <div class="section section-team text-center">
-      <div class="container">
-        <h2 class="title">Here is our team</h2>
-        <div class="team">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="team-player">
-                <img src="../assets/img/images/france.jpg" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
-                <h4 class="title">Romina Hadid</h4>
-                <p class="category text-primary">Model</p>
-                <p class="description">You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
-                  <a href="#">links</a> for people to be able to follow them outside the site.</p>
-                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-twitter"></i></a>
-                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-instagram"></i></a>
-                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-facebook-square"></i></a>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="team-player">
-                <img src="../assets/img/images/france.jpg" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
-                <h4 class="title">Ryan Tompson</h4>
-                <p class="category text-primary">Designer</p>
-                <p class="description">You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
-                  <a href="#">links</a> for people to be able to follow them outside the site.</p>
-                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-twitter"></i></a>
-                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="team-player">
-                <img src="../assets/img/images/france.jpg" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
-                <h4 class="title">Eva Jenner</h4>
-                <p class="category text-primary">Fashion</p>
-                <p class="description">You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
-                  <a href="#">links</a> for people to be able to follow them outside the site.</p>
-                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-google-plus"></i></a>
-                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-youtube"></i></a>
-                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-twitter"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
 
 
   </div>
