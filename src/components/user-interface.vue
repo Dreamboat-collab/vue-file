@@ -204,7 +204,7 @@ function savecard() {
   <index-header1></index-header1>
   <router-view ></router-view>
   <div class="card" style="margin-bottom: 0px;">
-    <div class="section">
+    <div class="section1">
       <div class="pic">
         <img src="@/assets/images/Jeddy.jpg" alt="图片加载错误！">
       </div>

@@ -1,0 +1,144 @@
+<script setup>
+import IndexFooter1 from "@/components/indexFooter1.vue";
+import IndexHeader1 from "@/components/indexHeader1.vue";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@/assets/CSS/now-ui-kit.min.css'
+</script>
+
+<template>
+  <index-header1></index-header1>
+  <html lang="en">
+
+  <head>
+
+    <title>
+      Now UI Kit by Creative Tim
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+
+  </head>
+
+  <body class="landing-page sidebar-collapse">
+  <!-- navbar1 -->
+
+  <!-- End navbar1 -->
+  <div class="wrapper">
+    <div class="page-header1 page-header1-small">
+      <div class="page-header1-image" data-parallax="true" style="background-image: url('../assets/img/images/france.jpg');">
+      </div>
+      <div class="content-center">
+        <div class="container">
+          <h1 class="title">This is our great company.</h1>
+          <div class="text-center">
+            <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round">
+              <i class="fab fa-facebook-square"></i>
+            </a>
+            <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round">
+              <i class="fab fa-google-plus"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section section-about-us">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto text-center">
+            <h2 class="title">Who we are?</h2>
+            <h5 class="description">According to the National Oceanic and Atmospheric Administration, Ted, Scambos, NSIDClead scentist, puts the potentially record low maximum sea ice extent tihs year down to low ice extent in the Pacific and a late drop in ice extent in the Barents Sea.</h5>
+          </div>
+        </div>
+        <div class="separator separator-primary"></div>
+        <div class="section-story-overview">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="image-container image-left" style="background-image: url('../assets/img/images/france.jpg')">
+                <!-- First image on the left side -->
+                <p class="blockquote blockquote-primary">"Over the span of the satellite record, Arctic sea ice has been declining significantly, while sea ice in the Antarctichas increased very slightly"
+                  <br>
+                  <br>
+                  <small>-NOAA</small>
+                </p>
+              </div>
+              <!-- Second image on the left side of the article -->
+              <div class="image-container" style="background-image: url('../assets/img/images/france.jpg')"></div>
+            </div>
+            <div class="col-md-5">
+              <!-- First image on the right side, above the article -->
+              <div class="image-container image-right" style="background-image: url('../assets/img/images/france.jpg')"></div>
+              <h3>So what does the new record for the lowest level of winter ice actually mean</h3>
+              <p>The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever happens with climate change. Even if the Arctic continues to be one of the fastest-warming regions of the world, it will always be plunged into bitterly cold polar dark every winter. And year-by-year, for all kinds of natural reasons, there’s huge variety of the state of the ice.
+              </p>
+              <p>
+                For a start, it does not automatically follow that a record amount of ice will melt this summer. More important for determining the size of the annual thaw is the state of the weather as the midnight sun approaches and temperatures rise. But over the more than 30 years of satellite records, scientists have observed a clear pattern of decline, decade-by-decade.
+              </p>
+              <p>The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever happens with climate change. Even if the Arctic continues to be one of the fastest-warming regions of the world, it will always be plunged into bitterly cold polar dark every winter. And year-by-year, for all kinds of natural reasons, there’s huge variety of the state of the ice.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section section-team text-center">
+      <div class="container">
+        <h2 class="title">Here is our team</h2>
+        <div class="team">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="team-player">
+                <img src="../assets/img/images/france.jpg" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
+                <h4 class="title">Romina Hadid</h4>
+                <p class="category text-primary">Model</p>
+                <p class="description">You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
+                  <a href="#">links</a> for people to be able to follow them outside the site.</p>
+                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-twitter"></i></a>
+                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-instagram"></i></a>
+                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-facebook-square"></i></a>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="team-player">
+                <img src="../assets/img/images/france.jpg" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
+                <h4 class="title">Ryan Tompson</h4>
+                <p class="category text-primary">Designer</p>
+                <p class="description">You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
+                  <a href="#">links</a> for people to be able to follow them outside the site.</p>
+                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-twitter"></i></a>
+                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="team-player">
+                <img src="../assets/img/images/france.jpg" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
+                <h4 class="title">Eva Jenner</h4>
+                <p class="category text-primary">Fashion</p>
+                <p class="description">You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
+                  <a href="#">links</a> for people to be able to follow them outside the site.</p>
+                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-google-plus"></i></a>
+                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-youtube"></i></a>
+                <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round"><i class="fab fa-twitter"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <!--   Core JS Files   -->
+
+  </body>
+
+  </html>
+  <index-footer1></index-footer1>
+
+</template>
+
+<style scoped>
+
+</style>
