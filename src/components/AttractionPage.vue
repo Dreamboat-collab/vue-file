@@ -1,14 +1,11 @@
 <script setup>
-import {onBeforeMount, onMounted, ref, watch} from 'vue';
 import IndexHeader1 from "@/components/indexHeader1.vue";
 import IndexFooter1 from "@/components/indexFooter1.vue";
+import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 import '@/site/css/styleattraction.css'
 import '@/site/css/fonts.css'
-import router from "@/router";
-
-import $ from 'jquery';
-import jQuery from "jquery"
 // import "@/assets/js/core.min"
 
 
