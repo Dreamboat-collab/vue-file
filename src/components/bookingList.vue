@@ -25,43 +25,60 @@ import '@/assets/js/slick.min.js';
 import '@/assets/CSS/slick.css';
 import moment from "moment";
 
+//booking flight paras
 const address = ref([]);
 const depart = ref();
 const arrival = ref();
-const today = moment().format("YYYY-MM-DD")
-const dateTime = ref(today);
 const grade = ref('All');
-// const prices = ref([])
-// const departs = ref([])
-// const arrivals = ref([])
-// const depart_date = ref([])
-// const arrival_date = ref([])
-// const depart_t_details = ref([])
-// const arrival_t_details = ref([])
-// const types = ref([])
-const len_result = ref(0)
-const flight_names = ref([])
+
+//flight result
+const len_flight = ref(0)
 const hotel_names = ref([])
 const hotel_prices = ref([])
 const hotel_locations = ref([])
 const depart_list = ref([])
+const dateTime = ref();
+
+//control dateTime
+const today = moment().format("YYYY-MM-DD")
+dateTime.value=today
+const tomorrow = moment().add(1,'days').format("YYYY-MM-DD")
+
+
+
+// filter paras
 const filter_l = ref(0)
 const filter_r = ref(5000)
-const search_results = ref([])
-watch(filter_l, (newVal, oldVal) => {
-  console.log(newVal)
+const flight_results = ref([])
+
+//hotel paras
+const city = ref()
+const hotels = ref([])
+const check_in = ref(today)
+const check_out = ref(tomorrow)
+const days = ref(1)
+
+//view controller
+const view = ref('air')//air,hotel,status
+watch([filter_l, filter_r], ([newL, newR], [oldL, oldR]) => {
+  // console.log(flights_filter.value)
 })
+watch([check_in,check_out],([newIn,newOut],[oldIn,oldOut])=>{
+  console.log(newIn,newOut)
+  // if (mount(check_in.value)<)
+  days.value=moment(check_out.value).diff(moment(check_in.value),'day')
+})
+
 const arrival_list = computed(() => {
   return depart_list.value.filter(item => item !== depart.value)
 })
 
-// const arrival_list=computed(()=>{
-//   return depart_list.value.filter(item=>item!==depart.value)
-// })
+const flights_filter = computed(() => {
+  return flight_results.value.filter(item => filter_l.value <= item['price'] & item['price'] <= filter_r.value)
+})
 
 
-const showInfo = () => {
-  console.log(depart, arrival, dateTime, grade)
+const showFlightInfo = () => {
   let type = null
   switch (grade.value) {
     case 'Economy':
@@ -74,53 +91,6 @@ const showInfo = () => {
       type = 3;
       break;
   }
-  // axios.get('/api/starAirlines/flight', {params:{
-  //     depart:depart.value,
-  //     arrival:arrival.value,
-  //     date:dateTime.value,
-  //     type:type
-  //   }
-  // })
-  //     .then(response => {
-  //       let flight_result=response.data.data
-  //       console.log(flight_result)
-  //       len_result.value=flight_result.length
-  //       let temp=[[],[],[],[],[],[],[],[],[]]
-  //       for (let i = 0; i < len_result.value; i++) {
-  //         temp[0].push(flight_result[i]['depart'])
-  //         temp[1].push(flight_result[i]['arrival'])
-  //         let dp_time=flight_result[i]['departTime']
-  //         temp[2].push(dp_time.substring(0,10))
-  //         temp[7].push(dp_time.substring(11,16))
-  //         let ar_time=flight_result[i]['arrivalTime']
-  //         temp[3].push(ar_time.substring(0,10))
-  //         temp[8].push(dp_time.substring(11,16))
-  //         temp[4].push(flight_result[i]['price'])
-  //         temp[6].push(flight_result[i]['name'])
-  //         let type=flight_result[i]['type']
-  //         switch (type){
-  //           case 1:
-  //             temp[5].push("Economy");
-  //             break;
-  //           case 2:
-  //             temp[5].push("Business");
-  //             break;
-  //           case 3:
-  //             temp[5].push("First")
-  //             break;
-  //         }
-  //       }
-  //       prices.value=temp[4]
-  //       departs.value=temp[0]
-  //       arrivals.value=temp[1]
-  //       depart_date.value=temp[2]
-  //       arrival_date.value=temp[3]
-  //       types.value=temp[5]
-  //       flight_names.value=temp[6]
-  //       depart_t_details.value=temp[7]
-  //       arrival_t_details.value=temp[8]
-  //       console.log(temp);
-  //     })
   axios.get('/api/starAirlines/flight', {
     params: {
       depart: depart.value,
@@ -132,38 +102,48 @@ const showInfo = () => {
       .then(response => {
         let flight_result = response.data.data
         console.log(flight_result)
-        len_result.value = flight_result.length
+        len_flight.value = flight_result.length
         let temp = []
-        for (let i = 0; i < len_result.value; i++) {
+        for (let i = 0; i < len_flight.value; i++) {
 
           let dp_time = flight_result[i]['departTime']
           let ar_time = flight_result[i]['arrivalTime']
           let grade
           switch (flight_result[i]['type']) {
             case 1:
-              grade="Economy";
+              grade = "Economy";
               break;
             case 2:
-              grade="Business";
+              grade = "Business";
               break;
             case 3:
-              grade="First"
+              grade = "First"
               break;
           }
           temp.push({
             name: flight_result[i]['name'],
-            price:flight_result[i]['price'],
-            depart:flight_result[i]['depart'],
-            arrival:flight_result[i]['arrival'],
-            depart_date:dp_time.substring(0, 10),
-            arrival_date:ar_time.substring(0, 10),
-            depart_time:dp_time.substring(11, 16),
-            arrival_time:ar_time.substring(11, 16),
-            grade:grade
+            price: flight_result[i]['price'],
+            depart: flight_result[i]['depart'],
+            arrival: flight_result[i]['arrival'],
+            depart_date: dp_time.substring(0, 10),
+            arrival_date: ar_time.substring(0, 10),
+            depart_time: dp_time.substring(11, 16),
+            arrival_time: ar_time.substring(11, 16),
+            grade: grade
           })
         }
-        search_results.value = temp
-        console.log(search_results.value)
+        flight_results.value = temp
+        console.log(flight_results.value)
+      })
+}
+const showHotelInfo = () => {
+  console.log(city)
+  axios.get('/api/starAirlines/hotel', {
+    params: {
+      address: city.value
+    }
+  })
+      .then(response => {
       })
 }
 
@@ -1992,8 +1972,8 @@ onMounted(() => {
     $("#slider-range").slider({
       range: true,
       min: 0,
-      max: 60000,
-      values: [0, 60000],
+      max: 10000,
+      values: [0, 3000],
       slide: function (event, ui) {
         $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
         filter_l.value = ui.values[0]
@@ -2038,6 +2018,7 @@ onMounted(() => {
     hotel_names.value = temp[0]
     hotel_prices.value = temp[1]
     hotel_locations.value = temp[2]
+    console.log(hotel_locations)
   })
 
 });
@@ -2106,7 +2087,8 @@ onMounted(() => {
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel-tab-pane"
                           type="button"
-                          role="tab" aria-controls="hotel-tab-pane" aria-selected="false"><i class="flaticon-home"></i>
+                          role="tab" aria-controls="hotel-tab-pane" aria-selected="false"
+                          @click="view='hotel'"><i class="flaticon-home"></i>
                     Hotel Booking
                   </button>
                 </li>
@@ -2176,7 +2158,7 @@ onMounted(() => {
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <router-link to="/bklist" class="btn" @click="showInfo">Show Flights <i
+                          <router-link to="/bklist" class="btn" @click="showFlightInfo">Show Flights <i
                               class="flaticon-flight-1"></i></router-link>
                         </div>
                       </div>
@@ -2192,7 +2174,7 @@ onMounted(() => {
                           <ul>
                             <li>
                               <div class="form-grp select">
-                                <label for="shortByThree">Trip</label>
+                                <label for="shortByThree">City</label>
                                 <select id="shortByThree" name="select" class="form-select"
                                         aria-label="Default select example">
                                   <option value="">Tour type</option>
@@ -2208,7 +2190,7 @@ onMounted(() => {
                                 <ul>
                                   <li>
                                     <label for="inDate">Check-in Date</label>
-                                    <input type="text" class="date" placeholder="Select Date" id="inDate">
+                                    <input type="date"  placeholder="Select Date" id="inDate" v-model="check_in">
                                   </li>
                                 </ul>
                               </div>
@@ -2218,7 +2200,17 @@ onMounted(() => {
                                 <ul>
                                   <li>
                                     <label for="outDate">Check-out Date</label>
-                                    <input type="text" class="date" placeholder="Select Date" id="outDate">
+                                    <input type="date" placeholder="Select Date" id="outDate" v-model="check_out">
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-grp date">
+                                <ul>
+                                  <li>
+                                    <label>Duration</label>
+                                    <label>{{days}} day (s)</label>
                                   </li>
                                 </ul>
                               </div>
@@ -2283,152 +2275,120 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-              <!--              <div class="widget">-->
-              <!--                <h2 class="widget-title">Departure Time</h2>-->
-              <!--                <ul class="departure-wrap">-->
-              <!--                  <li><a href="#"><i class="flaticon-sunrise"></i>00:00 - 05:59</a></li>-->
-              <!--                  <li><a href="#"><i class="flaticon-sunny"></i>06:00 - 11:59</a></li>-->
-              <!--                  <li><a href="#"><i class="flaticon-sunset"></i>12:00 - 17:59</a></li>-->
-              <!--                  <li><a href="#"><i class="flaticon-crescent-moon"></i>18:00 - 23:59</a></li>-->
-              <!--                </ul>-->
-              <!--              </div>-->
-              <!--              <div class="widget">-->
-              <!--                <h2 class="widget-title">Number of Stops</h2>-->
-              <!--                <form action="#" class="flight-stops">-->
-              <!--                  <label for="stopNumber"><i class="flaticon-flight"></i></label>-->
-              <!--                  <select id="stopNumber" name="select" class="form-select" aria-label="Default select example">-->
-              <!--                    <option value="">Direct</option>-->
-              <!--                    <option>One Stops</option>-->
-              <!--                    <option>Two Stops</option>-->
-              <!--                  </select>-->
-              <!--                </form>-->
-              <!--              </div>-->
-              <!--              <div class="widget">-->
-              <!--                <h2 class="widget-title">Refundable</h2>-->
-              <!--                <ul class="airlines-cat-list">-->
-              <!--                  <li>-->
-              <!--                    <div class="form-check">-->
-              <!--                      <input class="form-check-input" type="checkbox" value="" id="refOne">-->
-              <!--                      <label class="form-check-label" for="refOne">Non Refundable</label>-->
-              <!--                    </div>-->
-              <!--                  </li>-->
-              <!--                  <li>-->
-              <!--                    <div class="form-check">-->
-              <!--                      <input class="form-check-input" type="checkbox" value="" id="refTwo">-->
-              <!--                      <label class="form-check-label" for="refTwo">Refundable</label>-->
-              <!--                    </div>-->
-              <!--                  </li>-->
-              <!--                  <li>-->
-              <!--                    <div class="form-check">-->
-              <!--                      <input class="form-check-input" type="checkbox" value="" id="refThree">-->
-              <!--                      <label class="form-check-label" for="refThree">Rules Wise</label>-->
-              <!--                    </div>-->
-              <!--                  </li>-->
-              <!--                </ul>-->
-              <!--              </div>-->
             </aside>
           </div>
-          <div class="col-73" v-if="len_result==0">- NULL -</div>
-          <div class="col-73"><!--航班结果列-->
-<!--            <div class="booking-list-item" v-for="i in departs.length" :key="i.id">&lt;!&ndash;其中一个航班&ndash;&gt;-->
-<!--              <div class="booking-list-item-inner">-->
-<!--                <div class="booking-list-top">-->
-<!--                  <div class="flight-airway">-->
-<!--                    <div class="flight-logo">-->
-<!--                      <img src="../assets/img/brand/brand_img02.png" alt="">-->
-<!--                      <h5 class="title">Star Airlines</h5>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <ul class="flight-info">-->
-<!--                    <li>Depart Time<span>{{ depart_date[i - 1] }} {{ depart_t_details[i - 1] }}</span></li>-->
-<!--                    <li class="time"><span>Arrive Time</span>{{ arrival_date[i - 1] }} {{ arrival_t_details[i - 1] }}-->
-<!--                    </li>-->
-<!--                  </ul>-->
-<!--                  <div class="flight-price">-->
-<!--                    <h4 class="title">US$ {{ prices[i - 1] }}.00</h4>-->
-<!--                    <router-link to="/bkdtls" class="btn">Select <i class="flaticon-flight-1"></i></router-link>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="booking-list-bottom">-->
-<!--                  <ul>-->
-<!--                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>-->
-<!--                    <li>Price per person (incl. taxes & fees)</li>-->
-<!--                  </ul>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="flight-detail-wrap">-->
-<!--                <div class="flight-date">-->
-<!--                  <ul>-->
-<!--                    <li>{{ flight_names[i - 1] }}</li>-->
-<!--                    <li>{{ depart_date[i - 1] }} - {{ depart_t_details[i - 1] }}</li>-->
-<!--                    <li>To</li>-->
-<!--                    <li>{{ arrival_date[i - 1] }} - {{ arrival_t_details[i - 1] }}</li>-->
-<!--                  </ul>-->
-<!--                </div>-->
-<!--                <div class="flight-detail-right">-->
-<!--                  <h4 class="title">{{ departs[i - 1] }} &#45;&#45;&ndash;&gt; {{ arrivals[i - 1] }}</h4>-->
-<!--                  <div class="flight-detail-info">-->
-<!--                    <img src="../assets/img/icon/brand_img02.png" alt="">-->
-<!--                    <ul>-->
-<!--                      <li>Class: {{ types[i - 1] }}</li>-->
-<!--                      <li>Flight No.: {{ flight_names[i - 1] }}</li>-->
-<!--                      <li>Aircraft: BOEING 777-300ER</li>-->
-<!--                      <li>Adult(s): 25KG luggage free</li>-->
-<!--                    </ul>-->
-<!--                  </div>-->
-<!--                  <h4 class="title title-two"></h4>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-            <!--            <div class="booking-list-item">&lt;!&ndash;其中一个航班&ndash;&gt;-->
-            <!--              <div class="booking-list-item-inner">-->
-            <!--                <div class="booking-list-top">-->
-            <!--                  <div class="flight-airway">-->
-            <!--                    <div class="flight-logo">-->
-            <!--                      <img src="../assets/img/brand/brand_img02.png" alt="">-->
-            <!--                      <h5 class="title">Star Airlines</h5>-->
-            <!--                    </div>-->
-            <!--                  </div>-->
-            <!--                  <ul class="flight-info">-->
-            <!--                    <li>Thursday, <span>Jun 16</span></li>-->
-            <!--                    <li class="time"><span>12: 55</span>DAC</li>-->
-            <!--                    <li>22h<span>2 Stops</span></li>-->
-            <!--                  </ul>-->
-            <!--                  <div class="flight-price">-->
-            <!--                    <h4 class="title">US$ 1,056.40</h4>-->
-            <!--                    <router-link to="/bkdtls" class="btn">Select <i class="flaticon-flight-1"></i></router-link>-->
-            <!--                  </div>-->
-            <!--                </div>-->
-            <!--                <div class="booking-list-bottom">-->
-            <!--                  <ul>-->
-            <!--                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>-->
-            <!--                    <li>Price per person (incl. taxes & fees)</li>-->
-            <!--                  </ul>-->
-            <!--                </div>-->
-            <!--              </div>-->
-            <!--              <div class="flight-detail-wrap">-->
-            <!--                <div class="flight-date">-->
-            <!--                  <ul>-->
-            <!--                    <li>EK585</li>-->
-            <!--                    <li>Thursday, Jun 16 - 23:20 <span>22h 50m</span></li>-->
-            <!--                    <li>Friday, Jun 17 - 03:20</li>-->
-            <!--                  </ul>-->
-            <!--                </div>-->
-            <!--                <div class="flight-detail-right">-->
-            <!--                  <h4 class="title">IST - Istanbul Airport, Turkish</h4>-->
-            <!--                  <div class="flight-detail-info">-->
-            <!--                    <img src="../assets/img/icon/brand_img02.png" alt="">-->
-            <!--                    <ul>-->
-            <!--                      <li>Class: Economy</li>-->
-            <!--                      <li>Flight No.: EK585</li>-->
-            <!--                      <li>Aircraft: BOEING 777-300ER</li>-->
-            <!--                      <li>Adult(s): 25KG luggage free</li>-->
-            <!--                    </ul>-->
-            <!--                  </div>-->
-            <!--                  <h4 class="title title-two">DXB - Dubai, United Arab Emirates</h4>-->
-            <!--                </div>-->
-            <!--              </div>-->
-            <!--            </div>-->
+          <div class="col-73" v-if="len_flight==0">- NULL -</div>
+          <div class="col-73" v-if="view==='air'"><!--航班结果列-->
+            <div class="booking-list-item" v-for="item in flights_filter" :key="item.id"><!--其中一个航班-->
+              <div class="booking-list-item-inner">
+                <div class="booking-list-top">
+                  <div class="flight-airway">
+                    <div class="flight-logo">
+                      <img src="../assets/img/brand/brand_img02.png" alt="">
+                      <h5 class="title">Star Airlines</h5>
+                    </div>
+                  </div>
+                  <ul class="flight-info">
+                    <!--                    <li>{{ item['depart_date'] }}<span> {{ item['arrival_date'] }}</span></li>-->
+                    <li><span style="font-weight: bold;zoom: 1.2">Timetable</span><span style="font-weight: bold">{{
+                        item['depart_date']
+                      }} &nbsp;&nbsp;To &nbsp;&nbsp;{{ item['arrival_date'] }}</span>
+                      <span>{{ item['depart_time'] }}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; {{
+                          item['arrival_time']
+                        }}</span></li>
+                  </ul>
+                  <div class="flight-price">
+                    <h4 class="title">US$ {{ item['price'] }}.00</h4>
+                    <router-link to="/bkdtls" class="btn">Select <i class="flaticon-flight-1"></i></router-link>
+                  </div>
+                </div>
+                <div class="booking-list-bottom">
+                  <ul>
+                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
+                    <li>Price per person (incl. taxes & fees)</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="flight-detail-wrap">
+                <div class="flight-date">
+                  <ul>
+                    <li>{{ item['name'] }}</li>
+                    <li>{{ item['depart_date'] }} {{ item['depart_time'] }}</li>
+                    <li>To</li>
+                    <li>{{ item['arrival_date'] }} {{ item['arrival_time'] }}</li>
+                  </ul>
+                </div>
+                <div class="flight-detail-right">
+                  <h4 class="title">{{ item['depart'] }} ----> {{ item['arrival'] }}</h4>
+                  <div class="flight-detail-info">
+                    <img src="../assets/img/icon/brand_img02.png" alt="">
+                    <ul>
+                      <li>Class: {{ item['grade'] }}</li>
+                      <li>Flight No.: {{ item['name'] }}</li>
+                      <li>Aircraft: BOEING 777-300ER</li>
+                      <li>Adult(s): 25KG luggage free</li>
+                    </ul>
+                  </div>
+                  <h4 class="title title-two"></h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-73" v-if="view==='hotel'"><!--航班结果列-->
+            <div class="booking-list-item" v-for="item in flights_filter" :key="item.id"><!--其中一个航班-->
+              <div class="booking-list-item-inner">
+                <div class="booking-list-top">
+                  <div class="flight-airway">
+                    <div class="flight-logo">
+                      <img src="../assets/img/brand/brand_img02.png" alt="">
+                      <h5 class="title">Star Airlines</h5>
+                    </div>
+                  </div>
+                  <ul class="flight-info">
+                    <!--                    <li>{{ item['depart_date'] }}<span> {{ item['arrival_date'] }}</span></li>-->
+                    <li><span style="font-weight: bold;zoom: 1.2">Timetable</span><span style="font-weight: bold">{{
+                        item['depart_date']
+                      }} &nbsp;&nbsp;To &nbsp;&nbsp;{{ item['arrival_date'] }}</span>
+                      <span>{{ item['depart_time'] }}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; {{
+                          item['arrival_time']
+                        }}</span></li>
+                  </ul>
+                  <div class="flight-price">
+                    <h4 class="title">US$ {{ item['price'] }}.00</h4>
+                    <router-link to="/bkdtls" class="btn">Select <i class="flaticon-flight-1"></i></router-link>
+                  </div>
+                </div>
+                <div class="booking-list-bottom">
+                  <ul>
+                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
+                    <li>Price per person (incl. taxes & fees)</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="flight-detail-wrap">
+                <div class="flight-date">
+                  <ul>
+                    <li>{{ item['name'] }}</li>
+                    <li>{{ item['depart_date'] }} {{ item['depart_time'] }}</li>
+                    <li>To</li>
+                    <li>{{ item['arrival_date'] }} {{ item['arrival_time'] }}</li>
+                  </ul>
+                </div>
+                <div class="flight-detail-right">
+                  <h4 class="title">{{ item['depart'] }} ----> {{ item['arrival'] }}</h4>
+                  <div class="flight-detail-info">
+                    <img src="../assets/img/icon/brand_img02.png" alt="">
+                    <ul>
+                      <li>Class: {{ item['grade'] }}</li>
+                      <li>Flight No.: {{ item['name'] }}</li>
+                      <li>Aircraft: BOEING 777-300ER</li>
+                      <li>Adult(s): 25KG luggage free</li>
+                    </ul>
+                  </div>
+                  <h4 class="title title-two"></h4>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
