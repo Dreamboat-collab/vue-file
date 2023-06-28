@@ -12,9 +12,15 @@ const activeIndex = ref('1'); // 默认选中的菜单项
 function handleSelect(index) {
   activeIndex.value = index;
 }
-// 订单列表1
-const tableData1 = [
-
+const tableData = [
+  {
+    date: '2016-05-03',
+    name: 'Tom',
+    state: 'California',
+    city: 'Los Angeles',
+    address: 'No. 189, Grove St, Los Angeles',
+    zip: 'CA 90036',
+  },
   {
     date: '2016-05-02',
     name: 'Tom',
@@ -65,10 +71,6 @@ const tableData1 = [
   },
 ]
 
-
-// 订单列表
-const tableData = ref([]);
-
 // 用户的信息
 const userData = ref({
   // id: null,
@@ -80,22 +82,12 @@ const userData = ref({
   point: 0
 });
 
-// 订单信息
-const order = ref({
-  flightId: '',
-  hotelId: '',
-  days:'',
-  // carId:null,
-  price: '',
-  type: '',
-  // point: 0
-});
-
 import { ElMessageBox, ElMessage } from 'element-plus';
 onMounted(() => {
   // 获取密匙
   const token = localStorage.getItem('securityKey');
   console.log(token)
+
   axios.get('/api/starAirlines/account', {
     headers: {
       'token': token
@@ -103,10 +95,10 @@ onMounted(() => {
   })
       .then(response => {
         // 请求成功处理逻辑
-        // console.log(response.data);
+        // console.log('success')
+        console.log(response.data);
         // 密匙为空，跳转到登陆界面
         if (response.data.msg === 'NOT_LOGIN') {
-          console.log(response.data);
           ElMessageBox.confirm('Not loggerd in. Do you want to skip to the login interface?', 'alert', {
             confirmButtonText: 'Confirm',
             cancelButtonText: 'Cancel',
@@ -136,46 +128,9 @@ onMounted(() => {
         console.log(error);
       });
 
-  // 获取用户订单信息
-  axios.get('/api/starAirlines/account/records', {
-    headers: {
-      'token': token
-    }
-  })
-      .then(response => {
-        // 请求成功处理逻辑,订单信息赋值
-        const data = response.data.data;
-
-        const orders = [];
-
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            const orderData = data[key];
-            const order = {
-              flightId: orderData.flightId.toString(),
-              hotelId: orderData.hotelId.toString(),
-              days: orderData.days.toString(),
-              price: orderData.price.toString(),
-              type: orderData.type.toString()
-            };
-            orders.push(order);
-          }
-        }
-        // 将订单信息传递到tableData中
-        // tableData.push(...orders);
-        tableData.value = orders;
-        // console.log(tableData);
-        // console.log(tableData1)
-      })
-      .catch(error => {
-        // 请求失败处理逻辑
-        console.error(error);
-      });
-
   const fistForm = document.getElementById('form1');
   fistForm.addEventListener('submit', (e) => e.preventDefault());
 });
-
 
 const user=ref({Email:'',Password:'',confirmPassword:''})  //关联用户注册时的输入信息
 const centerDialogVisible1 = ref(false)
@@ -248,10 +203,10 @@ function savecard() {
 import { ElDialog } from 'element-plus';
 
 const avatars = [
-  require('@/assets/images/avatar1.jpg'),
-  require('@/assets/images/avatar2.jpg'),
-  require('@/assets/images/avatar3.jpg'),
-  require('@/assets/images/avatar4.jpg'),
+    require('@/assets/images/avatar1.jpg'),
+    require('@/assets/images/avatar2.jpg'),
+    require('@/assets/images/avatar3.jpg'),
+    require('@/assets/images/avatar4.jpg'),
 
   // '@/assets/images/avatar5.jpg',
 ];
@@ -273,8 +228,8 @@ const closeAvatarModal = () => {
   <index-header1></index-header1>
   <router-view ></router-view>
   <div class="card" style="margin-bottom: 0px;">
-    <div class="section1">
-      <!--      头像区域-->
+    <div class="section">
+<!--      头像区域-->
       <div>
         <div class="pic" @click="showAvatarModal = true">
           <img :src="selectedAvatar" alt="Avatar" />
@@ -296,8 +251,8 @@ const closeAvatarModal = () => {
           </div>
         </el-dialog>
       </div>
-      <div class="name">{{ userData.username }}</div>
-      <div class="tag">{{ userData.email }}</div>
+      <div class="name">Jeddy</div>
+      <div class="tag">1556782359@qq.com</div>
     </div>
     <div class="bottom-section" style="height: 5vh !important;margin-bottom: 0px">
       <div class="social-media">
@@ -306,15 +261,15 @@ const closeAvatarModal = () => {
         <a href="#"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
-    <!--&lt;!&ndash;    展示用户可以选择的图像&ndash;&gt;-->
-    <!--    <div  class="avatar-list">-->
-    <!--      <img-->
-    <!--          v-for="(avatar, index) in avatars"-->
-    <!--          :src="avatar"-->
-    <!--          :key="index"-->
-    <!--          @click="selectAvatar(index)"-->
-    <!--      />-->
-    <!--    </div>-->
+<!--&lt;!&ndash;    展示用户可以选择的图像&ndash;&gt;-->
+<!--    <div  class="avatar-list">-->
+<!--      <img-->
+<!--          v-for="(avatar, index) in avatars"-->
+<!--          :src="avatar"-->
+<!--          :key="index"-->
+<!--          @click="selectAvatar(index)"-->
+<!--      />-->
+<!--    </div>-->
   </div>
 
   <!--用户信息-->
@@ -347,7 +302,7 @@ const closeAvatarModal = () => {
           <template #label>
             <div class="cell-item">
               <el-icon :style="iconStyle">
-                <!--                <iphone/>-->
+<!--                <iphone/>-->
               </el-icon>
               Email
             </div>
@@ -379,7 +334,7 @@ const closeAvatarModal = () => {
           <template #label>
             <div class="cell-item">
               <el-icon :style="iconStyle">
-                <!--                <location/>-->
+<!--                <location/>-->
               </el-icon>
               Credit card
             </div>
@@ -421,15 +376,19 @@ const closeAvatarModal = () => {
     </div>
 
     <!--    订单信息-->
-    <div v-show="activeIndex === '2'" class="table-container">
-      <el-table :data="tableData" style="height: 250px; width:33vw">
-        <el-table-column fixed prop="flightId" label="Flightid" width="100" :label-align="center" :align="center"/>
-        <el-table-column prop="hotelId" label="Hotelid" width="100" :label-align="center" :align="center" />
-        <el-table-column prop="days" label="Days" width="100" :label-align="center" :align="center" />
-        <el-table-column prop="price" label="Price" width="100" :label-align="center" :align="center" />
-        <el-table-column prop="type" label="Type" width="120" :label-align="center" :align="center" />
+    <div v-show="activeIndex === '2'">
+      <el-table :data="tableData" style="width: 100%" height="250">
+        <el-table-column fixed prop="date" label="Date" width="150" />
+        <el-table-column prop="name" label="Name" width="120" />
+        <el-table-column prop="state" label="State" width="120" />
+        <el-table-column prop="city" label="City" width="320" />
+        <el-table-column prop="address" label="Address" width="600" />
+        <el-table-column prop="zip" label="Zip" width="120" />
       </el-table>
+
+
     </div>
+
 
     <!--    修改密码-->
     <!--    未输入邮箱-->
@@ -505,12 +464,6 @@ const closeAvatarModal = () => {
 </template>
 
 <style scoped>
-.table-container {
-  display: grid;
-  place-items: center;
-}
-
-
 .avatar-list {
   display: flex;
   justify-content: center;
