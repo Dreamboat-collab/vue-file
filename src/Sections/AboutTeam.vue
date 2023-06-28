@@ -32,7 +32,7 @@ const ToDevs=(id)=>{
           <HorizontalTeamCard
             class="mt-4"
             :image="artemis"
-            :profile="{ name: 'Hamilton', link: 'javascript:;' }"
+            :profile="{ name: 'Artemis', link: 'javascript:;' }"
             :position="{ label: '20202031058', color: 'success' }"
             description="Mainly responsible for back-end, a small amount of front-end page design, database design and system security."
             @click="ToDevs(0)"

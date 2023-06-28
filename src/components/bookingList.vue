@@ -27,46 +27,18 @@ import moment from "moment";
 
 //control dateTime
 const today = moment().format("YYYY-MM-DD")
-const tomorrow = moment().add(1,'days').format("YYYY-MM-DD")
+const tomorrow = moment().add(1, 'days').format("YYYY-MM-DD")
 
 //booking flight paras
 const address = ref([]);
 const depart = ref();
 const arrival = ref();
 const grade = ref('All');
+const dateTime = ref(today);
 
 //flight result
 const len_flight = ref(0)
-const hotel_names = ref([])
-const hotel_prices = ref([])
-const hotel_locations = ref([])
 const depart_list = ref([])
-const dateTime = ref(today);
-
-
-// filter paras
-const filter_l = ref(0)
-const filter_r = ref(5000)
-const flight_results = ref([])
-
-//hotel paras
-const city = ref()
-const hotels = ref([])
-const check_in = ref(today)
-const check_out = ref(tomorrow)
-const days = ref(1)
-
-//view controller
-const view = ref('air')//air,hotel,status
-watch([filter_l, filter_r], ([newL, newR], [oldL, oldR]) => {
-  // console.log(flights_filter.value)
-})
-watch([check_in,check_out],([newIn,newOut],[oldIn,oldOut])=>{
-  console.log(newIn,newOut)
-  // if (mount(check_in.value)<)
-  days.value=moment(check_out.value).diff(moment(check_in.value),'day')
-})
-
 const arrival_list = computed(() => {
   return depart_list.value.filter(item => item !== depart.value)
 })
@@ -75,7 +47,39 @@ const flights_filter = computed(() => {
   return flight_results.value.filter(item => filter_l.value <= item['price'] & item['price'] <= filter_r.value)
 })
 
+// filter paras
+const filter_l = ref(0)
+const filter_r = ref(3000)
+const flight_results = ref([])
 
+//hotel paras
+const city = ref()
+const check_in = ref(today)
+const check_out = ref(tomorrow)
+const days = ref(1)
+
+//hotel result
+const len_hotels = ref(0)
+const hotels = ref([])
+
+//view controller
+const view = ref('air')//air,hotel,status
+
+
+watch([check_in, check_out], ([newIn, newOut], [oldIn, oldOut]) => {
+  console.log(newIn, newOut)
+  if (moment(check_in.value).diff(today) < 0) {
+    check_in.value = today
+  }
+  days.value = moment(check_out.value).diff(moment(check_in.value), 'day')
+  if (days.value <= 0) {
+    check_out.value = moment(check_in.value).add(1, 'days').format("YYYY-MM-DD")
+  }
+})
+
+// -------------------------------
+//     获取航班信息
+// -------------------------------
 const showFlightInfo = () => {
   let type = null
   switch (grade.value) {
@@ -103,7 +107,6 @@ const showFlightInfo = () => {
         len_flight.value = flight_result.length
         let temp = []
         for (let i = 0; i < len_flight.value; i++) {
-
           let dp_time = flight_result[i]['departTime']
           let ar_time = flight_result[i]['arrivalTime']
           let grade
@@ -127,23 +130,48 @@ const showFlightInfo = () => {
             arrival_date: ar_time.substring(0, 10),
             depart_time: dp_time.substring(11, 16),
             arrival_time: ar_time.substring(11, 16),
-            grade: grade
+            grade: grade,
+            id: flight_result[i]['id']
           })
         }
         flight_results.value = temp
         console.log(flight_results.value)
       })
 }
+
+
+// -------------------------------
+//     获取酒店信息
+// -------------------------------
+
 const showHotelInfo = () => {
-  console.log(city)
+  console.log(city.value)
   axios.get('/api/starAirlines/hotel', {
     params: {
-      address: city.value
+      arrival: city.value
     }
   })
       .then(response => {
+        hotels.value = []
+        console.log(response.data.data)
+        let temp = response.data.data
+        len_hotels.value = temp.length
+        for (let i = 0; i < len_hotels.value; i++) {
+          hotels.value.push(
+              {
+                id: temp[i]['id'],
+                name: temp[i]['name'],
+                address: temp[i]['address'],
+                price: temp[i]['price']
+              }
+          )
+        }
       })
 }
+// -------------------------------
+//     获取航班状态
+// -------------------------------
+
 
 onMounted(() => {
 // 这里是原来的 JavaScript 代码 bootstrap-datepicker.min.js
@@ -1969,9 +1997,9 @@ onMounted(() => {
           =============================================*/
     $("#slider-range").slider({
       range: true,
-      min: 0,
+      min: 1,
       max: 10000,
-      values: [0, 3000],
+      values: [1, 1000],
       slide: function (event, ui) {
         $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
         filter_l.value = ui.values[0]
@@ -2000,23 +2028,15 @@ onMounted(() => {
     });
 
   })($);
+
+// -------------------------------
+//     查询表单信息并化为选项
+// -------------------------------
   axios.get('http://localhost:8080/starAirlines/flight_address').then((response) => {
     depart_list.value = response.data.data
     depart.value = depart_list.value[0]
     arrival.value = arrival_list.value[0]
-  })
-  axios.get('http://localhost:8080/starAirlines/hotels').then((response) => {
-    let hotels = response.data.data
-    let temp = [[], [], []]
-    for (let i = 0; i < 8; i++) {
-      temp[0].push(hotels[i]['name'])
-      temp[1].push(hotels[i]['price'])
-      temp[2].push(hotels[i]['address'])
-    }
-    hotel_names.value = temp[0]
-    hotel_prices.value = temp[1]
-    hotel_locations.value = temp[2]
-    console.log(hotel_locations)
+    city.value = depart_list.value[0]
   })
 
 });
@@ -2078,7 +2098,9 @@ onMounted(() => {
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="air-tab" data-bs-toggle="tab" data-bs-target="#air-tab-pane"
                           type="button"
-                          role="tab" aria-controls="air-tab-pane" aria-selected="true"><i class="flaticon-flight"></i>air
+                          role="tab" aria-controls="air-tab-pane" aria-selected="true"
+                          @click="view='air'"><i class="flaticon-flight"
+                  ></i>air
                     BOOKing
                   </button>
                 </li>
@@ -2111,7 +2133,6 @@ onMounted(() => {
                                 <label for="From">From</label>
                                 <select id="From" name="select" class="form-select" aria-label="Default select example"
                                         v-model="depart">
-                                  <!--                                  <option value="">Guangzhou</option>-->
                                   <option v-for="i in depart_list" :key="i.id" :value="i">{{ i }}</option>
                                 </select>
                               </div>
@@ -2174,12 +2195,8 @@ onMounted(() => {
                               <div class="form-grp select">
                                 <label for="shortByThree">City</label>
                                 <select id="shortByThree" name="select" class="form-select"
-                                        aria-label="Default select example">
-                                  <option value="">Tour type</option>
-                                  <option>Adventure Travel</option>
-                                  <option>Family Tours</option>
-                                  <option>Newest Item</option>
-                                  <option>Nature & wildlife</option>
+                                        aria-label="Default select example" v-model="city">
+                                  <option v-for="i in depart_list" :key="i.id" :value="i">{{ i }}</option>
                                 </select>
                               </div>
                             </li>
@@ -2188,7 +2205,7 @@ onMounted(() => {
                                 <ul>
                                   <li>
                                     <label for="inDate">Check-in Date</label>
-                                    <input type="date"  placeholder="Select Date" id="inDate" v-model="check_in">
+                                    <input type="date" placeholder="Select Date" id="inDate" v-model="check_in">
                                   </li>
                                 </ul>
                               </div>
@@ -2208,7 +2225,7 @@ onMounted(() => {
                                 <ul>
                                   <li>
                                     <label>Duration</label>
-                                    <label>{{days}} day (s)</label>
+                                    <label>{{ days }} day (s)</label>
                                   </li>
                                 </ul>
                               </div>
@@ -2216,7 +2233,7 @@ onMounted(() => {
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <a href="booking-details.html" class="btn">Show Hotels <i class="flaticon-home"></i></a>
+                          <a @click="showHotelInfo" class="btn">Show Hotels <i class="flaticon-home"></i></a>
                         </div>
                       </div>
                     </div>
@@ -2257,7 +2274,7 @@ onMounted(() => {
     <div class="booking-list-area">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-27 order-2 order-xl-0"> <!--filter列-->
+          <div class="col-27 order-2 order-xl-0" v-if="view=='air'"> <!--filter列-->
             <aside class="booking-sidebar">
               <div class="widget filters">
                 <h2 class="title">filters</h2>
@@ -2275,7 +2292,7 @@ onMounted(() => {
               </div>
             </aside>
           </div>
-          <div class="col-73" v-if="len_flight==0">- NULL -</div>
+          <div class="col-73" v-if="len_flight===0 & view=='air'">- NULL -</div>
           <div class="col-73" v-if="view==='air'"><!--航班结果列-->
             <div class="booking-list-item" v-for="item in flights_filter" :key="item.id"><!--其中一个航班-->
               <div class="booking-list-item-inner">
@@ -2322,7 +2339,7 @@ onMounted(() => {
                     <img src="../assets/img/icon/brand_img02.png" alt="">
                     <ul>
                       <li>Class: {{ item['grade'] }}</li>
-                      <li>Flight No.: {{ item['name'] }}</li>
+                      <li>Flight No. {{ item['id'] }}</li>
                       <li>Aircraft: BOEING 777-300ER</li>
                       <li>Adult(s): 25KG luggage free</li>
                     </ul>
@@ -2332,24 +2349,33 @@ onMounted(() => {
               </div>
             </div>
           </div>
+          <div class="col-73" v-if="len_hotels===0 & view=='hotel'">- NULL -</div>
           <div class="col-73" v-if="view==='hotel'"><!--航班结果列-->
-            <div class="booking-list-item" v-for="item in flights_filter" :key="item.id"><!--其中一个航班-->
+            <div class="booking-list-item" v-for="item in hotels" :key="item.id"><!--其中一个航班-->
               <div class="booking-list-item-inner">
                 <div class="booking-list-top">
                   <div class="flight-airway">
                     <div class="flight-logo">
-                      <img src="../assets/img/brand/brand_img02.png" alt="">
-                      <h5 class="title">Star Airlines</h5>
+                      <h5 class="title" style="font-weight: bold"><br>
+                        {{ item['name'] }}
+                        <span>&emsp;</span>
+                        <span style="font-weight: bold;zoom: 1.2">{{ item['address'] }}</span></h5>
                     </div>
                   </div>
                   <ul class="flight-info">
                     <!--                    <li>{{ item['depart_date'] }}<span> {{ item['arrival_date'] }}</span></li>-->
-                    <li><span style="font-weight: bold;zoom: 1.2">Timetable</span><span style="font-weight: bold">{{
-                        item['depart_date']
-                      }} &nbsp;&nbsp;To &nbsp;&nbsp;{{ item['arrival_date'] }}</span>
-                      <span>{{ item['depart_time'] }}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; {{
-                          item['arrival_time']
-                        }}</span></li>
+                    <!--                    <li>-->
+                    <!--                      Address:-->
+                    <!--                      <span style="font-weight: bold;zoom: 1.2">{{ item['address'] }}</span></li>-->
+                    <li style="text-align: left">
+                      <span><svg t="1687971761415" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5588" width="20" height="20"><path d="M510.083347 369.969193c-79.893608 0-144.661727 64.772212-144.661727 144.662751 0 79.893608 64.764026 144.649448 144.661727 144.649448 79.889515 0 144.661727-64.75584 144.661727-144.649448C654.745075 434.737312 589.972862 369.969193 510.083347 369.969193L510.083347 369.969193zM510.083347 641.612986c-70.136384 0-126.982066-56.848753-126.982066-126.97695 0-70.137407 56.849776-126.998439 126.982066-126.998439s126.977973 56.861032 126.977973 126.998439C637.06132 584.768327 580.215638 641.612986 510.083347 641.612986L510.083347 641.612986zM510.083347 641.612986" fill="#622243" p-id="5589"></path><path d="M512.014326 145.32176c-202.50718 0-366.691543 164.169013-366.691543 366.67517 0 202.511273 164.184363 366.680287 366.691543 366.680287 202.51025 0 366.662891-164.169013 366.662891-366.680287C878.677217 309.490773 714.524576 145.32176 512.014326 145.32176L512.014326 145.32176zM298.283524 681.202657l-44.750203 0.451278L264.47758 468.231147c-63.149249-14.690584-47.307446-102.175077-42.346457-141.763724l11.600199 0 4.240581 82.640162 11.256368 0 4.208858-82.640162 11.632945 0 4.208858 82.640162 11.072173 0 4.208858-82.640162 11.632945 0 4.208858 82.640162 10.600429 0 4.241604-82.640162 11.600199 0c3.40147 41.083697 20.801768 127.35762-42.535769 141.795447L298.283524 681.202657 298.283524 681.202657zM510.083347 704.558597c-104.904235 0-189.943027-85.037768-189.943027-189.926654 0-104.901165 85.038792-189.939957 189.943027-189.939957 104.901165 0 189.938933 85.038792 189.938933 189.939957C700.022281 619.516736 614.984513 704.558597 510.083347 704.558597L510.083347 704.558597zM757.215888 472.316186l12.503778 213.423811-44.874023-0.435928 12.507872-212.95616c-27.473725-6.235005-48.367591-38.122249-48.367591-76.527954 0-42.907229 26.070772-77.679174 58.221006-77.679174 32.117488 0 58.18826 34.771945 58.18826 77.679174C805.391097 434.114119 784.593422 465.972711 757.215888 472.316186L757.215888 472.316186zM757.215888 472.316186" fill="#622243" p-id="5590"></path></svg> Daily tasty breakfast</span>
+                      <span><svg t="1687971655068" class="icon" viewBox="0 0 1152 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4354" width="20" height="20"><path d="M1136.5007 384c-58.08 0.26-270.02 12.32-427.68 166-66.24 59.26-106.72 126.6-132.82 189.72-26.1-63.12-66.58-130.46-132.82-189.72-157.66-153.68-369.6-165.74-427.68-166-8.82-0.04-15.58 6.8-15.5 15.64 0.46 55.84 14.28 252.28 177.54 398.6C345.5807 961.88 512.0007 960 576.0007 960s230.38 1.9 398.46-161.76c163.28-146.34 177.08-342.76 177.54-398.6 0.08-8.84-6.68-15.68-15.5-15.64zM575.9607 605.2c25.64-37.7 55.2-71.56 88.18-101.04 38.18-37.22 79.16-66.6 120.52-90.36-32.88-141-103.44-266.1-193.46-344.44-8.22-7.16-22.04-7.16-30.28 0-89.98 78.28-160.54 203.26-193.48 344.14 40.74 23.4 81 52.28 118.44 88.78a565.536 565.536 0 0 1 90.08 102.92z" fill="#622243" p-id="4355"></path></svg> Spa and wellness centre</span>
+                      <span><svg t="1687971603076" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3195" width="20" height="20"><path d="M386.6624 553.7792l167.1168-167.1168a39.38304 39.38304 0 0 0 0-55.7056l-139.264-139.24352a19.70176 19.70176 0 0 1 0-27.8528l41.7792-41.7792a19.70176 19.70176 0 0 1 27.8528 0L512 149.95456a19.70176 19.70176 0 0 0 27.8528 0l41.7792-41.7792a19.70176 19.70176 0 0 1 27.8528 0l27.8528 27.8528a19.70176 19.70176 0 0 0 27.8528 0l27.8528-27.8528a19.70176 19.70176 0 0 1 27.8528 0l194.92864 194.9696a19.70176 19.70176 0 0 1 0 27.8528l-27.8528 27.8528a19.70176 19.70176 0 0 0 0 27.8528l27.8528 27.8528a19.70176 19.70176 0 0 1 0 27.8528l-41.7792 41.7792a19.70176 19.70176 0 0 0 0 27.83232l27.8528 27.8528a19.70176 19.70176 0 0 1 0 27.8528l-41.7792 41.7792a19.70176 19.70176 0 0 1-27.8528 0l-139.24352-139.264a39.38304 39.38304 0 0 0-55.7056 0l-167.09632 167.1168a39.38304 39.38304 0 0 0 0 55.7056l139.264 139.24352a19.70176 19.70176 0 0 1 0 27.8528l-41.7792 41.7792a19.70176 19.70176 0 0 1-27.8528 0L512 874.04544a19.70176 19.70176 0 0 0-27.8528 0l-41.7792 41.7792a19.70176 19.70176 0 0 1-27.8528 0l-13.9264-13.9264a39.38304 39.38304 0 0 0-55.7056 0l-13.9264 13.9264a19.70176 19.70176 0 0 1-27.8528 0l-194.92864-194.9696a19.70176 19.70176 0 0 1 0-27.8528l27.8528-27.8528a19.70176 19.70176 0 0 0 0-27.8528l-27.8528-27.8528a19.70176 19.70176 0 0 1 0-27.8528l41.7792-41.7792a19.70176 19.70176 0 0 0 0-27.83232l-27.8528-27.8528a19.70176 19.70176 0 0 1 0-27.8528l41.7792-41.7792a19.70176 19.70176 0 0 1 27.8528 0l139.24352 139.264a39.38304 39.38304 0 0 0 55.7056 0z" p-id="3196" fill="#622243"></path></svg> Fitness centre</span>
+                      <span><svg t="1687971173678" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                 xmlns="http://www.w3.org/2000/svg" p-id="2384" width="20" height="20"><path
+                          d="M85.333333 768c94.72-42.666667 189.44-85.333333 284.586667-85.333333 94.72 0 189.44 85.333333 284.16 85.333333 95.146667 0 189.866667-85.333333 284.586667-85.333333v128c-94.72 0-189.44 85.333333-284.586667 85.333333-94.72 0-189.44-85.333333-284.16-85.333333-95.146667 0-189.866667 42.666667-284.586667 85.333333v-128m284.586667-213.333333c-33.28 0-66.133333 5.12-98.986667 13.653333l209.92-146.773333-44.373333-52.906667c-5.973333-7.253333-9.813333-17.066667-9.813333-27.306667 0-14.506667 7.253333-27.733333 18.773333-35.413333l244.053333-170.666667 49.066667 69.546667-206.506667 144.64 223.146667 265.813333c-33.706667 14.08-67.413333 24.746667-101.12 24.746667-94.72 0-189.44-85.333333-284.16-85.333333M768 298.666667a85.333333 85.333333 0 0 1 85.333333 85.333333 85.333333 85.333333 0 0 1-85.333333 85.333333 85.333333 85.333333 0 0 1-85.333333-85.333333 85.333333 85.333333 0 0 1 85.333333-85.333333z"
+                          fill="#622243" p-id="2385"></path></svg> Outdoor swimming pool</span>
+                    </li>
                   </ul>
                   <div class="flight-price">
                     <h4 class="title">US$ {{ item['price'] }}.00</h4>
@@ -2358,32 +2384,8 @@ onMounted(() => {
                 </div>
                 <div class="booking-list-bottom">
                   <ul>
-                    <li class="detail"><i class="fa-solid fa-angle-down"></i> Flight Detail</li>
-                    <li>Price per person (incl. taxes & fees)</li>
+                    <li>Price per room (incl. taxes & fees)</li>
                   </ul>
-                </div>
-              </div>
-              <div class="flight-detail-wrap">
-                <div class="flight-date">
-                  <ul>
-                    <li>{{ item['name'] }}</li>
-                    <li>{{ item['depart_date'] }} {{ item['depart_time'] }}</li>
-                    <li>To</li>
-                    <li>{{ item['arrival_date'] }} {{ item['arrival_time'] }}</li>
-                  </ul>
-                </div>
-                <div class="flight-detail-right">
-                  <h4 class="title">{{ item['depart'] }} ----> {{ item['arrival'] }}</h4>
-                  <div class="flight-detail-info">
-                    <img src="../assets/img/icon/brand_img02.png" alt="">
-                    <ul>
-                      <li>Class: {{ item['grade'] }}</li>
-                      <li>Flight No.: {{ item['name'] }}</li>
-                      <li>Aircraft: BOEING 777-300ER</li>
-                      <li>Adult(s): 25KG luggage free</li>
-                    </ul>
-                  </div>
-                  <h4 class="title title-two"></h4>
                 </div>
               </div>
             </div>
