@@ -12,6 +12,7 @@ const routes = [
     { path: '/bkdtls', component: () => import('@/components/bookingDetails.vue') },
     { path: '/userinfo1', component: () => import('@/components/userinterface_n.vue') },
     { path: '/attraction', component: () => import('@/components/AttractionPage.vue') },
+    { path: '/attraction1', component: () => import('@/components/AttractionPage1.vue') },
     // 其他路由配置项
     { path: '/', redirect: '/flight' }, // 将根路径重定向到'/home'页面
 ];

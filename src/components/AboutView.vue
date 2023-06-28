@@ -1,6 +1,8 @@
 <script setup>
 import {onMounted, onUnmounted} from "vue";
 
+
+
 //image
 import bg0 from "@/assets/img/bg.jpg";
 
@@ -45,12 +47,13 @@ const toLogin=()=>{
 const alertNum=()=>{
   ElMessageBox.alert('+86 114 5141 9198', 'Our common WeChat account is:', {
     confirmButtonText: 'Confirm',
-    type: 'success'
+    type: 'success',
   })
   setTimeout(() => {
     ElMessageBox.close();
   }, 5000);
 }
+
 
 
 
