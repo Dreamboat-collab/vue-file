@@ -25,6 +25,10 @@ import '@/assets/js/slick.min.js';
 import '@/assets/CSS/slick.css';
 import moment from "moment";
 
+//control dateTime
+const today = moment().format("YYYY-MM-DD")
+const tomorrow = moment().add(1,'days').format("YYYY-MM-DD")
+
 //booking flight paras
 const address = ref([]);
 const depart = ref();
@@ -37,13 +41,7 @@ const hotel_names = ref([])
 const hotel_prices = ref([])
 const hotel_locations = ref([])
 const depart_list = ref([])
-const dateTime = ref();
-
-//control dateTime
-const today = moment().format("YYYY-MM-DD")
-dateTime.value=today
-const tomorrow = moment().add(1,'days').format("YYYY-MM-DD")
-
+const dateTime = ref(today);
 
 
 // filter paras
