@@ -37,6 +37,7 @@ const hotel_locations=ref([])
 const hotel_ids=ref([])
 const times=ref([])
 
+const login_confirm=ref(true)
 
 onMounted(() => {
   const jump = localStorage.getItem('jump')
@@ -1926,6 +1927,24 @@ onMounted(() => {
     hotel_locations.value=temp[2]
     hotel_ids.value=temp[3]
   })
+  // 获取密匙
+  const token = localStorage.getItem('securityKey');
+  console.log(token)
+  axios.get('/api/starAirlines/account', {
+    headers: {
+      'token': token
+    }
+  })
+      .then(response => {
+        // 请求成功处理逻辑
+        if (response.data.msg === 'success') {
+          login_confirm.value=false
+        }
+      })
+      .catch(error => {
+        // 请求失败处理逻辑
+        console.log(error);
+      });
 });
 const open = () => {
   ElMessageBox.alert('Blanket<br> Gift card<br>Canvas bag', 'Redemption Items', {
@@ -2008,9 +2027,9 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
                         savings of 10% or more with a free Star Airlines account</p>
                       <!--                  <a href="#" class="btn" data-animation="fadeInUp" data-delay=".6s">Sign in / Register</a>-->
 <!--                      <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">-->
-                        <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">
-                        Sign in / Register
-                      </button>
+                        <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2" v-if="login_confirm">
+                          Sign in / Register
+                        </button>
                     </div>
                   </div>
                 </div>
@@ -2027,7 +2046,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
                         Genius.</h2>
                       <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant
                         savings of 10% or more with a free Star Airlines account</p>
-                      <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">
+                      <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2" v-if="login_confirm">
                         Sign in / Register
                       </button>
                     </div>
@@ -2046,7 +2065,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
                         Genius.</h2>
                       <p data-animation="fadeInUp" data-delay=".4s">Get rewarded for your travels – unlock instant
                         savings of 10% or more with a free Star Airlines account</p>
-                      <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2">
+                      <button class="btn" data-animation="fadeInUp" data-delay=".6s" @click="navigateToAnotherPage2" v-if="login_confirm">
                         Sign in / Register
                       </button>
                     </div>

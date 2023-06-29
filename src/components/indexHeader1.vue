@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from 'vue';
+import {onMounted, ref, watch, toRefs} from 'vue';
 import router from '@/router';
 import $ from 'jquery';
 import 'bootstrap';
@@ -13,9 +13,30 @@ import '@/assets/CSS/default.css';
 import '@/assets/CSS/styleFlight.css';
 import '@/assets/CSS/responsive.css';
 import "@/assets/js/jquery-ui.min.js";
+import "@/assets/CSS/tiktok.css";
 import axios from "axios";
-import {ElMessage, ElMessageBox} from "element-plus";
+
 const isLoggedIn=ref(false);
+
+// // 接收传递的selectedAvatar属性
+// const props = defineProps({
+//   selectedAvatar: {
+//     type: String,
+//     required: true
+//   }
+// });
+//
+// const { selectedAvatar } = toRefs(props);
+//
+// // 监听selectedAvatar属性的变化
+// watch(selectedAvatar, (value) => {
+//   // 在属性变化时执行逻辑
+//   console.log('selectedAvatar 变化:', value);
+// });
+import { inject,defineProps } from 'vue';
+const userStore = inject('userStore');
+
+
 onMounted(() => {
 
   // 检验用户是否登录
@@ -156,13 +177,13 @@ const handleLogout = () => {
                     </li>
                     <li><router-link to="/bklist">Book</router-link></li>
                     <li>
-                      <router-link to="/attraction">Attraction</router-link>
+                      <router-link to="/attraction">Attractions</router-link>
                     </li>
                     <li>
                       <router-link to="/about">About Us</router-link>
                     </li>
                     <li id="logo1" class="menu-item-has-children">
-                      <router-link to="/userinfo"><div class="logo1"><img src="../../public/account.png" style="max-width: 30%;margin-top: -1.5vh"></div></router-link>
+                      <router-link to="/userinfo"><div class="pic" style="width: 80px;height: 80px;margin-top: -40px"><img :src="userStore.avatar" ></div></router-link>
                       <ul class="submenu" v-if="isLoggedIn">
                         <li><router-link to="/login" @click="handleLogout">Log Out</router-link></li>
                       </ul>

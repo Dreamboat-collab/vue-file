@@ -5,10 +5,13 @@ import IndexFooter1 from "@/components/indexFooter1.vue";
 import "@/assets/CSS/font-awesome-5.15.2.all.css";
 import "@/assets/CSS/tiktok.css";
 
-import {onMounted, ref} from 'vue'
+import {onMounted, ref, inject} from 'vue'
 import axios from "axios";
 import router from "@/router";
 import moment from "moment";
+// 用户头像
+import {ElDialog, ElMessageBox} from 'element-plus';
+
 const activeIndex = ref('1'); // 默认选中的菜单项
 function handleSelect(index) {
   activeIndex.value = index;
@@ -33,7 +36,6 @@ const userData = ref({
 });
 
 
-import { ElMessageBox, ElMessage } from 'element-plus';
 onMounted(() => {
   // 获取密匙
   const token = localStorage.getItem('securityKey');
@@ -49,18 +51,14 @@ onMounted(() => {
         // 密匙为空，跳转到登陆界面
         if (response.data.msg === 'NOT_LOGIN') {
           console.log(response.data);
-          ElMessageBox.confirm('Not loggerd in. Do you want to skip to the login interface?', 'alert', {
-            confirmButtonText: 'Confirm',
-            cancelButtonText: 'Cancel',
-            type: 'warning'
+          ElMessageBox.alert('Not logged in. Please login first.', 'Alert', {
+            showCloseBtn:false,
+            showClose:false,
+            type: 'warning',
           })
               .then(() => {
                 router.push({ path: '/login' });
               })
-              .catch(() => {
-                // 用户点击取消按钮时的处理逻辑
-                ElMessage.info('Skip canceled');
-              });
           return;
         }
         if (response.data.msg === 'success') {
@@ -235,33 +233,56 @@ function savecard() {
   }
 }
 
-// 用户头像
-import { ElDialog } from 'element-plus';
-
+// 用户头像相关逻辑
 const avatars = [
   require('@/assets/images/avatar1.jpg'),
   require('@/assets/images/avatar2.jpg'),
   require('@/assets/images/avatar3.jpg'),
   require('@/assets/images/avatar4.jpg'),
-
-  // '@/assets/images/avatar5.jpg',
 ];
 const selectedAvatar = ref(require('@/assets/images/avatar1.jpg'));
 const showAvatarModal = ref(false);
+
+const userStore = inject('userStore');
 
 const selectAvatar = (index) => {
   selectedAvatar.value = avatars[index];
   showAvatarModal.value = false;
   console.log('用户选择的头像编号：', index);
+
+  // 更新全局用户状态的头像信息
+  userStore.updateAvatar(avatars[index]);
 };
 
 const closeAvatarModal = () => {
   showAvatarModal.value = false;
 };
+
+// // 用户头像
+// import { ElDialog } from 'element-plus';
+//
+// const avatars = [
+//   require('@/assets/images/avatar1.jpg'),
+//   require('@/assets/images/avatar2.jpg'),
+//   require('@/assets/images/avatar3.jpg'),
+//   require('@/assets/images/avatar4.jpg'),
+// ];
+// const selectedAvatar = ref(require('@/assets/images/avatar1.jpg'));
+// const showAvatarModal = ref(false);
+//
+// const selectAvatar = (index) => {
+//   selectedAvatar.value = avatars[index];
+//   showAvatarModal.value = false;
+//   console.log('用户选择的头像编号：', index);
+// };
+//
+// const closeAvatarModal = () => {
+//   showAvatarModal.value = false;
+// };
 </script>
 
 <template>
-  <index-header1></index-header1>
+  <index-header1 :selectedAvatar="selectedAvatar"></index-header1>
   <router-view ></router-view>
   <div class="card" style="margin-bottom: 0px;">
     <div class="section1">
