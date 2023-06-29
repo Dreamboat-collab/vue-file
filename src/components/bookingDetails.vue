@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from 'vue';
+import {onMounted, ref, watch} from 'vue';
 import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -47,7 +47,18 @@ const userData = ref({
   cardNum: null,
   point: 0
 });
-const gift = false
+const gift = ref(0)
+watch(gift,()=>{
+  console.log(gift.value)
+  if (userData.value.point < 500 & gift.value !== 0) {
+    gift.value = 0
+    ElNotification({
+      title: 'Alter',
+      message: "Not adequate points",
+      duration: 3000,
+      position: 'bottom-left',
+    })
+  }})
 
 const addPhone = () => {
   ElMessageBox.prompt('Please input your phone', 'Tip', {
@@ -77,7 +88,7 @@ const addPhone = () => {
 }
 
 const addCard = () => {
-  ElMessageBox.prompt('Please input your phone', 'Tip', {
+  ElMessageBox.prompt('Please input your Credit Card', 'Tip', {
     confirmButtonText: 'OK',
     cancelButtonText: 'Cancel',
   })
@@ -129,16 +140,8 @@ const submit = () => {
       break
   }
   let usePoint=0
-  if (gift) usePoint=1
-  console.log({
-    userId:userData.value.id,
-    flightId:query['flightId'],
-    hotelId:query['hotelId'],
-    days:query['days'],
-    price:total.value,
-    // type:type,
-    usePoint:usePoint
-  })
+  if (gift.value) usePoint=1
+  console.log(gift)
   axios.post('/api/starAirlines/book', {
     userId:userData.value.id,
     flightId:query['flightId'],
@@ -153,8 +156,17 @@ const submit = () => {
     }
   })
       .then(response => {
-        console.log(response)
-      })
+        if (response.data.msg=='预订成功'){
+          ElMessageBox.alert('Enjoy your journey', 'Success', {
+            confirmButtonText: 'OK',
+            showClose:false,
+          })
+          setTimeout(()=>{
+            ElMessageBox.close()
+            router.push('/')},3000)
+          }
+        }
+      )
 }
 
 
@@ -162,7 +174,7 @@ const infoAlter = () => {
   ElNotification({
     title: 'Missing Information',
     message: "Supplement information after submission",
-    duration: 8000,
+    duration: 5000,
     position: 'bottom-left',
   })
 }
@@ -2214,16 +2226,16 @@ onMounted(() => {
                   </div>
                 </div>
                 <div class="optional-item">
-                  <span style="display:inline-block;zoom: .8;width: 100%;text-align: left;text-indent: 2em">Now you have <sapn
-                      style="color: #57112f;font-weight: bold">{{ userData['point'] }}</sapn> points.</span>
+                  <span style="display:inline-block;zoom: .8;width: 100%;text-align: left;text-indent: 2em">Now you have <span
+                      style="color: #57112f;font-weight: bold">{{ userData['point'] }}</span> points.</span>
                   <div class="form-grp">
                     <div class="form">
-                      <select id="optional" name="select" class="form-select" aria-label="Default select example">
-                        <option selected hidden disabled value="">Redeem points for gifts</option>
-                        <option :value="gift=false">None</option>
-                        <option :value="gift=true">Blanket</option>
-                        <option :value="gift=true">Gift card</option>
-                        <option :value="gift=true">Canvas bag</option>
+                      <select id="optional" name="select" class="form-select" aria-label="Default select example" v-model="gift">
+                        <option selected hidden disabled>Redeem points for gifts</option>
+                        <option :value="0">None</option>
+                        <option :value="1">Blanket</option>
+                        <option :value="2">Gift card</option>
+                        <option :value="3">Canvas bag</option>
                       </select>
                     </div>
                   </div>

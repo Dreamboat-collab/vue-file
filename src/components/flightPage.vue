@@ -2189,8 +2189,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
                     <p>Economy from</p>
                     <h4 class="price">$ {{ prices[2] }}</h4>
                     <div class="content-bottom">
-                      <a href="booking-details.html" class="btn">Book Now</a>
-                      <a href="booking-list.html" class="discover">Discover</a>
+                      <router-link :to="{name:'bklist',query: { depart:departs[2],arrival: arrivals[2],date:times[2]}}" class="btn">Book Now</router-link>
                     </div>
                   </div>
                 </div>
@@ -2212,8 +2211,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
                     <p>Economy from</p>
                     <h4 class="price">$ {{ prices[1] }}</h4>
                     <div class="content-bottom">
-                      <a href="booking-details.html" class="btn">Book Now</a>
-                      <a href="booking-list.html" class="discover">Discover</a>
+                      <router-link :to="{name:'bklist',query: { depart:departs[1],arrival: arrivals[1],date:times[1]}}" class="btn">Book Now</router-link>
                     </div>
                   </div>
                 </div>
@@ -2235,8 +2233,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
                     <p>Economy from</p>
                     <h4 class="price">$ {{ prices[0] }}</h4>
                     <div class="content-bottom">
-                      <a href="booking-details.html" class="btn">Book Now</a>
-                      <a href="booking-list.html" class="discover">Discover</a>
+                      <router-link :to="{name:'bklist',query: { depart:departs[0],arrival: arrivals[0],date:times[0]}}" class="btn">Book Now</router-link>
                     </div>
                   </div>
                 </div>
@@ -2258,8 +2255,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
                     <p>Economy from</p>
                     <h4 class="price">$ {{ prices[4] }}</h4>
                     <div class="content-bottom">
-                      <a href="booking-details.html" class="btn">Book Now</a>
-                      <a href="booking-list.html" class="discover">Discover</a>
+                      <router-link :to="{name:'bklist',query: { depart:departs[4],arrival: arrivals[4],date:times[4]}}" class="btn">Book Now</router-link>
                     </div>
                   </div>
                 </div>
