@@ -2329,7 +2329,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
           <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two" v-for="i in 8" :key="i.id">
             <div class="fly-next-item">
               <div class="fly-next-thumb">
-                <router-link :to="{name:'bkdtls',query: { name:hotel_names[i-1],id: hotel_ids[i-1],days:1,price:hotel_prices[i-1]}}"><img :src="require(`@/assets/img/hotel/hotel${i-1}.jpg`)" alt=""></router-link>
+                <router-link :to="{name:'bkdtls',query: { name:hotel_names[i-1],hotelId: hotel_ids[i-1],days:1,price:hotel_prices[i-1]}}"><img :src="require(`@/assets/img/hotel/hotel${i-1}.jpg`)" alt=""></router-link>
               </div>
               <div class="fly-next-content">
                 <h4 class="title">{{ hotel_names[i-1] }}</h4>

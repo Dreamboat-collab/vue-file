@@ -28,6 +28,7 @@ const total = ref(0)
 const Scenes = ref()
 const long = ref('day')
 const token_key=localStorage.getItem('securityKey');
+
 if (query['days']) {
   total.value = query['price'] * query['days'] + 30
   Scenes.value = 'Room'
@@ -47,6 +48,15 @@ const userData = ref({
   cardNum: null,
   point: 0
 });
+const data={
+  userId:null,
+  flightId:query['flightId'],
+  hotelId:query['hotelId'],
+  days:query['days'],
+  price:query['price'],
+  usePoint:0
+}
+
 const gift = ref(0)
 watch(gift,()=>{
   console.log(gift.value)
@@ -139,18 +149,19 @@ const submit = () => {
       type=1
       break
   }
-  let usePoint=0
-  if (gift.value) usePoint=1
+  if (gift.value) data.usePoint=1
   console.log(gift)
-  axios.post('/api/starAirlines/book', {
-    userId:userData.value.id,
-    flightId:query['flightId'],
-    hotelId:query['hotelId'],
-    days:query['days'],
-    price:total.value,
-    // type:type,
-    usePoint:usePoint
-  }, {
+  axios.post('/api/starAirlines/book', data,
+  //     {
+  //   userId:userData.value.id,
+  //   flightId:query['flightId'],
+  //   hotelId:query['hotelId'],
+  //   days:query['days'],
+  //   price:total.value,
+  //   // type:type,
+  //   usePoint:usePoint
+  // },
+      {
     headers: {
       'token': token_key
     }
@@ -213,6 +224,7 @@ onMounted(() => {
           userData.value.phone = data.phone;
           userData.value.point = data.point;
           userData.value.cardNum = data.cardNum;
+          data['userId']=data.id;
           if (data.phone == null || data.cardNum == null) {
             infoAlter()
           }
