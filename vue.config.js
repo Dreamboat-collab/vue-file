@@ -13,6 +13,7 @@ module.exports = defineConfig({
       }),
     ],
   },
+
 })
 module.exports = {
   pwa: {
