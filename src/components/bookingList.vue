@@ -55,7 +55,7 @@ const flights_filter = computed(() => {
 
 // filter paras
 const filter_l = ref(0)
-const filter_r = ref(3000)
+const filter_r = ref(59999)
 const flight_results = ref([])
 
 //hotel paras
@@ -2052,7 +2052,7 @@ onMounted(() => {
       range: true,
       min: 1,
       max: 60000,
-      values: [1, 10000],
+      values: [1, 60000],
       slide: function (event, ui) {
         $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
         filter_l.value = ui.values[0]
