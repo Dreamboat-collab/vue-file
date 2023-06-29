@@ -71,6 +71,8 @@ onMounted(() => {
           userData.value.point = data.point;
         }
       })
+
+
       .catch(error => {
         // 请求失败处理逻辑
         console.log(error);
