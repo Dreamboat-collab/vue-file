@@ -62,7 +62,7 @@ import '@/site/css/fonts.css'
 
   <!-- Page-->
   <div class="page">
-    <a class="section section-banner text-center d-none d-xl-block" href="https://www.templatemonster.com/intense-multipurpose-html-template.html" style="background-image: url(../assets/img/images/Guangzhou_1.jpg); background-image: -webkit-image-set( url(../assets/img/images/Guangzhou_1.jpg) 1x, url(../assets/img/images/Guangzhou_1.jpg) 2x )"><img src="../assets/img/images/Guangzhou_1.jpg" srcset="../assets/img/images/Guangzhou_1.jpg" alt="" width="1920" height="766"></a>
+    <a class="section section-banner text-center d-none d-xl-block" href="#" style="background-image: url(../assets/img/images/Guangzhou_1.jpg); background-image: -webkit-image-set( url(../assets/img/images/Guangzhou_1.jpg) 1x, url(../assets/img/images/Guangzhou_1.jpg) 2x )"><img src="../assets/img/images/Guangzhou_1.jpg" srcset="../assets/img/images/Guangzhou_1.jpg" alt="" width="1920" height="766"></a>
     <!-- Page Header-->
     <header class="section page-header">
       <!-- RD Navbar-->
@@ -131,7 +131,8 @@ import '@/site/css/fonts.css'
                     <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-5">
                       <h3>Hundreds of Amazing Destinations</h3>
                       <div class="divider divider-decorate"></div>
-                      <p class="text-spacing-sm">We offer a variety of destinations to travel to, ranging from exotic to some extreme ones. They include very popular countries and cities like Paris, Rio de Janeiro, Cairo and a lot of others.</p><a class="button5 button5-default-outline button5-nina button5-sm" href="#">learn more</a>
+                      <p class="text-spacing-sm">We offer a variety of destinations to travel to, ranging from exotic to some extreme ones. They include very popular countries and cities like Paris, Rio de Janeiro, Cairo and a lot of others.</p><a class="button5 button5-default-outline button5-nina button5-sm" href="#">
+                      <router-link to="/flight">learn more</router-link></a>
                     </div>
                   </div>
                 </div>
@@ -144,7 +145,7 @@ import '@/site/css/fonts.css'
                     <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-5">
                       <h3>The Trip of Your Dream</h3>
                       <div class="divider divider-decorate"></div>
-                      <p class="text-spacing-sm">Our travel agency is ready to offer you an exciting vacation that is designed to fit your own needs and wishes. Whether it’s an exotic cruise or a trip to your favorite resort, you will surely have the best experience.</p><a class="button5 button5-default-outline button5-nina button5-sm" href="#">learn more</a>
+                      <p class="text-spacing-sm">Our travel agency is ready to offer you an exciting vacation that is designed to fit your own needs and wishes. Whether it’s an exotic cruise or a trip to your favorite resort, you will surely have the best experience.</p><a class="button5 button5-default-outline button5-nina button5-sm" href="#"><router-link to="/flight">learn more</router-link></a>
                     </div>
                   </div>
                 </div>
@@ -157,7 +158,7 @@ import '@/site/css/fonts.css'
                     <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-5">
                       <h3>unique Travel Insights</h3>
                       <div class="divider divider-decorate"></div>
-                      <p class="text-spacing-sm">Our team is ready to provide you with unique weekly travel insights that include photos, videos, and articles about untravelled tourist paths. We know everything about the places you’ve never been to!</p><a class="button5 button5-default-outline button5-nina button5-sm" href="#">learn more</a>
+                      <p class="text-spacing-sm">Our team is ready to provide you with unique weekly travel insights that include photos, videos, and articles about untravelled tourist paths. We know everything about the places you’ve never been to!</p><button class="button5 button5-default-outline button5-nina button5-sm" href="#"><router-link to="/flight">learn more</router-link></button>
                     </div>
                   </div>
                 </div>
@@ -196,7 +197,9 @@ import '@/site/css/fonts.css'
               <div class="event-default">
                 <figure class="event-default-image"><img src="../assets/img/images/france.jpg" alt="" width="570" height="370"/>
                 </figure>
-                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" href="#">learn more</a></div>
+                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" >
+                  <router-link to="/attraction1">
+                  learn more</router-link></a></div>
               </div>
               <div class="event-default-inner">
                 <h5><a class="event-default-title" href="#">France, Paris</a></h5><span class="heading-5">from $280</span>
@@ -208,7 +211,9 @@ import '@/site/css/fonts.css'
               <div class="event-default">
                 <figure class="event-default-image"><img src="../assets/img/images/boston.jpg" alt="" width="570" height="370"/>
                 </figure>
-                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" href="#">learn more</a></div>
+                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" >
+                  <router-link to="/attraction1">
+                    learn more</router-link></a></div>
               </div>
               <div class="event-default-inner">
                 <h5><a class="event-default-title" href="#">USA, Boston</a></h5><span class="heading-5">from $480</span>
@@ -220,7 +225,9 @@ import '@/site/css/fonts.css'
               <div class="event-default">
                 <figure class="event-default-image"><img src="../assets/img/images/Guangzhou_1.jpg" alt="" width="570" height="370"/>
                 </figure>
-                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" href="#">learn more</a></div>
+                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" >
+                  <router-link to="/attraction1">
+                    learn more</router-link></a></div>
               </div>
               <div class="event-default-inner">
                 <h5><a class="event-default-title" href="#">China, GuangZhou</a></h5><span class="heading-5">from $350</span>
@@ -232,7 +239,9 @@ import '@/site/css/fonts.css'
               <div class="event-default">
                 <figure class="event-default-image"><img src="../assets/img/images/benidorm.jpg" alt="" width="570" height="370"/>
                 </figure>
-                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" href="#">learn more</a></div>
+                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" >
+                  <router-link to="/attraction1">
+                    learn more</router-link></a></div>
               </div>
               <div class="event-default-inner">
                 <h5><a class="event-default-title" href="#">Spain, Benidorm</a></h5><span class="heading-5">from $350</span>
@@ -244,7 +253,9 @@ import '@/site/css/fonts.css'
               <div class="event-default">
                 <figure class="event-default-image"><img src="../assets/img/images/sharm.jpg" alt="" width="570" height="370"/>
                 </figure>
-                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" href="#">learn more</a></div>
+                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" >
+                  <router-link to="/attraction1">
+                    learn more</router-link></a></div>
               </div>
               <div class="event-default-inner">
                 <h5><a class="event-default-title" href="#">Egypt,  Sharm El Sheikh</a></h5><span class="heading-5">from $520</span>
@@ -256,7 +267,9 @@ import '@/site/css/fonts.css'
               <div class="event-default">
                 <figure class="event-default-image"><img src="../assets/img/images/london.jpg" alt="" width="570" height="370"/>
                 </figure>
-                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" href="#">learn more</a></div>
+                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" >
+                  <router-link to="/attraction1">
+                    learn more</router-link></a></div>
               </div>
               <div class="event-default-inner">
                 <h5><a class="event-default-title" href="#">UK, London</a></h5><span class="heading-5">from $600</span>
