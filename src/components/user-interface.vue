@@ -5,12 +5,13 @@ import IndexFooter1 from "@/components/indexFooter1.vue";
 import "@/assets/CSS/font-awesome-5.15.2.all.css";
 import "@/assets/CSS/tiktok.css";
 
-import {onMounted, ref, inject} from 'vue'
+import {inject, onMounted, ref} from 'vue'
 import axios from "axios";
 import router from "@/router";
 import moment from "moment";
 // 用户头像
 import {ElDialog, ElMessageBox} from 'element-plus';
+
 const activeIndex = ref('1'); // 默认选中的菜单项
 function handleSelect(index) {
   activeIndex.value = index;
@@ -87,6 +88,7 @@ onMounted(() => {
       .then(response => {
         // 请求成功处理逻辑,订单信息赋值
         const data = response.data.data;
+        console.log(data)
 
         const orders = [];
 
@@ -103,14 +105,14 @@ onMounted(() => {
           }
 
           const order = {
-            depart: flightInfo.depart.toString(),
-            arrival: flightInfo.arrival.toString(),
-            departTime: moment(flightInfo.departTime).format('YYYY-MM-DD HH:mm:ss').toString(),
-            arrivalTime: moment(flightInfo.arrivalTime).format('YYYY-MM-DD HH:mm:ss').toString(),
-            days: recordInfo.days.toString(),
-            price: recordInfo.price.toString(),
+            depart: flightInfo.depart,
+            arrival: flightInfo.arrival,
+            departTime: moment(flightInfo.departTime).format('YYYY-MM-DD HH:mm:ss'),
+            arrivalTime: moment(flightInfo.arrivalTime).format('YYYY-MM-DD HH:mm:ss'),
+            days: recordInfo.days,
+            price: recordInfo.price,
             type: type,
-            updateTime: moment(recordInfo.updateTime).format('YYYY-MM-DD HH:mm:ss').toString(),
+            updateTime: moment(recordInfo.updateTime).format('YYYY-MM-DD HH:mm:ss'),
           };
 
           orders.push(order);
@@ -423,21 +425,21 @@ const closeAvatarModal = () => {
 
     <!--    航班订单信息-->
     <div v-show="activeIndex === '2'" class="table-container">
-      <el-table :data="tableData" :default-sort="{ prop: 'departTime', order: 'descending' }" style="height: 250px; width:75vw">
-        <el-table-column fixed prop="depart" label="Depart" width="100" :label-align="center" :align="center"/>
-        <el-table-column prop="arrival" label="Arrival" width="100" :label-align="center" :align="center" />
-        <el-table-column prop="departTime" label="Departime" sortable width="180" :label-align="center" :align="center" />
-        <el-table-column prop="arrivalTime" label="Arrivaltime" width="180" :label-align="center" :align="center" />
-        <el-table-column prop="days" label="Days" width="120" :label-align="center" :align="center" />
-        <el-table-column prop="price" label="Price" width="120" :label-align="center" :align="center" />
-        <el-table-column prop="type" label="Type" width="120" :label-align="center" :align="center" />
-        <el-table-column prop="updateTime" label="Updatetime" width="190" :label-align="center" :align="center" />
+      <el-table :data="tableData" :default-sort="{ prop: 'departTime', order: 'descending' }" align="center">
+        <el-table-column fixed prop="depart" label="Depart" width="100"/>
+        <el-table-column prop="arrival" label="Arrival" width="100" />
+        <el-table-column prop="departTime" label="Departime" sortable width="180" />
+        <el-table-column prop="arrivalTime" label="Arrivaltime" width="180"  />
+        <el-table-column prop="days" label="Days" width="120"  />
+        <el-table-column prop="price" label="Price" width="120"  />
+        <el-table-column prop="type" label="Type" width="120"  />
+        <el-table-column prop="updateTime" label="Updatetime" width="190"  />
       </el-table>
     </div>
 
 <!--    酒店订票信息-->
     <div v-show="activeIndex === '3'" class="table-container">
-      <el-table :data="tableData1" :default-sort="{ prop: 'updateTime', order: 'descending' }" style="height: 250px; width:40vw">
+      <el-table :data="tableData1" :default-sort="{ prop: 'updateTime', order: 'descending' }"  align="center">
         <el-table-column fixed prop="name" label="Name" width="170" :label-align="center" :align="center"/>
         <el-table-column prop="address" label="Address" width="100" :label-align="center" :align="center" />
         <el-table-column prop="days" label="Days" width="100" :label-align="center" :align="center" />
@@ -520,10 +522,7 @@ const closeAvatarModal = () => {
 </template>
 
 <style scoped>
-.table-container {
-  display: grid;
-  place-items: center;
-}
+
 
 
 .avatar-list {
