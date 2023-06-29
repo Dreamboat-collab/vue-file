@@ -35,7 +35,7 @@ import bg0 from "@/assets/img/bg.jpg";
       <div class="container">
         <div class="row">
           <div class="col-md-8 ml-auto mr-auto text-center">
-            <h2 class="title">paris</h2>
+            <h2 class="title">Paris</h2>
             <h5 class="description">France is a country full of charm and history, known for its romantic atmosphere, fine art and stunning landscapes. Whether you're a culture seeker, a food lover or a nature explorer, France has everything you need to travel.</h5>
           </div>
         </div>
@@ -57,7 +57,7 @@ import bg0 from "@/assets/img/bg.jpg";
             <div class="col-md-5">
               <!-- First image on the right side, above the article -->
               <div class="image-container image-right" style="background-image: url('../france2.png')"></div>
-              <h3>First, let's go to the capital of France, Paris. Paris is the capital of romance and is home to one of the world's most famous landmarks, the Eiffel Tower.</h3>
+              <h3>First, let's go to the capital of France, Paris. </h3>
               <p>You can climb the Eiffel Tower and overlook the city. At the Louvre, you can admire one of the world's greatest works of art, such as the Mona Lisa. There are also many beautiful churches, museums and parks in Paris, such as Notre-Dame Cathedral, the Musee d 'Orsay and the Palace of Versailles, all worth a visit.
               </p>
               <p>

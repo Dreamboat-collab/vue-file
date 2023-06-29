@@ -145,7 +145,7 @@ import '@/site/css/fonts.css'
                     <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-5">
                       <h3>The Trip of Your Dream</h3>
                       <div class="divider divider-decorate"></div>
-                      <p class="text-spacing-sm">Our travel agency is ready to offer you an exciting vacation that is designed to fit your own needs and wishes. Whether it’s an exotic cruise or a trip to your favorite resort, you will surely have the best experience.</p><a class="button5 button5-default-outline button5-nina button5-sm" href="#"><router-link to="/flight">learn more</router-link></a>
+                      <p class="text-spacing-sm">Our travel website is ready to offer you an exciting vacation that is designed to fit your own needs and wishes. Whether it’s an exotic cruise or a trip to your favorite resort, you will surely have the best experience.</p><a class="button5 button5-default-outline button5-nina button5-sm" href="#"><router-link to="/flight">learn more</router-link></a>
                     </div>
                   </div>
                 </div>
@@ -189,7 +189,7 @@ import '@/site/css/fonts.css'
             </div>
             <hr class="divider divider-decorate">
           </div>
-          <div class="col-xl-3 text-xl-right"><a class="button5 button5-secondary button5-nina" href="#">view all tours</a></div>
+          <div class="col-xl-3 text-xl-right"><a class="button5  button5-nina" href="#"><router-link to="/flight">view all tours</router-link></a></div>
         </div>
         <div class="row row-50">
           <div class="col-md-6 col-xl-4">
@@ -202,7 +202,7 @@ import '@/site/css/fonts.css'
                   learn more</router-link></a></div>
               </div>
               <div class="event-default-inner">
-                <h5><a class="event-default-title" href="#">France, Paris</a></h5><span class="heading-5">from $280</span>
+                <h5><a class="event-default-title" href="#">Paris,France</a></h5><span class="heading-5">from $280</span>
               </div>
             </article>
           </div>
@@ -216,7 +216,7 @@ import '@/site/css/fonts.css'
                     learn more</router-link></a></div>
               </div>
               <div class="event-default-inner">
-                <h5><a class="event-default-title" href="#">USA, Boston</a></h5><span class="heading-5">from $480</span>
+                <h5><a class="event-default-title" href="#">Boston,USA</a></h5><span class="heading-5">from $480</span>
               </div>
             </article>
           </div>
@@ -230,7 +230,7 @@ import '@/site/css/fonts.css'
                     learn more</router-link></a></div>
               </div>
               <div class="event-default-inner">
-                <h5><a class="event-default-title" href="#">China, GuangZhou</a></h5><span class="heading-5">from $350</span>
+                <h5><a class="event-default-title" href="#">GuangZhou,China</a></h5><span class="heading-5">from $350</span>
               </div>
             </article>
           </div>
@@ -244,7 +244,7 @@ import '@/site/css/fonts.css'
                     learn more</router-link></a></div>
               </div>
               <div class="event-default-inner">
-                <h5><a class="event-default-title" href="#">Spain, Benidorm</a></h5><span class="heading-5">from $350</span>
+                <h5><a class="event-default-title" href="#">Benidorm,Spain</a></h5><span class="heading-5">from $350</span>
               </div>
             </article>
           </div>
@@ -258,7 +258,7 @@ import '@/site/css/fonts.css'
                     learn more</router-link></a></div>
               </div>
               <div class="event-default-inner">
-                <h5><a class="event-default-title" href="#">Egypt,  Sharm El Sheikh</a></h5><span class="heading-5">from $520</span>
+                <h5><a class="event-default-title" href="#">Sharm El Sheikh,Egypt</a></h5><span class="heading-5">from $520</span>
               </div>
             </article>
           </div>
@@ -272,7 +272,7 @@ import '@/site/css/fonts.css'
                     learn more</router-link></a></div>
               </div>
               <div class="event-default-inner">
-                <h5><a class="event-default-title" href="#">UK, London</a></h5><span class="heading-5">from $600</span>
+                <h5><a class="event-default-title" href="#">London,UK</a></h5><span class="heading-5">from $600</span>
               </div>
             </article>
           </div>
@@ -291,7 +291,7 @@ import '@/site/css/fonts.css'
               <div class="box-minimal-icon novi-icon mdi mdi-airplane"></div>
               <p class="big box-minimal-title">Air Tickets</p>
               <hr>
-              <div class="box-minimal-text text-spacing-sm">At our travel agency, you can book air tickets to any world destination. We also provide online ticket booking via our website in just a couple of steps.</div>
+              <div class="box-minimal-text text-spacing-sm">At our website, you can book air tickets to any world destination. We also provide online ticket booking via our website in just a couple of steps.</div>
             </article>
           </div>
           <div class="col-sm-10 col-md-6 col-xl-3">
@@ -299,7 +299,7 @@ import '@/site/css/fonts.css'
               <div class="box-minimal-icon novi-icon mdi mdi-map"></div>
               <p class="big box-minimal-title">Voyages & Cruises</p>
               <hr>
-              <div class="box-minimal-text text-spacing-sm">Besides regular tours and excursions, we also offer a variety of cruises & sea voyages for different customers looking for awesome experiences.</div>
+              <div class="box-minimal-text text-spacing-sm">In addition to regular Tours and excursions, we also offer a wide variety of travel destinations for different clients looking for amazing experiences.</div>
             </article>
           </div>
           <div class="col-sm-10 col-md-6 col-xl-3">
@@ -315,7 +315,7 @@ import '@/site/css/fonts.css'
               <div class="box-minimal-icon novi-icon mdi mdi-beach"></div>
               <p class="big box-minimal-title">Tailored Summer Tours</p>
               <hr>
-              <div class="box-minimal-text text-spacing-sm">Our agency provides varied tours including tailored summer tours for clients who are searching for an exclusive and memorable vacation.</div>
+              <div class="box-minimal-text text-spacing-sm">Our website provides varied tours including tailored summer tours for clients who are searching for an exclusive and memorable vacation.</div>
             </article>
           </div>
         </div>
@@ -323,74 +323,7 @@ import '@/site/css/fonts.css'
     </section>
 
     <!-- Tips & tricks-->
-    <section class="section section-lg novi-background bg-cover bg-default text-center">
-      <div class="container-wide">
-        <div class="row row-50">
-          <div class="col-sm-12">
-            <h3>Latest News</h3>
-            <div class="divider divider-decorate"></div>
-            <!-- Owl Carousel-->
-            <div class="owl-carousel owl-carousel-team owl-carousel-inset" data-items="1" data-md-items="2" data-xl-items="3" data-stage-padding="15" data-loop="true" data-margin="30" data-mouse-drag="false" data-dots="true" data-autoplay="true">
-              <article class="post-blog"><a class="post-blog-image" href="#"><img src="../assets/img/images/Guangzhou_1.jpg" alt="" width="570" height="415"/></a>
-                <div class="post-blog-caption">
-                  <div class="post-blog-caption-header">
-                    <ul class="post-blog-tags">
-                      <li><a class="button5-tags" href="#">Hotels</a></li>
-                    </ul>
-                    <ul class="post-blog-meta">
-                      <li><span>by</span>&nbsp;<a href="#">Ronald Chen</a></li>
-                    </ul>
-                  </div>
-                  <div class="post-blog-caption-body">
-                    <h5><a class="post-blog-title" href="#">Top 10 Hotels to Stay At: Exclusive Rating by Sealine Travel Experts</a></h5>
-                  </div>
-                  <div class="post-blog-caption-footer">
-                    <time datetime="2019">Feb 27, 2019 at 6:53 pm</time><a class="post-comment" href="#"><span class="icon novi-icon icon-md-middle icon-gray-1 mdi mdi-comment"></span><span>12</span></a>
-                  </div>
-                </div>
-              </article>
-              <article class="post-blog"><a class="post-blog-image" href="#"><img src="../assets/img/images/Guangzhou_1.jpg" alt="" width="570" height="415"/></a>
-                <div class="post-blog-caption">
-                  <div class="post-blog-caption-header">
-                    <ul class="post-blog-tags">
-                      <li><a class="button5-tags" href="#">Tips</a></li>
-                    </ul>
-                    <ul class="post-blog-meta">
-                      <li><span>by</span>&nbsp;<a href="#">Ronald Chen</a></li>
-                    </ul>
-                  </div>
-                  <div class="post-blog-caption-body">
-                    <h5><a class="post-blog-title" href="#">How to Plan Your Vacation in Advance and Why It’s Beneficial</a></h5>
-                  </div>
-                  <div class="post-blog-caption-footer">
-                    <time datetime="2019">Feb 27, 2019 at 6:53 pm</time><a class="post-comment" href="#"><span class="icon novi-icon icon-md-middle icon-gray-1 mdi mdi-comment"></span><span>12</span></a>
-                  </div>
-                </div>
-              </article>
-              <article class="post-blog"><a class="post-blog-image" href="#"><img src="../assets/img/images/Guangzhou_1.jpg" alt="" width="570" height="415"/></a>
-                <div class="post-blog-caption">
-                  <div class="post-blog-caption-header">
-                    <ul class="post-blog-tags">
-                      <li><a class="button5-tags" href="#">Traveling</a></li>
-                    </ul>
-                    <ul class="post-blog-meta">
-                      <li><span>by</span>&nbsp;<a href="#">Ronald Chen</a></li>
-                    </ul>
-                  </div>
-                  <div class="post-blog-caption-body">
-                    <h5><a class="post-blog-title" href="#">Your Personal Guide to 5 Best Places to Visit on Earth</a></h5>
-                  </div>
-                  <div class="post-blog-caption-footer">
-                    <time datetime="2019">Feb 27, 2019 at 6:53 pm</time><a class="post-comment" href="#"><span class="icon novi-icon icon-md-middle icon-gray-1 mdi mdi-comment"></span><span>12</span></a>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </div>
-          <div class="col-12"><a class="button5 button5-secondary button5-nina button5-offset-lg" href="#">view all blog posts</a></div>
-        </div>
-      </div>
-    </section>
+
 
 
 
@@ -403,7 +336,7 @@ import '@/site/css/fonts.css'
                 <h3 class="box-cta-title">Buy a tour without leaving your home</h3>
                 <p>Using our website, you can book any tour just in a couple of clicks.</p>
               </div>
-              <div class="box-cta-inner"><a class="button5 button5-secondary button5-nina" href="#">Book Now</a></div>
+              <div class="box-cta-inner"><a class="button5 button5-secondary button5-nina" href="#"><router-link to="/bklist">Book Now</router-link></a></div>
             </div>
           </div>
         </div>
