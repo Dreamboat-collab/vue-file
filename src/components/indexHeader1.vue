@@ -130,7 +130,6 @@ const setJump = () => {
                     </li>
                     <li>
                       <router-link to="/about">About Us</router-link>
-<!--                      <a href="">About Us</a>-->
                     </li>
                     <li id="logo1" class="menu-item-has-children">
                       <router-link to="/userinfo"><div class="logo1"><img src="../../public/account.png" style="max-width: 30%;margin-top: -1.5vh"></div></router-link>
