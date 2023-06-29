@@ -26,7 +26,6 @@ import {ElMessageBox} from "element-plus";
 const address = ref([]);
 const depart = ref();
 const arrival = ref();
-const grade = ref('Economy');
 const prices = ref([])
 const departs = ref([])
 const arrivals = ref([])
@@ -35,6 +34,8 @@ const arrival_time = ref([])
 const hotel_names=ref([])
 const hotel_prices=ref([])
 const hotel_locations=ref([])
+const hotel_ids=ref([])
+const times=ref([])
 
 
 onMounted(() => {
@@ -1881,7 +1882,7 @@ onMounted(() => {
     arrival.value = address.value[1]
   })
   axios.get('http://localhost:8080/starAirlines/flight?date=2023-06-30').then((response) => {
-    let all_flights = []
+    let all_flights
     let filtered_flights=[]
     let depart_T = ''
     let arrival_T = ''
@@ -1902,6 +1903,8 @@ onMounted(() => {
       arrival_T = filtered_flights[i]['arrivalTime']
       temp[3].push(arrival_T.substring(0, 4) + '/' + arrival_T.substring(5, 7) + '/' + arrival_T.substring(8, 10))
       temp[4].push(filtered_flights[i]['price'])
+      times.value.push(depart_T)
+      // arrivals.value.push(filtered_flights[i]['depart'])
     }
     departs.value = temp[0]
     arrivals.value = temp[1]
@@ -1911,15 +1914,17 @@ onMounted(() => {
   })
   axios.get('http://localhost:8080/starAirlines/hotels').then((response) => {
     let hotels=response.data.data
-    let temp=[[],[],[]]
+    let temp=[[],[],[],[]]
     for (let i = 0; i < 8; i++) {
       temp[0].push(hotels[i]['name'])
       temp[1].push(hotels[i]['price'])
       temp[2].push(hotels[i]['address'])
+      temp[3].push(hotels[i]['id'])
     }
     hotel_names.value=temp[0]
     hotel_prices.value=temp[1]
     hotel_locations.value=temp[2]
+    hotel_ids.value=temp[3]
   })
 });
 const open = () => {
@@ -2140,8 +2145,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
                 <p>Economy from</p>
                 <h4 class="price">$ {{ prices[3] }}</h4>
                 <div class="content-bottom">
-                  <a href="booking-details.html" class="btn">Book Now</a>
-                  <a href="booking-list.html" class="discover">Discover</a>
+                  <router-link :to="{name:'bklist',query: { depart:departs[3],arrival: arrivals[3],date:times[3]}}" class="btn">Book Now</router-link>
                 </div>
               </div>
             </div>
@@ -2309,7 +2313,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
           <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two" v-for="i in 8" :key="i.id">
             <div class="fly-next-item">
               <div class="fly-next-thumb">
-                <a href="booking-details.html"><img :src="require(`@/assets/img/hotel/hotel${i-1}.jpg`)" alt=""></a>
+                <router-link :to="{name:'bkdtls',query: { name:hotel_names[i-1],id: hotel_ids[i-1],days:1,price:hotel_prices[i-1]}}"><img :src="require(`@/assets/img/hotel/hotel${i-1}.jpg`)" alt=""></router-link>
               </div>
               <div class="fly-next-content">
                 <h4 class="title">{{ hotel_names[i-1] }}</h4>
