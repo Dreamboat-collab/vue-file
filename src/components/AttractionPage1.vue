@@ -35,8 +35,8 @@ import bg0 from "@/assets/img/bg.jpg";
       <div class="container">
         <div class="row">
           <div class="col-md-8 ml-auto mr-auto text-center">
-            <h2 class="title">Who we are?</h2>
-            <h5 class="description">According to the National Oceanic and Atmospheric Administration, Ted, Scambos, NSIDClead scentist, puts the potentially record low maximum sea ice extent tihs year down to low ice extent in the Pacific and a late drop in ice extent in the Barents Sea.</h5>
+            <h2 class="title">paris</h2>
+            <h5 class="description">France is a country full of charm and history, known for its romantic atmosphere, fine art and stunning landscapes. Whether you're a culture seeker, a food lover or a nature explorer, France has everything you need to travel.</h5>
           </div>
         </div>
         <div class="separator separator-primary"></div>
@@ -45,10 +45,10 @@ import bg0 from "@/assets/img/bg.jpg";
             <div class="col-md-6">
               <div class="image-container image-left" style="background-image: url('../france3.png')">
                 <!-- First image on the left side -->
-                <p class="blockquote blockquote-primary">"Over the span of the satellite record, Arctic sea ice has been declining significantly, while sea ice in the Antarctichas increased very slightly"
+                <p class="blockquote blockquote-primary">"If you are lucky, you must have the feeling of seeing the Eiffel Tower for five minutes in your life, which is either in your ten, twenty, fifty years, or maybe only once in a lifetime"
                   <br>
                   <br>
-                  <small>-NOAA</small>
+                  <small>-Hemingway</small>
                 </p>
               </div>
               <!-- Second image on the left side of the article -->
@@ -57,14 +57,13 @@ import bg0 from "@/assets/img/bg.jpg";
             <div class="col-md-5">
               <!-- First image on the right side, above the article -->
               <div class="image-container image-right" style="background-image: url('../france2.png')"></div>
-              <h3>So what does the new record for the lowest level of winter ice actually mean</h3>
-              <p>The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever happens with climate change. Even if the Arctic continues to be one of the fastest-warming regions of the world, it will always be plunged into bitterly cold polar dark every winter. And year-by-year, for all kinds of natural reasons, there’s huge variety of the state of the ice.
+              <h3>First, let's go to the capital of France, Paris. Paris is the capital of romance and is home to one of the world's most famous landmarks, the Eiffel Tower.</h3>
+              <p>You can climb the Eiffel Tower and overlook the city. At the Louvre, you can admire one of the world's greatest works of art, such as the Mona Lisa. There are also many beautiful churches, museums and parks in Paris, such as Notre-Dame Cathedral, the Musee d 'Orsay and the Palace of Versailles, all worth a visit.
               </p>
               <p>
-                For a start, it does not automatically follow that a record amount of ice will melt this summer. More important for determining the size of the annual thaw is the state of the weather as the midnight sun approaches and temperatures rise. But over the more than 30 years of satellite records, scientists have observed a clear pattern of decline, decade-by-decade.
+                In addition to Paris, there are many other incredible cities and regions in France. Nice is a popular seaside resort in France with a sunny Mediterranean coastline and stunning beaches. The Provence region is known for its pleasant rural scenery and lavender fields, where you can experience the quiet French country life.
               </p>
-              <p>The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever happens with climate change. Even if the Arctic continues to be one of the fastest-warming regions of the world, it will always be plunged into bitterly cold polar dark every winter. And year-by-year, for all kinds of natural reasons, there’s huge variety of the state of the ice.
-              </p>
+              <p>Whether you're strolling through the city, exploring historic sites, or enjoying a quiet moment in the countryside, France offers a unique and memorable travel experience. Its rich and diverse cultural heritage, cuisine, natural beauty and hospitable people will make you fall in love with this beautiful country. Whether you are visiting France for the first time or again, you will be captivated by the charm of France.</p>
             </div>
           </div>
         </div>
