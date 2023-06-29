@@ -24,8 +24,9 @@ import axios from "axios";
 import '@/assets/js/slick.min.js';
 import '@/assets/CSS/slick.css';
 import moment from "moment";
-import {ElMessage, ElMessageBox} from "element-plus";
+import {ElMessageBox} from "element-plus";
 import {useRoute} from "vue-router";
+
 const route=useRoute()
 const {query}=route
 
@@ -2222,7 +2223,6 @@ dateTime.value=moment(query['date']).format('YYYY-MM-DD')
                                         v-model="arrival">
                                   <option v-for="i in arrival_list" :key="i.id">{{ i }}</option>
                                 </select>
-                                <button class="exchange-icon"><i class="flaticon-exchange-1"></i></button>
                               </div>
                             </li>
                             <li>
