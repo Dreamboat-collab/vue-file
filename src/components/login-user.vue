@@ -1,6 +1,6 @@
 <template>
   <div class="responsive-component">
-    <div style="background-color: #1f252e ;height: 10vh;width: 100%;position: absolute;top: 0">
+    <div style="background-color: #1f252e ;height: 12vh;width: 100%;position: absolute;top: 0">
       <index-header1 ></index-header1>
     </div>
     <div id="login">

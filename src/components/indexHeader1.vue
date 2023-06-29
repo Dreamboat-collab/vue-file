@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted} from 'vue';
+import {onMounted, ref} from 'vue';
 import router from '@/router';
 import $ from 'jquery';
 import 'bootstrap';
@@ -93,7 +93,12 @@ const methods = {
 const setJump = () => {
   localStorage.setItem('jump', 1)
 }
+
+// 检验用户是否登录
+const isLoggedIn=ref(false);
+
 </script>
+
 
 <template>
   <html class="no-js" lang="en">
@@ -133,7 +138,7 @@ const setJump = () => {
                     </li>
                     <li id="logo1" class="menu-item-has-children">
                       <router-link to="/userinfo"><div class="logo1"><img src="../../public/account.png" style="max-width: 30%;margin-top: -1.5vh"></div></router-link>
-                      <ul class="submenu">
+                      <ul class="submenu" v-if="isLoggedIn">
                         <li><router-link to="/login">Log Out</router-link></li>
                       </ul>
                     </li>
