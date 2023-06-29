@@ -28,22 +28,8 @@ import bg0 from "@/assets/img/bg.jpg";
     <div class="page-header1 page-header1-small">
       <div class="page-header1-image" data-parallax="true" style="background-image: url('../france.jpg');">
       </div>
-      <div class="content-center">
-        <div class="container">
-          <h1 class="title">This is our great company.</h1>
-          <div class="text-center">
-            <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round">
-              <i class="fab fa-facebook-square"></i>
-            </a>
-            <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round">
-              <i class="fab fa-google-plus"></i>
-            </a>
-          </div>
-        </div>
-      </div>
+
+
     </div>
     <div class="section section-about-us">
       <div class="container">
@@ -57,7 +43,7 @@ import bg0 from "@/assets/img/bg.jpg";
         <div class="section-story-overview">
           <div class="row">
             <div class="col-md-6">
-              <div class="image-container image-left" style="background-image: url('src/assets/bg.jpg')">
+              <div class="image-container image-left" style="background-image: url('../france3.png')">
                 <!-- First image on the left side -->
                 <p class="blockquote blockquote-primary">"Over the span of the satellite record, Arctic sea ice has been declining significantly, while sea ice in the Antarctichas increased very slightly"
                   <br>
@@ -66,11 +52,11 @@ import bg0 from "@/assets/img/bg.jpg";
                 </p>
               </div>
               <!-- Second image on the left side of the article -->
-              <div class="image-container" style="background-image: url('../assets/img/images/sharm.jpg')"></div>
+              <div class="image-container" style="background-image: url('../france1.png')"></div>
             </div>
             <div class="col-md-5">
               <!-- First image on the right side, above the article -->
-              <div class="image-container image-right" style="background-image: url('../assets/img/images/france.jpg')"></div>
+              <div class="image-container image-right" style="background-image: url('../france2.png')"></div>
               <h3>So what does the new record for the lowest level of winter ice actually mean</h3>
               <p>The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever happens with climate change. Even if the Arctic continues to be one of the fastest-warming regions of the world, it will always be plunged into bitterly cold polar dark every winter. And year-by-year, for all kinds of natural reasons, there’s huge variety of the state of the ice.
               </p>

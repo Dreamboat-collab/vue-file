@@ -131,7 +131,8 @@ import '@/site/css/fonts.css'
                     <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-5">
                       <h3>Hundreds of Amazing Destinations</h3>
                       <div class="divider divider-decorate"></div>
-                      <p class="text-spacing-sm">We offer a variety of destinations to travel to, ranging from exotic to some extreme ones. They include very popular countries and cities like Paris, Rio de Janeiro, Cairo and a lot of others.</p><a class="button5 button5-default-outline button5-nina button5-sm" href="#">learn more</a>
+                      <p class="text-spacing-sm">We offer a variety of destinations to travel to, ranging from exotic to some extreme ones. They include very popular countries and cities like Paris, Rio de Janeiro, Cairo and a lot of others.</p><a class="button5 button5-default-outline button5-nina button5-sm" href="#">
+                      <router-link to="/flight">learn more</router-link></a>
                     </div>
                   </div>
                 </div>
@@ -144,7 +145,7 @@ import '@/site/css/fonts.css'
                     <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-5">
                       <h3>The Trip of Your Dream</h3>
                       <div class="divider divider-decorate"></div>
-                      <p class="text-spacing-sm">Our travel agency is ready to offer you an exciting vacation that is designed to fit your own needs and wishes. Whether it’s an exotic cruise or a trip to your favorite resort, you will surely have the best experience.</p><a class="button5 button5-default-outline button5-nina button5-sm" href="#">learn more</a>
+                      <p class="text-spacing-sm">Our travel agency is ready to offer you an exciting vacation that is designed to fit your own needs and wishes. Whether it’s an exotic cruise or a trip to your favorite resort, you will surely have the best experience.</p><a class="button5 button5-default-outline button5-nina button5-sm" href="#"><router-link to="/flight">learn more</router-link></a>
                     </div>
                   </div>
                 </div>
@@ -157,7 +158,7 @@ import '@/site/css/fonts.css'
                     <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-5">
                       <h3>unique Travel Insights</h3>
                       <div class="divider divider-decorate"></div>
-                      <p class="text-spacing-sm">Our team is ready to provide you with unique weekly travel insights that include photos, videos, and articles about untravelled tourist paths. We know everything about the places you’ve never been to!</p><button class="button5 button5-default-outline button5-nina button5-sm" href="#">learn more</button>
+                      <p class="text-spacing-sm">Our team is ready to provide you with unique weekly travel insights that include photos, videos, and articles about untravelled tourist paths. We know everything about the places you’ve never been to!</p><button class="button5 button5-default-outline button5-nina button5-sm" href="#"><router-link to="/flight">learn more</router-link></button>
                     </div>
                   </div>
                 </div>
