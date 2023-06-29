@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted} from 'vue';
+import {onMounted, ref} from 'vue';
 import router from '@/router';
 import $ from 'jquery';
 import 'bootstrap';
@@ -93,7 +93,12 @@ const methods = {
 const setJump = () => {
   localStorage.setItem('jump', 1)
 }
+
+// 检验用户是否登录
+const isLoggedIn=ref(false);
+
 </script>
+
 
 <template>
   <html class="no-js" lang="en">
@@ -121,24 +126,21 @@ const setJump = () => {
                 <div class="navbar-wrap main-menu d-none d-lg-flex"
                      style="justify-content: center;justify-items: center"> <!--字体大小 navbar-wrap -->
                   <ul class="navigation">
-                    <li class="active">
+                    <li>
                       <router-link to="/flight">Home</router-link>
                     </li>
-                    <li class="menu-item-has-children"><router-link to="/bklist">Book</router-link>
-                      <ul class="submenu">
-                        <li><router-link to="/bklist">Booking List</router-link></li>
-                        <li><router-link to="/bkdtls">Booking Details</router-link></li>
-                      </ul>
-                    </li>
+                    <li><router-link to="/bklist">Book</router-link></li>
                     <li>
                       <router-link to="/attraction">Attraction</router-link>
                     </li>
                     <li>
                       <router-link to="/about">About Us</router-link>
-<!--                      <a href="">About Us</a>-->
                     </li>
-                    <li id="logo1">
+                    <li id="logo1" class="menu-item-has-children">
                       <router-link to="/userinfo"><div class="logo1"><img src="../../public/account.png" style="max-width: 30%;margin-top: -1.5vh"></div></router-link>
+                      <ul class="submenu" v-if="isLoggedIn">
+                        <li><router-link to="/login">Log Out</router-link></li>
+                      </ul>
                     </li>
                   </ul>
                 </div>

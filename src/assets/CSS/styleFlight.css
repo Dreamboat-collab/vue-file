@@ -3033,7 +3033,7 @@ label {
 	bottom: 0;
 	width: 100%;
 	height: 6px;
-	background-image: url(../img/blog/blog_item_line.png);
+	/*background-image: url(../img/blog/blog_item_line.png);*/
 	background-position: center;
 }
 .inner-blog-thumb {

@@ -8,66 +8,18 @@ import "@/assets/CSS/tiktok.css";
 import {onMounted, ref} from 'vue'
 import axios from "axios";
 import router from "@/router";
+import moment from "moment";
 const activeIndex = ref('1'); // 默认选中的菜单项
 function handleSelect(index) {
   activeIndex.value = index;
 }
-// 订单列表1
-const tableData1 = [
-
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-  },
-  {
-    date: '2016-05-08',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-  },
-  {
-    date: '2016-05-06',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-  },
-  {
-    date: '2016-05-07',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-  },
-]
 
 
-// 订单列表
+// 航班订单列表
 const tableData = ref([]);
+
+// 酒店订单列表
+const tableData1 = ref([]);
 
 // 用户的信息
 const userData = ref({
@@ -80,16 +32,6 @@ const userData = ref({
   point: 0
 });
 
-// 订单信息
-const order = ref({
-  flightId: '',
-  hotelId: '',
-  days:'',
-  // carId:null,
-  price: '',
-  type: '',
-  // point: 0
-});
 
 import { ElMessageBox, ElMessage } from 'element-plus';
 onMounted(() => {
@@ -136,8 +78,8 @@ onMounted(() => {
         console.log(error);
       });
 
-  // 获取用户订单信息
-  axios.get('/api/starAirlines/account/records', {
+  // 获取用户航班订单信息
+  axios.get('/api/starAirlines/account/flight_record', {
     headers: {
       'token': token
     }
@@ -148,24 +90,73 @@ onMounted(() => {
 
         const orders = [];
 
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            const orderData = data[key];
-            const order = {
-              flightId: orderData.flightId.toString(),
-              hotelId: orderData.hotelId.toString(),
-              days: orderData.days.toString(),
-              price: orderData.price.toString(),
-              type: orderData.type.toString()
-            };
-            orders.push(order);
+        for (const item of data) {
+          const flightInfo = item.flightInfo;
+          const recordInfo = item.recordInfo;
+          let type = '';
+          if (recordInfo.type === 1) {
+            type = 'Economy class';
+          } else if (recordInfo.type === 2) {
+            type = 'Business class';
+          } else if (recordInfo.type === 3) {
+            type = 'First class';
           }
+
+          const order = {
+            depart: flightInfo.depart.toString(),
+            arrival: flightInfo.arrival.toString(),
+            departTime: moment(flightInfo.departTime).format('YYYY-MM-DD HH:mm:ss').toString(),
+            arrivalTime: moment(flightInfo.arrivalTime).format('YYYY-MM-DD HH:mm:ss').toString(),
+            days: recordInfo.days.toString(),
+            price: recordInfo.price.toString(),
+            type: type,
+            updateTime: moment(recordInfo.updateTime).format('YYYY-MM-DD HH:mm:ss').toString(),
+          };
+
+          orders.push(order);
         }
+
         // 将订单信息传递到tableData中
         // tableData.push(...orders);
         tableData.value = orders;
-        // console.log(tableData);
-        // console.log(tableData1)
+        console.log(tableData);
+      })
+      .catch(error => {
+        // 请求失败处理逻辑
+        console.error(error);
+      });
+
+  // 获取用户酒店订单信息
+  axios.get('/api/starAirlines/account/hotel_record', {
+    headers: {
+      'token': token
+    }
+  })
+      .then(response => {
+        // 请求成功处理逻辑,订单信息赋值
+        const data = response.data.data;
+
+        const orders = [];
+
+        for (const item of data) {
+          const hotelInfo = item.hotelInfo;
+          const recordInfo = item.recordInfo;
+
+          const order = {
+            name: hotelInfo.name.toString(),
+            address: hotelInfo.address.toString(),
+
+            days: recordInfo.days.toString(),
+            price: recordInfo.price.toString(),
+            updateTime: moment(recordInfo.updateTime).format('YYYY-MM-DD HH:mm:ss').toString()
+          };
+
+          orders.push(order);
+        }
+
+        // 将订单信息传递到tableData1中
+        tableData1.value = orders;
+        console.log(tableData1);
       })
       .catch(error => {
         // 请求失败处理逻辑
@@ -325,9 +316,10 @@ const closeAvatarModal = () => {
         mode="horizontal"
         @select="handleSelect"
     >
-      <el-menu-item index="1" @click="handleSelect('1')">Account Information</el-menu-item>
-      <el-menu-item index="2" @click="handleSelect('2')">Order Information</el-menu-item>
-      <el-menu-item index="3" @click="handleSelect('3')">Alter Password</el-menu-item>
+      <el-menu-item index="1" @click="handleSelect('1')">Account information</el-menu-item>
+      <el-menu-item index="2" @click="handleSelect('2')">Flight information</el-menu-item>
+      <el-menu-item index="3" @click="handleSelect('3')">Hotel information</el-menu-item>
+      <el-menu-item index="4" @click="handleSelect('4')">Alter password</el-menu-item>
     </el-menu>
     <!--    账户信息-->
     <div v-show="activeIndex === '1'" >
@@ -347,7 +339,6 @@ const closeAvatarModal = () => {
           <template #label>
             <div class="cell-item">
               <el-icon :style="iconStyle">
-                <!--                <iphone/>-->
               </el-icon>
               Email
             </div>
@@ -379,7 +370,6 @@ const closeAvatarModal = () => {
           <template #label>
             <div class="cell-item">
               <el-icon :style="iconStyle">
-                <!--                <location/>-->
               </el-icon>
               Credit card
             </div>
@@ -406,28 +396,31 @@ const closeAvatarModal = () => {
           </template>
           <el-tag size="small">{{ userData.point }}</el-tag>
         </el-descriptions-item>
-        <!--        <el-descriptions-item>-->
-        <!--          <template #label>-->
-        <!--            <div class="cell-item">-->
-        <!--              <el-icon :style="iconStyle">-->
-        <!--                <office-building/>-->
-        <!--              </el-icon>-->
-        <!--              Address-->
-        <!--            </div>-->
-        <!--          </template>-->
-        <!--          No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province-->
-        <!--        </el-descriptions-item>-->
       </el-descriptions>
     </div>
 
-    <!--    订单信息-->
+    <!--    航班订单信息-->
     <div v-show="activeIndex === '2'" class="table-container">
-      <el-table :data="tableData" style="height: 250px; width:33vw">
-        <el-table-column fixed prop="flightId" label="Flightid" width="100" :label-align="center" :align="center"/>
-        <el-table-column prop="hotelId" label="Hotelid" width="100" :label-align="center" :align="center" />
+      <el-table :data="tableData" :default-sort="{ prop: 'departTime', order: 'descending' }" style="height: 250px; width:75vw">
+        <el-table-column fixed prop="depart" label="Depart" width="100" :label-align="center" :align="center"/>
+        <el-table-column prop="arrival" label="Arrival" width="100" :label-align="center" :align="center" />
+        <el-table-column prop="departTime" label="Departime" sortable width="180" :label-align="center" :align="center" />
+        <el-table-column prop="arrivalTime" label="Arrivaltime" width="180" :label-align="center" :align="center" />
+        <el-table-column prop="days" label="Days" width="120" :label-align="center" :align="center" />
+        <el-table-column prop="price" label="Price" width="120" :label-align="center" :align="center" />
+        <el-table-column prop="type" label="Type" width="120" :label-align="center" :align="center" />
+        <el-table-column prop="updateTime" label="Updatetime" width="190" :label-align="center" :align="center" />
+      </el-table>
+    </div>
+
+<!--    酒店订票信息-->
+    <div v-show="activeIndex === '3'" class="table-container">
+      <el-table :data="tableData1" :default-sort="{ prop: 'updateTime', order: 'descending' }" style="height: 250px; width:40vw">
+        <el-table-column fixed prop="name" label="Name" width="170" :label-align="center" :align="center"/>
+        <el-table-column prop="address" label="Address" width="100" :label-align="center" :align="center" />
         <el-table-column prop="days" label="Days" width="100" :label-align="center" :align="center" />
         <el-table-column prop="price" label="Price" width="100" :label-align="center" :align="center" />
-        <el-table-column prop="type" label="Type" width="120" :label-align="center" :align="center" />
+        <el-table-column prop="updateTime" sortable label="Updatetime" width="180" :label-align="center" :align="center" />
       </el-table>
     </div>
 
@@ -473,7 +466,7 @@ const closeAvatarModal = () => {
       </template>
     </el-dialog>
 
-    <div v-show="activeIndex === '3'">
+    <div v-show="activeIndex === '4'">
       <div class="container" style="margin-left: 34vw">
         <form action="#" class="form" id="form1" @submit="handleSubmit">
           <div class="row">
