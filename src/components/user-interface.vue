@@ -8,6 +8,9 @@ import "@/assets/CSS/tiktok.css";
 import {onMounted, ref} from 'vue'
 import axios from "axios";
 import router from "@/router";
+// 用户头像
+import {ElDialog, ElMessage, ElMessageBox} from 'element-plus';
+
 const activeIndex = ref('1'); // 默认选中的菜单项
 function handleSelect(index) {
   activeIndex.value = index;
@@ -91,50 +94,49 @@ const order = ref({
   // point: 0
 });
 
-import { ElMessageBox, ElMessage } from 'element-plus';
 onMounted(() => {
   // 获取密匙
   const token = localStorage.getItem('securityKey');
-  console.log(token)
+  // console.log(token)
   axios.get('/api/starAirlines/account', {
     headers: {
       'token': token
     }
   })
-      .then(response => {
-        // 请求成功处理逻辑
-        // console.log(response.data);
-        // 密匙为空，跳转到登陆界面
-        if (response.data.msg === 'NOT_LOGIN') {
-          console.log(response.data);
-          ElMessageBox.confirm('Not loggerd in. Do you want to skip to the login interface?', 'alert', {
-            confirmButtonText: 'Confirm',
-            cancelButtonText: 'Cancel',
-            type: 'warning'
-          })
-              .then(() => {
-                router.push({ path: '/login' });
-              })
-              .catch(() => {
-                // 用户点击取消按钮时的处理逻辑
-                ElMessage.info('Skip canceled');
-              });
-          return;
-        }
-        if (response.data.msg === 'success') {
-          const data = response.data.data;
-          // userData.value.id = data.id;
-          userData.value.username = data.username;
-          console.log(userData.value.username)
-          userData.value.email = data.email;
-          userData.value.phone = data.phone;
-          userData.value.point = data.point;
-        }
-      })
-      .catch(error => {
-        // 请求失败处理逻辑
-        console.log(error);
-      });
+    .then(response => {
+      // 请求成功处理逻辑
+      // console.log(response.data);
+      // 密匙为空，跳转到登陆界面
+      if (response.data.msg === 'NOT_LOGIN' &&  response.data===null) {
+        console.log(response.data);
+        ElMessageBox.confirm('Not loggerd in. Do you want to skip to the login interface?', 'alert', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        })
+            .then(() => {
+              router.push({ path: '/login' });
+            })
+            .catch(() => {
+              // 用户点击取消按钮时的处理逻辑
+              ElMessage.info('Skip canceled');
+            });
+        return;
+      }
+      if (response.data.msg === 'success') {
+        const data = response.data.data;
+        // userData.value.id = data.id;
+        userData.value.username = data.username;
+        console.log(userData.value.username)
+        userData.value.email = data.email;
+        userData.value.phone = data.phone;
+        userData.value.point = data.point;
+      }
+    })
+    .catch(error => {
+      // 请求失败处理逻辑
+      console.log(error);
+    });
 
   // 获取用户订单信息
   axios.get('/api/starAirlines/account/records', {
@@ -243,9 +245,6 @@ function savecard() {
     alert('Invalid card number. Please enter a valid 16-digit number.');
   }
 }
-
-// 用户头像
-import { ElDialog } from 'element-plus';
 
 const avatars = [
   require('@/assets/images/avatar1.jpg'),
