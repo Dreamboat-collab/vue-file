@@ -74,11 +74,11 @@
                   <div class="fw-link">
                     <ul>
                       <li style="width: 100%"><a href="https://github.com/hikeerer/vue-file/issues">
-                        <img src="code.png" style="width: 40px;vertical-align: middle;padding-right: 5px;padding-bottom: 5px;">
+                        <img src="@/assets/img/code.png" style="width: 40px;vertical-align: middle;padding-right: 5px;padding-bottom: 5px;">
                         Front-end project : github.com/hikeerer/vue-file/issues
                       </a></li>
                       <li style="width: 100%"><a href="https://github.com/Artemis-Zeus/star_airlines/issues">
-                        <img src="code.png" style="width: 40px;vertical-align: middle;padding-right: 5px;padding-bottom: 5px;">
+                        <img src="@/assets/img/code.png" style="width: 40px;vertical-align: middle;padding-right: 5px;padding-bottom: 5px;">
                         Back-end project : github.com/Artemis-Zeus/star_airlines/issues
                       </a></li>
                     </ul>

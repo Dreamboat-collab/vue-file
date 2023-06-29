@@ -24,6 +24,7 @@ import axios from "axios";
 import '@/assets/js/slick.min.js';
 import '@/assets/CSS/slick.css';
 import moment from "moment";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 //control dateTime
 const today = moment().format("YYYY-MM-DD")
@@ -61,6 +62,16 @@ const days = ref(1)
 //hotel result
 const len_hotels = ref(0)
 const hotels = ref([])
+
+//status param
+const flight_id=ref()
+
+//status result
+const open = (status) => {
+  ElMessageBox.alert(status, 'Status', {
+    confirmButtonText: 'OK',
+  })
+}
 
 //view controller
 const view = ref('air')//air,hotel,status
@@ -171,6 +182,48 @@ const showHotelInfo = () => {
 // -------------------------------
 //     获取航班状态
 // -------------------------------
+const showStatusInfo = () => {
+  console.log(flight_id.value)
+  if (flight_id.value==null){
+    return
+  }
+  axios.get('/api/starAirlines/flight', {
+    params: {
+      id: flight_id.value
+    }
+  })
+      .then(response => {
+        console.log(response.data.data)
+        let temp = response.data.data
+        if(temp==null){
+          open('There is no record for this flight')
+          return
+        }
+        let time_diff=-moment().diff(moment(temp['departTime']),'s')
+        let arrival_check=-moment().diff(moment(temp['arrivalTime']),'s')
+        let message=''
+        if(time_diff>3600){
+          message='The flight has not arrived at the check-in time'
+        }
+        else if (time_diff>0){
+          message='The flight is checking in'
+        }
+        else {
+          if (arrival_check>0){
+            message='The flight has taken off'
+          }
+          else {
+            message='The flight has arrived'
+          }
+        }
+        open(message)
+
+
+
+      })
+}
+
+
 
 
 onMounted(() => {
@@ -2248,14 +2301,14 @@ onMounted(() => {
                           <ul>
                             <li>
                               <div class="form-grp">
-                                <input type="text" placeholder="Flight No.">
+                                <input type="text" placeholder="Flight No." v-model="flight_id">
                               </div>
                             </li>
 
                           </ul>
                         </form>
                         <div class="content-bottom">
-                          <a href="booking-details.html" class="btn">Show Flight Status <i
+                          <a @click="showStatusInfo" class="btn">Show Flight Status <i
                               class="flaticon-flight-1"></i></a>
                         </div>
                       </div>
@@ -2274,7 +2327,7 @@ onMounted(() => {
     <div class="booking-list-area">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-27 order-2 order-xl-0" v-if="view=='air'"> <!--filter列-->
+          <div class="col-27 order-2 order-xl-0"  v-if="view==='air'"> <!--filter列-->
             <aside class="booking-sidebar">
               <div class="widget filters">
                 <h2 class="title">filters</h2>
@@ -2292,7 +2345,7 @@ onMounted(() => {
               </div>
             </aside>
           </div>
-          <div class="col-73" v-if="len_flight===0 & view=='air'">- NULL -</div>
+          <div class="col-73" v-if="len_flight===0 & view==='air'">- NULL -</div>
           <div class="col-73" v-if="view==='air'"><!--航班结果列-->
             <div class="booking-list-item" v-for="item in flights_filter" :key="item.id"><!--其中一个航班-->
               <div class="booking-list-item-inner">
@@ -2349,7 +2402,7 @@ onMounted(() => {
               </div>
             </div>
           </div>
-          <div class="col-73" v-if="len_hotels===0 & view=='hotel'">- NULL -</div>
+          <div class="col-73" v-if="len_hotels===0 & view==='hotel'">- NULL -</div>
           <div class="col-73" v-if="view==='hotel'"><!--航班结果列-->
             <div class="booking-list-item" v-for="item in hotels" :key="item.id"><!--其中一个航班-->
               <div class="booking-list-item-inner">
@@ -2379,7 +2432,7 @@ onMounted(() => {
                   </ul>
                   <div class="flight-price">
                     <h4 class="title">US$ {{ item['price'] }}.00</h4>
-                    <router-link to="/bkdtls" class="btn">Select <i class="flaticon-flight-1"></i></router-link>
+                    <router-link :to="{name:'bkdtls',params: { name:item['name'],id: item['id'],days:days}}" class="btn">Select <i class="flaticon-flight-1"></i></router-link>
                   </div>
                 </div>
                 <div class="booking-list-bottom">
