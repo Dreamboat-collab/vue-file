@@ -13,8 +13,32 @@ import '@/assets/CSS/default.css';
 import '@/assets/CSS/styleFlight.css';
 import '@/assets/CSS/responsive.css';
 import "@/assets/js/jquery-ui.min.js";
-
+import axios from "axios";
+import {ElMessage, ElMessageBox} from "element-plus";
+const isLoggedIn=ref(false);
 onMounted(() => {
+
+  // 检验用户是否登录
+  const token = localStorage.getItem('securityKey');
+  axios.get('/api/starAirlines/account', {
+    headers: {
+      'token': token
+    }
+  })
+      .then(response => {
+        // 请求成功处理逻辑
+        // console.log('success')
+        console.log(response.data);
+        // 密匙为空，跳转到登陆界面
+        if (response.data.msg === 'success') {
+          isLoggedIn.value=true;
+          console.log(isLoggedIn.value);
+        }
+      })
+      .catch(error => {
+        // 请求失败处理逻辑
+        console.log(error);
+      });
 
 // 这里是原来的 JavaScript 代码 main1.js
   (function ($) {
@@ -94,8 +118,6 @@ const setJump = () => {
   localStorage.setItem('jump', 1)
 }
 
-// 检验用户是否登录
-const isLoggedIn=ref(false);
 
 </script>
 
