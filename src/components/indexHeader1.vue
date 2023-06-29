@@ -121,7 +121,7 @@ const setJump = () => {
                 <div class="navbar-wrap main-menu d-none d-lg-flex"
                      style="justify-content: center;justify-items: center"> <!--字体大小 navbar-wrap -->
                   <ul class="navigation">
-                    <li class="active">
+                    <li>
                       <router-link to="/flight">Home</router-link>
                     </li>
                     <li class="menu-item-has-children"><router-link to="/bklist">Book</router-link>
