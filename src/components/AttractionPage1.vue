@@ -28,36 +28,21 @@ import bg0 from "@/assets/img/bg.jpg";
     <div class="page-header1 page-header1-small">
       <div class="page-header1-image" data-parallax="true" style="background-image: url('../france.jpg');">
       </div>
-      <div class="content-center">
-        <div class="container">
-          <h1 class="title">This is our great company.</h1>
-          <div class="text-center">
-            <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round">
-              <i class="fab fa-facebook-square"></i>
-            </a>
-            <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#pablo" class="btn1 btn1-primary btn1-icon btn1-round">
-              <i class="fab fa-google-plus"></i>
-            </a>
-          </div>
-        </div>
-      </div>
+
     </div>
     <div class="section section-about-us">
       <div class="container">
         <div class="row">
           <div class="col-md-8 ml-auto mr-auto text-center">
-            <h2 class="title">Who we are?</h2>
-            <h5 class="description">According to the National Oceanic and Atmospheric Administration, Ted, Scambos, NSIDClead scentist, puts the potentially record low maximum sea ice extent tihs year down to low ice extent in the Pacific and a late drop in ice extent in the Barents Sea.</h5>
+            <h2 class="title">Paris</h2>
+            <h5 class="description">France is a country full of charm and history, known worldwide for its romantic atmosphere, fine art, and stunning landscapes. Whether you're a culture seeker, food lover or nature explorer, France has something for your travel needs.</h5>
           </div>
         </div>
         <div class="separator separator-primary"></div>
         <div class="section-story-overview">
           <div class="row">
             <div class="col-md-6">
-              <div class="image-container image-left" style="background-image: url('src/assets/bg.jpg')">
+              <div class="image-container image-left" style="background-image: url('../france1.jpg')">
                 <!-- First image on the left side -->
                 <p class="blockquote blockquote-primary">"Over the span of the satellite record, Arctic sea ice has been declining significantly, while sea ice in the Antarctichas increased very slightly"
                   <br>
@@ -66,18 +51,19 @@ import bg0 from "@/assets/img/bg.jpg";
                 </p>
               </div>
               <!-- Second image on the left side of the article -->
-              <div class="image-container" style="background-image: url('../assets/img/images/sharm.jpg')"></div>
+              <div class="image-container" style="background-image: url('../france.jpg')"></div>
             </div>
             <div class="col-md-5">
               <!-- First image on the right side, above the article -->
-              <div class="image-container image-right" style="background-image: url('../assets/img/images/france.jpg')"></div>
-              <h3>So what does the new record for the lowest level of winter ice actually mean</h3>
-              <p>The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever happens with climate change. Even if the Arctic continues to be one of the fastest-warming regions of the world, it will always be plunged into bitterly cold polar dark every winter. And year-by-year, for all kinds of natural reasons, there’s huge variety of the state of the ice.
+              <div class="image-container image-right" style="background-image: url('../france.jpg')"></div>
+              <h3>France is a country full of charm and history, known worldwide for its romantic atmosphere, fine art, and stunning landscapes. Whether you're a culture seeker, food lover or nature explorer, France has something for your travel needs.</h3>
+              <p>First, let's come to Paris, the capital of France. Paris is the capital of romance and is home to one of the most famous landmarks in the world, the Eiffel Tower. You can climb the Eiffel Tower for a breathtaking view of the entire city. At the Louvre, you can admire one of the world's greatest works of art, such as the Mona Lisa. Paris also has many beautiful churches, museums and parks, such as Notre-Dame, the Musée d'Orsay and Versailles, all worth a visit.
               </p>
               <p>
-                For a start, it does not automatically follow that a record amount of ice will melt this summer. More important for determining the size of the annual thaw is the state of the weather as the midnight sun approaches and temperatures rise. But over the more than 30 years of satellite records, scientists have observed a clear pattern of decline, decade-by-decade.
+                In addition to Paris, there are many other incredible cities and regions in France. Nice is a famous seaside resort in France, with a sunny Mediterranean coastline and stunning beaches. Provence is known for its pleasant countryside scenery and lavender fields, where you can experience the tranquil French countryside life. France is also known for its world-class cuisine. You can taste a delicious selection of cheeses, breads, wines and traditional French dishes. The cafes and restaurants of Paris offer a variety of exquisite French cuisine to satisfy your taste buds.
               </p>
-              <p>The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever happens with climate change. Even if the Arctic continues to be one of the fastest-warming regions of the world, it will always be plunged into bitterly cold polar dark every winter. And year-by-year, for all kinds of natural reasons, there’s huge variety of the state of the ice.
+              <p>
+                If you love nature and the outdoors, France also has a lot to offer. The Alps are a paradise for ski and mountaineering enthusiasts, while the Burgundy region is known for its beautiful vineyards and famous wine regions. The coastline of the Brittany region is picturesque and offers a wealth of beach activities and water sports. Whether you're strolling through the city, exploring historical monuments, or enjoying a peaceful time in the countryside, France offers you a unique and unforgettable travel experience. Its rich and diverse cultural heritage, cuisine, natural beauty and hospitable people will make you fall in love with this beautiful country. Whether you are coming to France for the first time or coming back, you will be captivated by the charm of France.
               </p>
             </div>
           </div>
