@@ -19,8 +19,20 @@ import IndexHeader1 from "@/components/indexHeader1.vue";
 import IndexFooter1 from "@/components/indexFooter1.vue";
 import {useRoute} from "vue-router";
 const route=useRoute()
-const {params}=route
-console.log(params)
+const {query}=route
+const total=ref(0)
+const Scenes=ref()
+const long=ref('day')
+if(query['days']){
+  total.value=query['price']*query['days']+30
+  Scenes.value='Room'
+  if(query['days']>1)
+    long.value='days'
+}else {
+  total.value=query['price']*1+30
+  Scenes.value='Ticket'
+}
+console.log(query)
 
 
 
@@ -2037,7 +2049,7 @@ onMounted(() => {
                   </div>
                 </div>
                 <div class="form-grp checkbox-grp">
-                  <input type="checkbox" id="checkbox">
+                  <input type="checkbox" checked id="checkbox">
                   <label for="checkbox">Accept the Star airlines terms of service</label>
                 </div>
               </form>
@@ -2048,8 +2060,9 @@ onMounted(() => {
               <h2 class="main-title">Booking Info</h2>
               <div class="widget">
                 <ul class="flight-info">
-                  <li><p>12:0 (DEK) <span>Dubai</span></p></li>
-                  <li><p>16:30 (DEK) <span>istanbul</span></p></li>
+                  <li><p>{{ query['depart'] }} <span>{{ query['departTime'] }}</span></p></li>
+                  <li><p>{{query['name']}}<span v-if="query['days']">{{query['days']}} {{ long }}</span><span>{{query['grade']}}</span></p></li>
+                  <li><p>{{ query['arrival']}}<span>{{ query['arrivalTime'] }}</span></p></li>
                 </ul>
               </div>
               <div class="widget">
@@ -2062,11 +2075,11 @@ onMounted(() => {
                 </div>
                 <div class="price-summary-detail">
                   <ul>
-                    <li>Adult x 1 <span>$1,056</span></li>
-                    <li>Tax x 1 <span>$35</span></li>
-                    <li>Total Airfare: <span>$1,091</span></li>
-                    <li>Discount<span>- $110</span></li>
-                    <li>Total Payable<span>$981.00</span></li>
+                    <li>Handling Fee <span>$30.00</span></li>
+                    <li>{{ Scenes }} x 1 <span>${{query['price']}}</span></li>
+                    <li>Total Airfare: <span>{{total}}.00</span></li>
+                    <li>Discount<span>- $0.00</span></li>
+                    <li>Total Payable<span>${{ total }}.00</span></li>
                   </ul>
                   <a href="#" class="btn">Pay now</a>
                 </div>

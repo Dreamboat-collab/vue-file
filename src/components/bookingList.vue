@@ -25,6 +25,10 @@ import '@/assets/js/slick.min.js';
 import '@/assets/CSS/slick.css';
 import moment from "moment";
 import {ElMessage, ElMessageBox} from "element-plus";
+import {useRoute} from "vue-router";
+const route=useRoute()
+const {query}=route
+
 
 //control dateTime
 const today = moment().format("YYYY-MM-DD")
@@ -72,6 +76,10 @@ const open = (status) => {
     confirmButtonText: 'OK',
   })
 }
+
+
+
+
 
 //view controller
 const view = ref('air')//air,hotel,status
@@ -2090,10 +2098,27 @@ onMounted(() => {
     depart.value = depart_list.value[0]
     arrival.value = arrival_list.value[0]
     city.value = depart_list.value[0]
+    //query controller
+    let de=query['depart']
+    for (let i = 0; i < depart_list.value.length; i++) {
+      if (depart_list.value[i]==de){
+        depart.value=depart_list.value[i]
+        break
+      }
+    }
+    let ar=query['arrival']
+    for (let i = 0; i < arrival_list.value.length; i++) {
+      if (arrival_list.value[i]==ar){
+        arrival.value=arrival_list.value[i]
+        break
+      }
+    }
+    showFlightInfo()
   })
 
 });
 
+dateTime.value=moment(query['date']).format('YYYY-MM-DD')
 </script>
 
 <template>
@@ -2367,7 +2392,7 @@ onMounted(() => {
                   </ul>
                   <div class="flight-price">
                     <h4 class="title">US$ {{ item['price'] }}.00</h4>
-                    <router-link to="/bkdtls" class="btn">Select <i class="flaticon-flight-1"></i></router-link>
+                    <router-link :to="{name:'bkdtls',query: { depart:item['depart'],name: item['name'],arrival:item['arrival'],price:item['price'],departTime:item['depart_date'],arrivalTime: item['arrival_date'],grade:item['grade'],id:item['id']}}" class="btn">Select <i class="flaticon-flight-1"></i></router-link>
                   </div>
                 </div>
                 <div class="booking-list-bottom">
@@ -2432,7 +2457,7 @@ onMounted(() => {
                   </ul>
                   <div class="flight-price">
                     <h4 class="title">US$ {{ item['price'] }}.00</h4>
-                    <router-link :to="{name:'bkdtls',params: { name:item['name'],id: item['id'],days:days}}" class="btn">Select <i class="flaticon-flight-1"></i></router-link>
+                    <router-link :to="{name:'bkdtls',query: { name:item['name'],id: item['id'],days:days,price:item['price']}}" class="btn">Select <i class="flaticon-flight-1"></i></router-link>
                   </div>
                 </div>
                 <div class="booking-list-bottom">
