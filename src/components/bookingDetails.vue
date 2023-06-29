@@ -18,25 +18,198 @@ import "@/assets/js/jquery-ui.min.js";
 import IndexHeader1 from "@/components/indexHeader1.vue";
 import IndexFooter1 from "@/components/indexFooter1.vue";
 import {useRoute} from "vue-router";
-const route=useRoute()
-const {query}=route
-const total=ref(0)
-const Scenes=ref()
-const long=ref('day')
-if(query['days']){
-  total.value=query['price']*query['days']+30
-  Scenes.value='Room'
-  if(query['days']>1)
-    long.value='days'
-}else {
-  total.value=query['price']*1+30
-  Scenes.value='Ticket'
-}
-console.log(query)
+import axios from "axios";
+import {ElMessage, ElMessageBox, ElNotification} from "element-plus";
+import router from "@/router";
 
+const route = useRoute()
+const {query} = route
+const total = ref(0)
+const Scenes = ref()
+const long = ref('day')
+const token_key=localStorage.getItem('securityKey');
+if (query['days']) {
+  total.value = query['price'] * query['days'] + 30
+  Scenes.value = 'Room'
+  if (query['days'] > 1)
+    long.value = 'days'
+} else {
+  total.value = query['price'] * 1 + 30
+  Scenes.value = 'Ticket'
+}
+// 用户的信息
+const userData = ref({
+  id: null,
+  username: '',
+  // password: null,
+  email: '',
+  phone: null,
+  cardNum: null,
+  point: 0
+});
+const gift = false
+
+const addPhone = () => {
+  ElMessageBox.prompt('Please input your phone', 'Tip', {
+    confirmButtonText: 'OK',
+    cancelButtonText: 'Cancel',
+  })
+      .then(({value}) => {
+        userData.value.phone = value
+        ElMessage({
+          type: 'success',
+          message: `Your phone is:${value}`,
+        })
+        axios.post('/api/starAirlines/account', {
+          phone: value
+        }, {
+          headers: {
+            'token': token_key
+          }
+        })
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+      })
+}
+
+const addCard = () => {
+  ElMessageBox.prompt('Please input your phone', 'Tip', {
+    confirmButtonText: 'OK',
+    cancelButtonText: 'Cancel',
+  })
+      .then(({value}) => {
+        userData.value.cardNum = value
+        ElMessage({
+          type: 'success',
+          message: `Your phone is:${value}`,
+        })
+        axios.post('/api/starAirlines/account', {
+          cardNum: value
+        }, {
+          headers: {
+            'token': token_key
+          }
+        })
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+      })
+}
+
+
+//提交表單
+const submit = () => {
+  let out = false
+  if (userData.value.phone == null) {
+    addPhone()
+    out = true
+  }
+  if (userData.value.cardNum == null) {
+    addCard()
+    out = true
+  }
+  if (out) return
+  let type
+  switch (query['grade']){
+    case 'Economy':
+      type=1
+      break
+    case 'Business':
+      type=1
+      break
+    case 'First':
+      type=1
+      break
+  }
+  let usePoint=0
+  if (gift) usePoint=1
+  console.log({
+    userId:userData.value.id,
+    flightId:query['flightId'],
+    hotelId:query['hotelId'],
+    days:query['days'],
+    price:total.value,
+    // type:type,
+    usePoint:usePoint
+  })
+  axios.post('/api/starAirlines/book', {
+    userId:userData.value.id,
+    flightId:query['flightId'],
+    hotelId:query['hotelId'],
+    days:query['days'],
+    price:total.value,
+    // type:type,
+    usePoint:usePoint
+  }, {
+    headers: {
+      'token': token_key
+    }
+  })
+      .then(response => {
+        console.log(response)
+      })
+}
+
+
+const infoAlter = () => {
+  ElNotification({
+    title: 'Missing Information',
+    message: "Supplement information after submission",
+    duration: 8000,
+    position: 'bottom-left',
+  })
+}
 
 
 onMounted(() => {
+  const token = localStorage.getItem('securityKey');
+  axios.get('/api/starAirlines/account', {
+    headers: {
+      'token': token
+    }
+  })
+      .then(response => {
+        // 请求成功处理逻辑
+        // console.log(response.data);
+        // 密匙为空，跳转到登陆界面
+        if (response.data.msg === 'NOT_LOGIN') {
+          console.log(response.data);
+          ElMessageBox.alert('Not logged in. Please login first.', 'Alert', {
+            showCloseBtn: false,
+            showClose: false,
+            type: 'warning',
+          })
+              .then(() => {
+                router.push({path: '/login'});
+              })
+          return;
+        }
+        if (response.data.msg === 'success') {
+          const data = response.data.data;
+          // console.log(data)
+          userData.value.id = data.id;
+          userData.value.username = data.username;
+          // console.log(userData.value.username)
+          userData.value.email = data.email;
+          userData.value.phone = data.phone;
+          userData.value.point = data.point;
+          userData.value.cardNum = data.cardNum;
+          if (data.phone == null || data.cardNum == null) {
+            infoAlter()
+          }
+        }
+      })
+      .catch(error => {
+        // 请求失败处理逻辑
+        console.log(error);
+      });
   // const jump = localStorage.getItem('jump')
   // if (jump == '1') {
   //   localStorage.setItem('jump', 0)
@@ -1931,7 +2104,9 @@ onMounted(() => {
               <h2 class="title">Booking Details</h2>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><router-link to="/flight">Home</router-link></li>
+                  <li class="breadcrumb-item">
+                    <router-link to="/flight">Home</router-link>
+                  </li>
                   <li class="breadcrumb-item active" aria-current="page">Booking Details</li>
                 </ol>
               </nav>
@@ -1954,7 +2129,8 @@ onMounted(() => {
                 <h2 class="title">Customer Details: Please fill in with valid information.</h2>
                 <div class="customer-progress-wrap">
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0"
+                    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50"
+                         aria-valuemin="0"
                          aria-valuemax="100"></div>
                   </div>
                   <div class="customer-progress-step">
@@ -2000,7 +2176,7 @@ onMounted(() => {
                         <i class="flaticon-user-1"></i>
                       </div>
                       <div class="form">
-                        <input type="number" placeholder="UserName">
+                        <input type="text" placeholder="UserName" :value="userData['username']" disabled>
                       </div>
                     </div>
                   </div>
@@ -2010,7 +2186,7 @@ onMounted(() => {
                         <i class="flaticon-telephone-call"></i>
                       </div>
                       <div class="form">
-                        <input type="number" placeholder="Mobile Number *">
+                        <input type="number" placeholder="Mobile Number *" :value="userData['phone']" disabled>
                       </div>
                     </div>
                   </div>
@@ -2021,7 +2197,8 @@ onMounted(() => {
                       </div>
                       <div class="form">
                         <label for="email">Your Email</label>
-                        <input type="email" id="email" placeholder="youinfo@gmail.com">
+                        <input type="email" id="email" placeholder="youinfo@gmail.com" :value="userData['email']"
+                               disabled>
                       </div>
                     </div>
                   </div>
@@ -2031,19 +2208,22 @@ onMounted(() => {
                         <i class="flaticon-five-stars"></i>
                       </div>
                       <div class="form">
-                        <input type="text" placeholder="Credit Card">
+                        <input type="text" placeholder="Credit Card" :value="userData['cardNum']" disabled>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="optional-item">
+                  <span style="display:inline-block;zoom: .8;width: 100%;text-align: left;text-indent: 2em">Now you have <sapn
+                      style="color: #57112f;font-weight: bold">{{ userData['point'] }}</sapn> points.</span>
                   <div class="form-grp">
                     <div class="form">
                       <select id="optional" name="select" class="form-select" aria-label="Default select example">
-                        <option selected hidden disabled value="">Redemption (Use 50 points)</option>
-                        <option>Blanket</option>
-                        <option>Gift card</option>
-                        <option>Canvas bag</option>
+                        <option selected hidden disabled value="">Redeem points for gifts</option>
+                        <option :value="gift=false">None</option>
+                        <option :value="gift=true">Blanket</option>
+                        <option :value="gift=true">Gift card</option>
+                        <option :value="gift=true">Canvas bag</option>
                       </select>
                     </div>
                   </div>
@@ -2061,8 +2241,10 @@ onMounted(() => {
               <div class="widget">
                 <ul class="flight-info">
                   <li><p>{{ query['depart'] }} <span>{{ query['departTime'] }}</span></p></li>
-                  <li><p>{{query['name']}}<span v-if="query['days']">{{query['days']}} {{ long }}</span><span>{{query['grade']}}</span></p></li>
-                  <li><p>{{ query['arrival']}}<span>{{ query['arrivalTime'] }}</span></p></li>
+                  <li><p>{{ query['name'] }}<span v-if="query['days']">{{ query['days'] }} {{
+                      long
+                    }}</span><span>{{ query['grade'] }}</span></p></li>
+                  <li><p>{{ query['arrival'] }}<span>{{ query['arrivalTime'] }}</span></p></li>
                 </ul>
               </div>
               <div class="widget">
@@ -2076,12 +2258,12 @@ onMounted(() => {
                 <div class="price-summary-detail">
                   <ul>
                     <li>Handling Fee <span>$30.00</span></li>
-                    <li>{{ Scenes }} x 1 <span>${{query['price']}}</span></li>
-                    <li>Total Airfare: <span>{{total}}.00</span></li>
+                    <li>{{ Scenes }} x 1 <span>${{ query['price'] }}</span></li>
+                    <li>Total Airfare: <span>{{ total }}.00</span></li>
                     <li>Discount<span>- $0.00</span></li>
                     <li>Total Payable<span>${{ total }}.00</span></li>
                   </ul>
-                  <a href="#" class="btn">Pay now</a>
+                  <a @click="submit" class="btn">Pay now</a>
                 </div>
               </div>
             </aside>

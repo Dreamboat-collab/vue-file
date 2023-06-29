@@ -45,13 +45,12 @@ const toLogin=()=>{
   router.push({path: '/login'})
 }
 const alertNum=()=>{
-  ElMessageBox.alert('+86 114 5141 9198', 'Our common WeChat account is:', {
+  ElMessageBox.alert('+86 114 5141 9198', 'WeChat account', {
     confirmButtonText: 'Confirm',
     type: 'success',
+    showCloseBtn:false,
+    showClose:false
   })
-  setTimeout(() => {
-    ElMessageBox.close();
-  }, 5000);
 }
 
 

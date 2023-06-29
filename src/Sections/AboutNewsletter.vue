@@ -12,16 +12,15 @@ onMounted(() => {
   setMaterialInput();
 });
 const alertNum=()=> {
-  ElMessageBox.alert('11451419198@van.com', 'Please send your resume to the following email', {
+  ElMessageBox.alert('11451419198@van.com', 'Email', {
     confirmButtonText: 'Confirm',
-    type: 'success'//success，error，info和warning
+    showCloseBtn:false,
+    showClose:false,
+    // type: 'info'//success，error，info和warning
     // callback: action => {
     //   window.location.href = "/login"
     // }
   })
-  setTimeout(() => {
-    ElMessageBox.close();
-  }, 5000);
 }
 </script>
 <template>

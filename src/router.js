@@ -10,7 +10,7 @@ const routes = [
     { path: '/about', component: () => import('@/components/AboutView.vue') },
     { path: '/bklist/:depart?/:arrival?/:date?', name:'bklist',component: () => import('@/components/bookingList.vue') },
     { path: '/bkdtls/:hotelId?/:flightId?/:depart?/:arrival?/:days?/:price?/:name?/:deaprtTime?/:arrivalTime?/:grade?',name:'bkdtls', component: () => import('@/components/bookingDetails.vue') },
-    { path: '/userinfo1', component: () => import('@/components/userinterface_n.vue') },
+    // { path: '/userinfo1', component: () => import('@/components/userinterface_n.vue') },
     { path: '/attraction', component: () => import('@/components/AttractionPage.vue') },
     { path: '/attraction1', component: () => import('@/components/AttractionPage1.vue') },
     // 其他路由配置项
