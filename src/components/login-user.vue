@@ -78,10 +78,10 @@
           <form action="#" class="form" id="form1" @submit="handleSubmit">
             <h2 class="form__title">Register</h2>
             <input type="text" placeholder="Username" class="input" v-model="user.username"/>
-            <input type="email" placeholder="Email" class="input" v-model="user.email"/>
+            <input type="email" placeholder="Email" class="input" v-model="user.Email"/>
             <!-- 输入密码时的提示框,输入密码 -->
             <el-tooltip content="passwords with 8 or more digits">
-              <input type="password" placeholder="Password" class="input" v-model="user.password"/>
+              <input type="password" placeholder="Password" class="input" v-model="user.Password"/>
             </el-tooltip>
             <input type="password" placeholder="Confirm Password" class="input" v-model="user.confirmPassword" @input="checkPasswordMatch" @focus="showIcon = true"/>
             <div class="input-container">
@@ -190,7 +190,7 @@ import IndexHeader1 from "@/components/indexHeader1.vue";
 const showIcon=ref(false);
 const passwordsMatch = ref(false);
 function checkPasswordMatch() {
-  passwordsMatch.value = user.value.password === user.value.confirmPassword;
+  passwordsMatch.value = user.value.Password === user.value.confirmPassword;
 }
 
 //JS
