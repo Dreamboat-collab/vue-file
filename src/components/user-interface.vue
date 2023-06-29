@@ -11,11 +11,11 @@ import router from "@/router";
 import moment from "moment";
 // 用户头像
 import {ElDialog, ElMessageBox} from 'element-plus';
-
 const activeIndex = ref('1'); // 默认选中的菜单项
 function handleSelect(index) {
   activeIndex.value = index;
 }
+
 
 
 // 航班订单列表
@@ -244,7 +244,6 @@ const avatars = [
 ];
 const selectedAvatar = ref(require('@/assets/images/avatar1.jpg'));
 const showAvatarModal = ref(false);
-
 const userStore = inject('userStore');
 
 const selectAvatar = (index) => {
@@ -291,7 +290,7 @@ const closeAvatarModal = () => {
       <!--      头像区域-->
       <div>
         <div class="pic" @click="showAvatarModal = true">
-          <img :src="selectedAvatar" alt="Avatar" />
+          <img :src="userStore.avatar" alt="Avatar" />
         </div>
         <el-dialog
             title="Choose a avatar"
