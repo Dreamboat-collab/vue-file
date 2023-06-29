@@ -1,6 +1,6 @@
 <template>
   <div class="responsive-component">
-    <div style="background-color: #1f252e ;height: 12vh;width: 100%;position: absolute;top: 0">
+    <div style="background-color: #1f252e ;height: 13.5vh;width: 100%;position: absolute;top: 0;">
       <index-header1 ></index-header1>
     </div>
     <div id="login">
@@ -147,8 +147,8 @@
         </el-dialog>
 
         <!--      忘记密码-->
-        <el-dialog  v-model="centerDialogVisible8" class="dialog-mistake" center :z-index="9999" style="width: 35vw;height: 30vh;margin-top: 15%">
-          <input type="email" placeholder="Please input your email" class="input" style="width: 30vw;height: 2vh"/>
+        <el-dialog  v-model="centerDialogVisible8" class="dialog-mistake" center :z-index="9999" style="width: 35vw;height: 34vh;margin-top: 15%">
+          <input type="email" placeholder="Please input your email" class="input" style="width: 30vw;height: 3vh"/>
           <p style="margin-top: 2vh; text-align: center;">We will send identifying code to your emial</p>
           <template #footer>
         <span class="dialog-footer">

@@ -10,7 +10,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import slick from 'slick-carousel';
 //import '@/assets/js/slick.min.js';
-createApp(App).use(ElementPlus).use(router).use(bootstrap).use($).use(slick).mount('#app')
+import { provideUserStore } from './userStore';
+createApp(App).use(ElementPlus).use(router).use(bootstrap).use($).use(slick).provide('userStore', provideUserStore()).mount('#app')
 
 
 
