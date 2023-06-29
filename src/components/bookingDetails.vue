@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted} from 'vue';
+import {onMounted, ref} from 'vue';
 import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,6 +17,12 @@ import '@/assets/js/jquery.odometer.min.js';
 import "@/assets/js/jquery-ui.min.js";
 import IndexHeader1 from "@/components/indexHeader1.vue";
 import IndexFooter1 from "@/components/indexFooter1.vue";
+import {useRoute} from "vue-router";
+const route=useRoute()
+const {params}=route
+console.log(params)
+
+
 
 onMounted(() => {
   // const jump = localStorage.getItem('jump')
@@ -1879,7 +1885,6 @@ onMounted(() => {
 
   })($);
 });
-
 </script>
 
 <template>
@@ -1932,7 +1937,6 @@ onMounted(() => {
           <div class="col-12">
             <div class="customer-details-content">
               <div class="icon">
-                <img src="assets/img/icon/customer_det_icon.jpg" alt="">
               </div>
               <div class="content">
                 <h2 class="title">Customer Details: Please fill in with valid information.</h2>
@@ -2044,7 +2048,7 @@ onMounted(() => {
               <h2 class="main-title">Booking Info</h2>
               <div class="widget">
                 <ul class="flight-info">
-                  <li><img src="assets/img/icon/sidebar_flight_icon.jpg" alt=""> <p>12:0 (DEK) <span>Dubai</span></p></li>
+                  <li><p>12:0 (DEK) <span>Dubai</span></p></li>
                   <li><p>16:30 (DEK) <span>istanbul</span></p></li>
                 </ul>
               </div>
