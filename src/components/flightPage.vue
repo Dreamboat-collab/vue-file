@@ -2175,7 +2175,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
               <div class="col-sm-6">
                 <div class="flight-offer-item offer-item-two">
                   <div class="flight-offer-thumb">
-                    <img src="../assets/img/images/durban.jpg" alt="">
+                    <img src="../assets/img/images/boston.jpg" alt="">
                   </div>
                   <div class="flight-offer-content">
                     <h2 class="title">{{ departs[2] }} to {{ arrivals[2] }}</h2>
@@ -2197,7 +2197,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
               <div class="col-sm-6">
                 <div class="flight-offer-item offer-item-two">
                   <div class="flight-offer-thumb">
-                    <img src="../assets/img/images/tokyo.jpg" alt="">
+                    <img src="../assets/img/images/durban.jpg" alt="">
                   </div>
                   <div class="flight-offer-content">
                     <h2 class="title">{{ departs[1] }} to {{ arrivals[1] }}</h2>
@@ -2219,7 +2219,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
               <div class="col-sm-6">
                 <div class="flight-offer-item offer-item-two">
                   <div class="flight-offer-thumb">
-                    <img src="../assets/img/images/paris.jpg" alt="">
+                    <img src="../assets/img/images/tokyo.jpg" alt="">
                   </div>
                   <div class="flight-offer-content">
                     <h2 class="title">{{ departs[0] }} to {{ arrivals[0] }}</h2>
@@ -2241,7 +2241,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
               <div class="col-sm-6">
                 <div class="flight-offer-item offer-item-two">
                   <div class="flight-offer-thumb">
-                    <img src="../assets/img/images/brussels.jpg" alt="">
+                    <img src="../assets/img/images/baku.jpg" alt="">
                   </div>
                   <div class="flight-offer-content">
                     <h2 class="title">{{ departs[4] }} to {{ arrivals[4] }}</h2>
