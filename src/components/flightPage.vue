@@ -2079,6 +2079,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
     </section>
     <!-- slider-area-end -->
 
+
     <!-- booking-area -->
     <div class="booking-area">
       <div class="container">
