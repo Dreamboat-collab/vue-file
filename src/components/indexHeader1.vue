@@ -14,7 +14,7 @@ import '@/assets/CSS/styleFlight.css';
 import '@/assets/CSS/responsive.css';
 import "@/assets/js/jquery-ui.min.js";
 import axios from "axios";
-import {ElMessage, ElMessageBox} from "element-plus";
+
 const isLoggedIn=ref(false);
 onMounted(() => {
 
@@ -156,7 +156,7 @@ const handleLogout = () => {
                     </li>
                     <li><router-link to="/bklist">Book</router-link></li>
                     <li>
-                      <router-link to="/attraction">Attraction</router-link>
+                      <router-link to="/attraction">Attractions</router-link>
                     </li>
                     <li>
                       <router-link to="/about">About Us</router-link>
