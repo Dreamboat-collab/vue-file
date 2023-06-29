@@ -197,7 +197,7 @@ import '@/site/css/fonts.css'
               <div class="event-default">
                 <figure class="event-default-image"><img src="../assets/img/images/france.jpg" alt="" width="570" height="370"/>
                 </figure>
-                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" >
+                <div class="event-default-caption"><a class="button5 button5-xs " >
                   <router-link to="/attraction1">
                   learn more</router-link></a></div>
               </div>
@@ -211,7 +211,7 @@ import '@/site/css/fonts.css'
               <div class="event-default">
                 <figure class="event-default-image"><img src="../assets/img/images/boston.jpg" alt="" width="570" height="370"/>
                 </figure>
-                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" >
+                <div class="event-default-caption"><a class="button5 button5-xs " >
                   <router-link to="/attraction1">
                     learn more</router-link></a></div>
               </div>
@@ -225,7 +225,7 @@ import '@/site/css/fonts.css'
               <div class="event-default">
                 <figure class="event-default-image"><img src="../assets/img/images/Guangzhou_1.jpg" alt="" width="570" height="370"/>
                 </figure>
-                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" >
+                <div class="event-default-caption"><a class="button5 button5-xs " >
                   <router-link to="/attraction1">
                     learn more</router-link></a></div>
               </div>
@@ -239,7 +239,7 @@ import '@/site/css/fonts.css'
               <div class="event-default">
                 <figure class="event-default-image"><img src="../assets/img/images/benidorm.jpg" alt="" width="570" height="370"/>
                 </figure>
-                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" >
+                <div class="event-default-caption"><a class="button5 button5-xs " >
                   <router-link to="/attraction1">
                     learn more</router-link></a></div>
               </div>
@@ -253,7 +253,7 @@ import '@/site/css/fonts.css'
               <div class="event-default">
                 <figure class="event-default-image"><img src="../assets/img/images/sharm.jpg" alt="" width="570" height="370"/>
                 </figure>
-                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" >
+                <div class="event-default-caption"><a class="button5 button5-xs  " >
                   <router-link to="/attraction1">
                     learn more</router-link></a></div>
               </div>
@@ -267,7 +267,7 @@ import '@/site/css/fonts.css'
               <div class="event-default">
                 <figure class="event-default-image"><img src="../assets/img/images/london.jpg" alt="" width="570" height="370"/>
                 </figure>
-                <div class="event-default-caption"><a class="button5 button5-xs button5-secondary button5-nina" >
+                <div class="event-default-caption"><a class="button5 button5-xs " >
                   <router-link to="/attraction1">
                     learn more</router-link></a></div>
               </div>
