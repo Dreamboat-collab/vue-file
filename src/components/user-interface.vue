@@ -9,6 +9,9 @@ import {onMounted, ref} from 'vue'
 import axios from "axios";
 import router from "@/router";
 import moment from "moment";
+// 用户头像
+import {ElDialog, ElMessageBox} from 'element-plus';
+
 const activeIndex = ref('1'); // 默认选中的菜单项
 function handleSelect(index) {
   activeIndex.value = index;
@@ -33,7 +36,6 @@ const userData = ref({
 });
 
 
-import { ElMessageBox, ElMessage } from 'element-plus';
 onMounted(() => {
   // 获取密匙
   const token = localStorage.getItem('securityKey');
@@ -49,18 +51,18 @@ onMounted(() => {
         // 密匙为空，跳转到登陆界面
         if (response.data.msg === 'NOT_LOGIN') {
           console.log(response.data);
-          ElMessageBox.confirm('Not loggerd in. Do you want to skip to the login interface?', 'alert', {
-            confirmButtonText: 'Confirm',
-            cancelButtonText: 'Cancel',
-            type: 'warning'
+          ElMessageBox.alert('Not logged in. Please login first.', 'Alert', {
+            showCloseBtn:false,
+            showClose:false,
+            type: 'warning',
           })
               .then(() => {
                 router.push({ path: '/login' });
               })
-              .catch(() => {
-                // 用户点击取消按钮时的处理逻辑
-                ElMessage.info('Skip canceled');
-              });
+              // .catch(() => {
+              //   // 用户点击取消按钮时的处理逻辑
+              //   ElMessage.info('Skip canceled');
+              // });
           return;
         }
         if (response.data.msg === 'success') {
@@ -234,9 +236,6 @@ function savecard() {
     alert('Invalid card number. Please enter a valid 16-digit number.');
   }
 }
-
-// 用户头像
-import { ElDialog } from 'element-plus';
 
 const avatars = [
   require('@/assets/images/avatar1.jpg'),
