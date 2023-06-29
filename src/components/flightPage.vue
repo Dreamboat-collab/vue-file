@@ -2016,7 +2016,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
     <section class="slider-area">
       <div class="slider-active">
         <el-carousel height="auto" autoplay>
-          <el-carousel-item style="height: 800px">
+          <el-carousel-item style="height: 700px">
             <div class="single-slider slider-bg"><!--第一条轮播-->
               <div class="container">
                 <div class="row">
@@ -2036,7 +2036,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
               </div>
             </div>
           </el-carousel-item>
-          <el-carousel-item style="height: 800px">
+          <el-carousel-item style="height: 700px">
             <div class="single-slider slider-bg2">
               <div class="container">
                 <div class="row">
@@ -2055,7 +2055,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
               </div>
             </div>
           </el-carousel-item>
-          <el-carousel-item style="height: 800px">
+          <el-carousel-item style="height: 700px">
             <div class="single-slider slider-bg3">
               <div class="container">
                 <div class="row">

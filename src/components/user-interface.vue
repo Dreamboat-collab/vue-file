@@ -88,7 +88,6 @@ onMounted(() => {
       .then(response => {
         // 请求成功处理逻辑,订单信息赋值
         const data = response.data.data;
-        console.log(data)
 
         const orders = [];
 
@@ -137,7 +136,7 @@ onMounted(() => {
       .then(response => {
         // 请求成功处理逻辑,订单信息赋值
         const data = response.data.data;
-
+        console.log(data);
         const orders = [];
 
         for (const item of data) {
@@ -145,12 +144,12 @@ onMounted(() => {
           const recordInfo = item.recordInfo;
 
           const order = {
-            name: hotelInfo.name.toString(),
-            address: hotelInfo.address.toString(),
+            name: hotelInfo.name,
+            address: hotelInfo.address,
 
-            days: recordInfo.days.toString(),
-            price: recordInfo.price.toString(),
-            updateTime: moment(recordInfo.updateTime).format('YYYY-MM-DD HH:mm:ss').toString()
+            // days: recordInfo.days,
+            price: recordInfo.price,
+            // updateTime: moment(recordInfo.updateTime).format('YYYY-MM-DD HH:mm:ss')
           };
 
           orders.push(order);
@@ -442,9 +441,9 @@ const closeAvatarModal = () => {
       <el-table :data="tableData1" :default-sort="{ prop: 'updateTime', order: 'descending' }"  align="center">
         <el-table-column fixed prop="name" label="Name" width="170" :label-align="center" :align="center"/>
         <el-table-column prop="address" label="Address" width="100" :label-align="center" :align="center" />
-        <el-table-column prop="days" label="Days" width="100" :label-align="center" :align="center" />
+<!--        <el-table-column prop="days" label="Days" width="100" :label-align="center" :align="center" />-->
         <el-table-column prop="price" label="Price" width="100" :label-align="center" :align="center" />
-        <el-table-column prop="updateTime" sortable label="Updatetime" width="180" :label-align="center" :align="center" />
+<!--        <el-table-column prop="updateTime" sortable label="Updatetime" width="180" :label-align="center" :align="center" />-->
       </el-table>
     </div>
 
