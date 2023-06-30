@@ -2175,7 +2175,7 @@ window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
               <div class="col-sm-6">
                 <div class="flight-offer-item offer-item-two">
                   <div class="flight-offer-thumb">
-                    <img src="../assets/img/images/boston.jpg" alt="">
+                    <img src="../assets/img/images/boston1.jpg" alt="">
                   </div>
                   <div class="flight-offer-content">
                     <h2 class="title">{{ departs[2] }} to {{ arrivals[2] }}</h2>
