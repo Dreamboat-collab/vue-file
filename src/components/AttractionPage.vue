@@ -209,7 +209,7 @@ import '@/site/css/fonts.css'
           <div class="col-md-6 col-xl-4">
             <article class="event-default-wrap">
               <div class="event-default">
-                <figure class="event-default-image"><img src="../assets/img/images/boston.jpg" alt="" width="570" height="370"/>
+                <figure class="event-default-image"><img src="../assets/img/images/boston1.jpg" alt="" width="570" height="370"/>
                 </figure>
                 <div class="event-default-caption"><a class="button5 button5-xs " >
                   <router-link to="/attraction1">
